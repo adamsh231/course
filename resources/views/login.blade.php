@@ -13,12 +13,13 @@
                                     <h4>Rosella</h4>
                                 </a>
 
-                                <form class="mt-5 mb-5 login-input">
+                                <form class="mt-5 mb-5 login-input" action="{{ url('/login') }}" method="POST">
+                                    @csrf
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email">
+                                        <input type="text" class="form-control" name="username" placeholder="Username">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password">
+                                        <input type="password" class="form-control" name="password" placeholder="Password">
                                     </div>
                                     <button class="btn login-form__btn submit w-100">Sign In</button>
                                 </form>
