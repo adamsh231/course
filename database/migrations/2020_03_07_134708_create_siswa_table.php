@@ -20,9 +20,9 @@ class CreateSiswaTable extends Migration
             $table->string('password')->index();
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->integer('pretest');
-            $table->integer('posttest');
-            $table->integer('team');
+            $table->integer('pretest')->nullable();
+            $table->integer('posttest')->nullable();
+            $table->integer('team')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
