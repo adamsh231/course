@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['middleware' => ['guest']], function () {
+Route::group(['middleware' => ['islogout']], function () {
     Route::get('/', function () {
         return view('landing');
     });
@@ -21,6 +21,7 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('/register', function () {
         return view('register');
     });
+    Route::post('/register', 'AuthController@register');
 });
 
 Route::group(['middleware' => ['islogin']], function () {

@@ -29,23 +29,20 @@ class AuthController extends Controller
 
     public function register(Request $request){
         $request->validate([
-            'full_name' => ['required'],
-            'email' => ['required', 'unique:user'],
+            'name' => ['required'],
+            'username' => ['required', 'unique:siswa'],
             'password' => ['required', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
-            // 'birth_day' => ['required'],
-            'phone' => ['required', 'unique:user'],
-            'gender' => ['required'],
-            'agree' => ['required'],
+            'email' => ['required', 'unique:siswa'],
+            'phone' => ['required', 'unique:siswa'],
         ]);
 
-        User::create([
-            'full_name' => $request->full_name,
-            'email' => $request->email,
+        Siswa::create([
+            'name' => $request->name,
+            'username' => $request->username,
             'password' => Hash::make($request->password),
-            // 'birth_day' => $request->birth_day,
+            'email' => $request->email,
             'phone' => $request->phone,
-            'gender' => $request->gender,
         ]);
         return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
     }
