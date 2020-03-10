@@ -1,47 +1,62 @@
-@extends('layout/quixlab')
-@section('title','Login')
-@section('content')
-<div class="container mt-5">
-    <div class="login-form-bg h-100">
-        <div class="container h-100">
-            <div class="row justify-content-center h-100">
-                <div class="col-xl-6">
-                    <div class="form-input-content">
-                        <div class="card login-form mb-0">
-                            <div class="card-body pt-5">
-                                @if(session('status'))
-                                <div class="alert alert-warning alert-dismissible fade show">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                                    </button>{{ session('status') }}
-                                </div>
-                                @endif
-                                <a class="text-center" href="{{ url('/') }}">
-                                    <h4>Rosella</h4>
-                                </a>
+<!DOCTYPE html>
+<html>
 
-                                <form class="mt-5 mb-5 login-input" action="{{ url('/login') }}" method="POST">
-                                    @csrf
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" value="{{ old('username') }}" name="username" placeholder="Username">
-                                        @error('username')
-                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control" value="{{ old('password') }}" name="password" placeholder="Password">
-                                        @error('password')
-                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <button class="btn login-form__btn submit w-100">Sign In</button>
-                                </form>
-                                <p class="mt-5 login-form__footer">Dont have account? <a href="{{ url('/register') }}" class="text-primary">Sign Up</a> now</p>
-                            </div>
-                        </div>
-                    </div>
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="{{ URL::asset('quixlab/icons/fonts/linearicons/style.css') }}">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="{{ URL::asset('quixlab/css/style_login.css') }}">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inner">
+            @if (session('status'))
+            <button style="color:yellow; margin-top:0">
+                <b>{{ session('status') }}</b>
+            </button>
+            @endif
+
+            <img src="{{ URL::asset('assets/image-1.png') }}" alt="" class="image-1">
+            <form action="{{ url('/login') }}" method="POST">
+                @csrf
+                <h3>Sign In</h3>
+                <div class="form-holder" @error('username') style="margin-bottom: 0" @enderror>
+                    <span class="lnr lnr-user"></span>
+                    <input type="text" class="form-control" value="{{ old('username') }}" name="username" placeholder="Username">
                 </div>
-            </div>
+                @error('username')
+                <small style="color: red;">{{ $message }}</small>
+                @enderror
+                {{-- <div class="form-holder">
+                    <span class="lnr lnr-phone-handset"></span>
+                    <input type="text" class="form-control" placeholder="Phone Number">
+                </div>
+                <div class="form-holder">
+                    <span class="lnr lnr-envelope"></span>
+                    <input type="text" class="form-control" placeholder="Mail">
+                </div> --}}
+                <div class="form-holder" @error('password') style="margin-bottom: 0" @enderror>
+                    <span class="lnr lnr-lock"></span>
+                    <input type="password" class="form-control" value="{{ old('password') }}" name="password" placeholder="Password">
+                </div>
+                @error('password')
+                <small style="color: red;">{{ $message }}</small>
+                @enderror
+                <button type="submit">
+                    <span>Sign In</span>
+                </button>
+                <br>
+                <p style="float: right"><a href="{{ url('/register') }}"> Sign Up</a></p>
+            </form>
+            <img src="{{ URL::asset('assets/image-2.png') }}" alt="" class="image-2">
         </div>
     </div>
-</div>
-@endsection
+</body>
+
+</html>

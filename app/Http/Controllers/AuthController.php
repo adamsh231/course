@@ -35,13 +35,13 @@ class AuthController extends Controller
     public function register(Request $request){
         $messages = [
             'required' => 'The :attribute field is required.',
-            'unique' => ':attribute has been taken JANCOK!'
+            'unique' => ':attribute has been taken'
         ];
         $request->validate([
             'name' => ['required'],
             'username' => ['required', 'unique:siswa'],
             'password' => ['required', 'min:8'],
-            'email' => ['required', 'unique:siswa'],
+            'email' => ['required', 'unique:siswa', 'email'],
             'phone' => ['required', 'unique:siswa'],
         ], $messages);
 
