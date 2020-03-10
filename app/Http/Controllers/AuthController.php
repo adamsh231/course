@@ -10,14 +10,19 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function login(Request $request){
+
+        $messages = [
+            'required' => 'The :attribute field is required.',
+        ];
         $request->validate([
             'username' => ['required'],
             'password' => ['required'],
-        ]);
+        ], $messages);
+
         if (Auth::attempt($request->only('username', 'password'), $remember = false)) {
             return redirect('/home');
         } else {
-            return back()->with('status', 'Login Failed! Wrong Email/Password!');
+            return back()->with('status', 'Login Failed! Wrong Email or Password');
         }
     }
 
@@ -28,14 +33,17 @@ class AuthController extends Controller
     }
 
     public function register(Request $request){
+        $messages = [
+            'required' => 'The :attribute field is required.',
+            'unique' => ':attribute has been taken JANCOK!'
+        ];
         $request->validate([
             'name' => ['required'],
             'username' => ['required', 'unique:siswa'],
-            'password' => ['required', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required'],
+            'password' => ['required', 'min:8'],
             'email' => ['required', 'unique:siswa'],
             'phone' => ['required', 'unique:siswa'],
-        ]);
+        ], $messages);
 
         Siswa::create([
             'name' => $request->name,

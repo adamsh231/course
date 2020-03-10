@@ -17,22 +17,34 @@
                                 <form class="mt-5 mb-5 login-input" method="POST" action="{{ url('/register') }}">
                                     @csrf
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                        <input type="text" class="form-control" placeholder="Name" value="{{ old('name') }}" name="name">
+                                        @error('name')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Username" name="username" required>
+                                        <input type="text" class="form-control" placeholder="Username" value="{{ old('username') }}" name="username">
+                                        @error('username')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Password" name="password" required>
+                                        <input type="password" class="form-control" placeholder="Password" name="password">
+                                        @error('password')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" required>
+                                        <input type="email" class="form-control" placeholder="Email" value="{{ old('email') }}" name="email">
+                                        @error('email')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email" name="email" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Phone Number" name="phone" required>
+                                        <input type="text" class="form-control" placeholder="Phone Number" value="{{ old('phone') }}" name="phone">
+                                        @error('phone')
+                                        <div class="invalid-feedback" style="display: block;">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <button class="btn login-form__btn submit w-100">Sign Up</button>
                                 </form>
