@@ -22,7 +22,7 @@ class CreateSiswaTable extends Migration
             $table->string('phone')->unique();
             $table->integer('pretest')->nullable();
             $table->integer('posttest')->nullable();
-            $table->integer('team')->nullable();
+            $table->char('team')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
