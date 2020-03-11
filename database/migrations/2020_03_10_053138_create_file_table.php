@@ -19,6 +19,7 @@ class CreateFileTable extends Migration
             $table->string('nama');
             $table->string('path'); // File
             $table->enum('jenis',['Video', 'Materi']);
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
     }

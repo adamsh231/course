@@ -16,7 +16,7 @@ class CreateKuisTable extends Migration
         Schema::create('kuis', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama');
-            $table->string('jawaban'); // File
+            $table->string('jawaban')->nullable(); // File
             $table->timestamps();
         });
     }

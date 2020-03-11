@@ -32,9 +32,11 @@ class DatabaseSeeder extends Seeder
         for ($i = 1; $i <= 3; $i++) {
             DB::table('pertemuan')->insert([
                 'id' => $i,
+                'nama' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
                 'tanggal' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'diskusi' => '/diskusi/' . $faker->word . '.pdf',
                 'tugas' => '/tugas/' . $faker->word . '.pdf',
+                'deskripsi' => $faker->sentence($nbWords = $faker->numberBetween(15, 20), $variableNbWords = true),
             ]);
             for ($j = 1; $j <= 20; $j++) {
                 DB::table('presensi')->insert([
@@ -53,6 +55,7 @@ class DatabaseSeeder extends Seeder
                         'nama' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
                         'path' => '/video/' . $faker->word . '.mp4',
                         'jenis' => 'Video',
+                        'deskripsi' => $faker->sentence($nbWords = $faker->numberBetween(15, 20), $variableNbWords = true),
                     ]);
                 } else {
                     DB::table('file')->insert([
@@ -61,6 +64,7 @@ class DatabaseSeeder extends Seeder
                         'nama' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
                         'path' => '/materi/' . $faker->word . '.pdf',
                         'jenis' => 'Materi',
+                        'deskripsi' => $faker->sentence($nbWords = $faker->numberBetween(15, 20), $variableNbWords = true),
                     ]);
                 }
                 $id['file']++;

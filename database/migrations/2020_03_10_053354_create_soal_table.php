@@ -16,8 +16,8 @@ class CreateSoalTable extends Migration
         Schema::create('soal', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_kuis');
-            $table->string('gambar'); //pertanyaan lewat gambar
-            $table->string('pertanyaan'); //pertanyaan lewat text
+            $table->string('gambar')->nullable(); //pertanyaan lewat gambar
+            $table->string('pertanyaan')->nullable(); //pertanyaan lewat text
             $table->string('A');
             $table->string('B');
             $table->string('C');

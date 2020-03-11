@@ -15,9 +15,11 @@ class CreatePertemuanTable extends Migration
     {
         Schema::create('pertemuan', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nama');
             $table->date('tanggal');
-            $table->string('diskusi'); // File
-            $table->string('tugas'); // File
+            $table->string('diskusi')->nullable(); // File
+            $table->string('tugas')->nullable(); // File
+            $table->string('deskripsi');
             $table->timestamps();
         });
     }
