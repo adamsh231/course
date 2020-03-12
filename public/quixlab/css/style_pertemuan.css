@@ -10,7 +10,7 @@
 }
 
 body {
-  background:#b6c5d8;
+  background:rgba(120, 130, 140, 0.13);
   font-family: 'Raleway', sans-serif;
 }
 
@@ -54,7 +54,7 @@ h2 {
 
 .timeline {
   border-left: 0.25em solid #4298c3;
-  background: whitesmoke;
+  background: #ffffff;
   margin: 2em auto;
   line-height: 1.4em;
   padding: 1em;
