@@ -54,7 +54,7 @@ h2 {
 
 .timeline {
   border-left: 0.25em solid #4298c3;
-  background: #ffffff;
+  background: rgba(120, 130, 140, 0.13);
   margin: 2em auto;
   line-height: 1.4em;
   padding: 1em;
