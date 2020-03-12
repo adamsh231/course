@@ -28,7 +28,76 @@
         </div>
     </div>
 
+
+<div id="main-wrapper">
+
+    <div class="nav-header">
+        <div class="brand-logo">
+            <a href="{{ url('/home') }}">
+                <b class="logo-abbr"><img src="{{ URL::asset('quixlab/images/logo.png') }}" alt=""> </b>
+                <span class="logo-compact"><img src="{{ URL::asset('quixlab/images/logo-compact.png') }}" alt=""></span>
+                <span class="brand-title">
+                    <img src="{{ URL::asset('quixlab/images/logo-text.png') }}" alt="">
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <div class="header">
+        <div class="header-content clearfix">
+
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="toggle-icon"><i class="icon-menu"></i></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <ul class="clearfix">
+                    <li class="icons dropdown" style="margin-right:10px;">
+                        <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                            <span class="activity active"></span>
+                            <img src="{{ URL::asset('quixlab/images/user/1.png') }}" height="40" width="40" alt="">
+                        </div>
+                        <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                            <div class="dropdown-content-body">
+                                <ul>
+                                    <hr class="my-2">
+
+                                    <li><a href="{{ url('/logout') }}"><i class="icon-key"></i> <span>Logout</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="nk-sidebar">
+        <div class="nk-nav-scroll">
+            <ul class="metismenu" id="menu">
+                <li class="nav-label"></li>
+                <li>
+                    <a href="{{ url('/home') }}">
+                        <i class="ti-home" style="margin-bottom:5px;"></i><span class="nav-text">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="has-arrow" aria-expanded="false">
+                        <i class="ti-notepad" style="margin-bottom:5px;"></i><span class="nav-text">Pembelajaran</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="{{ url('/pertemuan') }}" .html">Pertemuan 1</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     @yield('content')
+
+</div>
 
 </body>
 

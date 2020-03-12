@@ -28,5 +28,8 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/home', function () {
         return view('home');
     });
+    Route::get('/pertemuan', function () {
+        return view('pertemuan');
+    });
     Route::get('/logout', 'AuthController@logout');
 });

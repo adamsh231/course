@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pertemuan 1</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Pignose Calender -->
+    <link href="./plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href="./plugins/chartist/css/chartist.min.css">
+    <link rel="stylesheet" href="./plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <link href="css/style3.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+                        <li class="icons dropdown" style="margin-right:10px;">
+                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <hr class="my-2">
+
+                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label"></li>
+                    <li>
+                        <a href="index.html">
+                            <i class="ti-home" style="margin-bottom:5px;"></i><span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="ti-notepad" style="margin-bottom:5px;"></i><span
+                                class="nav-text">Pembelajaran</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="pertemuan1.html" .html">Pertemuan 1</a></li>
+                            <li><a href="pertemuan2.html" .html">Pertemuan 2</a></li>
+                            <li><a href="pertemuan3.html" .html">Pertemuan 3</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div id="content">
+                <ul class="timeline">
+                    <li class="event" data-date="12:30 - 1:00pm">
+                        <div class="member-infos">
+                            <h1 class='member-title'>Kegiatan Awal (30 Menit)</h1>
+                            <h2 class="member-location ">
+                                <BR>
+                                <li><i class="ti-angle-right"></i> Siswa melakukan PRETES selama 20 menit. Klik tombol kuis untuk melakukan pretes.</li>
+                                <br>
+                                <li><i class="ti-angle-right"></i> Siswa diberikan gambaran awal mengenai volume kubus dan balok. Klik tombol materi untuk melihat materi ilustrasi.</li> 
+                            </h2>
+                            <ul class="member-contact">
+                                <a href="#"><i class="ti-pencil-alt" style="margin-right:8px;"></i></a>
+                                <a href="#"><i class="ti-book"></i></a>
+                            </ul>
+                            <div class="member-parameters">
+                                <span class="follow entypo-plus"></span>
+                                <span class="options entypo-cog"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li id='fader' class="event" data-date="1:00 - 2:20pm">
+                        <div class="member-infos">
+                            <h1 class='member-title'>Kegiatan Inti (80 Menit)</h1>
+                            <h2 class="member-location ">
+                                <BR>
+                                    <li><i class="ti-angle-right"></i> 
+                                        Siswa berkumpul dengan anggota kelompok, untuk melihat anggota kelompol klik tombol acak kelompok yang berada di 
+                                        sebelah kanan tulisan kegiatan inti. 
+                                    </li>
+                                    <br>
+                                    <li><i class="ti-angle-right"></i> 
+                                        Siswa membaca dan memahami ilustrasi dari volume kubus dan balok. Kemudian, siswa mendiskusikan masalah terkait
+                                        volume bangun tersebut dengan mencari informasi dari berbagai sumber yang sudah ada pada website (materi + video)
+                                        ataupun sumber lainnya. Klik tombol materi yang berada di sebelah kanan tulisan kegiatan inti. 
+                                    </li>
+                                    <br>
+                                    <li><i class="ti-angle-right"></i> 
+                                       Siswa mempresentasikan hasil diskusi dan melakukan tanya jawab mengenai materi yang belum dipahami. 
+                                    </li>
+                            </h2>
+                            <ul class="member-contact">
+                                <a href="#"><i class="ti-reload" style="margin-right:8px;"></i></a>
+                                <a href="#"><i class="ti-book"></i></a>
+                            </ul>
+                            <div class="member-parameters">
+                                <a href="" class="follow entypo-plus"></a>
+                                <a href="" class="options entypo-cog"></a>
+                            </div>
+                        </div>
+
+                    </li>
+                    <li class="event" data-date="02:20 - 02:30pm">
+                        <div class="member-infos">
+                            <h1 class='member-title'>Kegiatan Akhir (10 Menit)</h1>
+                            <h2 class="member-location ">
+                                <BR>
+                                <li><i class="ti-angle-right"></i> Siswa bersama-sama dengan guru membuat kesimpulan materi pelajaran hari ini. </li>
+                                <br>
+                                <li><i class="ti-angle-right"></i> Guru memberikan tugas untuk pertemuan hari ini. Klik tombol materi yang berada 
+                                di sebelah kanan tulisan kegiatan akhir untuk melihat tugas. </li> 
+                            </h2>
+                            <ul class="member-contact">
+                                <a href="#"><i class="ti-book"></i></a>
+                            </ul>
+                            <div class="member-parameters">
+                                <span class="follow entypo-plus"></span>
+                                <span class="options entypo-cog"></span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+    <!--**********************************
+            Footer start
+        ***********************************-->
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018
+            </p>
+        </div>
+    </div>
+    <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+
+    <!-- ChartistJS -->
+    <script src="./plugins/chartist/js/chartist.min.js"></script>
+    <script src="./plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
+    <script src="./js/dashboard/dashboard-1.js"></script>
+    <script>
+        $('.member-title').click(function (e) {
+            console.log("Clicked");
+            $(this).next().slideToggle();
+            $(this).next().next().next().slideToggle();
+        })
+    </script>
+
+</body>
+
+</html>
