@@ -17,7 +17,7 @@ class CreateSoalTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_kuis');
             $table->string('gambar')->nullable(); //pertanyaan lewat gambar
-            $table->string('pertanyaan')->nullable(); //pertanyaan lewat text
+            $table->text('pertanyaan')->nullable(); //pertanyaan lewat text
             $table->string('A');
             $table->string('B');
             $table->string('C');

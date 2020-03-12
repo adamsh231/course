@@ -19,7 +19,7 @@ class CreatePertemuanTable extends Migration
             $table->date('tanggal');
             $table->string('diskusi')->nullable(); // File
             $table->string('tugas')->nullable(); // File
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }
