@@ -93,6 +93,7 @@
                     </li>
                 </ul>
             </div>
+            <a href="{{ url('/admin') }}" class="text-primary" style="position: fixed;bottom: 20px;left: 20px;"><i class="fa fa-cog fa-3x"></i></a>
         </div>
 
         @yield('content')

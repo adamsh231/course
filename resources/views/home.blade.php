@@ -4,7 +4,6 @@
 @section('content')
 
 <div class="content-body">
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 m-b-30">
