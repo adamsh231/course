@@ -31,8 +31,6 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/pertemuan', function () {
         return view('pertemuan');
     });
-    Route::get('/admin', function () {
-        return view('admin');
-    });
+    Route::get('/admin', 'AdminController@administrator');
     Route::get('/logout', 'AuthController@logout');
 });
