@@ -25,7 +25,7 @@
 
                         <div class="tab-pane fade" id="siswa" role="tabpanel">
                             <div class="table-responsive">
-                                <table id="siswa_table" class="table table-bordered table-striped verticle-middle table-sm">
+                                <table id="siswa_table" class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -77,7 +77,7 @@
 
                         <div class="tab-pane fade active show" id="pertemuan" role="tabpanel">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped verticle-middle table-sm">
+                                <table class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -94,7 +94,7 @@
                                         @foreach ($pertemuan as $p)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td onclick="info_kegiatan({{ $loop->index }})"><a href="#pertemuan-detail">{{ $p->nama }}</a></td>
+                                            <td onclick="info_kegiatan({{ $loop->index }}, '{{ $p->nama }}')"><a href="#pertemuan-detail">{{ $p->nama }}</a></td>
                                             <td>{{ $p->judul }}</td>
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
@@ -143,6 +143,9 @@
 
         {{-- CARD2 --}}
         <div id="pertemuan-detail" class="card">
+            <div class="card-header">
+                <h3 id="card_title" class="text-gray"></h3>
+            </div>
             <div class="card-body">
                 <div class="default-tab">
                     <ul class="nav nav-tabs mb-3" role="tablist">
@@ -164,10 +167,7 @@
                         <div class="tab-pane fade" id="kegiatan" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-kegiatan d-none">
-                                <div class="card-title text-center">
-                                    <h3>{{ ucwords($p->nama) }}</h3>
-                                </div>
-                                <table class="table table-bordered table-striped verticle-middle table-sm">
+                                <table class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -207,10 +207,7 @@
                         <div class="tab-pane fade" id="file" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-file d-none">
-                                <div class="card-title text-center">
-                                    <h3>{{ ucwords($p->nama) }}</h3>
-                                </div>
-                                <table class="table table-bordered table-striped verticle-middle table-sm">
+                                <table class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -259,10 +256,7 @@
                         <div class="tab-pane fade" id="kuis" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-kuis d-none">
-                                <div class="card-title text-center">
-                                    <h3>{{ ucwords($p->nama) }}</h3>
-                                </div>
-                                <table class="table table-bordered table-striped verticle-middle table-sm">
+                                <table class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -307,10 +301,7 @@
                         <div class="tab-pane fade  active show" id="presensi" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-presensi d-none">
-                                <div class="card-title text-center">
-                                    <h3>{{ ucwords($p->nama) }}</h3>
-                                </div>
-                                <table id="presensi_table" class="table table-bordered table-striped verticle-middle table-sm">
+                                <table id="presensi_table{{ $loop->index }}" class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
                                         <tr class="text-center">
                                             <th style="width: 10%" scope="col">No</th>
@@ -363,10 +354,6 @@
             pageLength : 5,
             lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
         });
-        $('#presensi_table').DataTable({
-            pageLength : -1,
-            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
-        });
     });
     function info_pertemuan(bool){
         var pert_det = document.getElementById('pertemuan-detail');
@@ -376,10 +363,11 @@
             pert_det.classList.add('d-none');
         }
     }
-    function info_kegiatan(id){
+    function info_kegiatan(id, nama){
         var keg = document.getElementsByClassName('check-kegiatan');
         var file = document.getElementsByClassName('check-file');
         var kuis = document.getElementsByClassName('check-kuis');
+        var title = document.getElementById('card_title');
         var presensi = document.getElementsByClassName('check-presensi');
         for (let index = 0; index < keg.length; index++) {
             if(index == id){
@@ -387,6 +375,11 @@
                 file[index].classList.remove('d-none');
                 kuis[index].classList.remove('d-none');
                 presensi[index].classList.remove('d-none');
+                $('#presensi_table'+id).DataTable({
+                    pageLength : -1,
+                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+                });
+                title.innerHTML = nama;
             }else{
                 keg[index].classList.remove('d-none');
                 keg[index].classList.add('d-none');
