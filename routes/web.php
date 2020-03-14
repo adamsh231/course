@@ -34,6 +34,10 @@ Route::group(['middleware' => ['islogin']], function () {
 
     Route::get('/admin', 'AdminController@administrator');
     Route::get('/admin/pertemuan/{pertemuan}', 'AdminController@pertemuanDetail');
+    Route::get('/admin/add/siswa', function () {
+        return view('admin_add_siswa');
+    });
+    Route::post('/admin/add/siswa', 'AuthController@register');
 
     Route::get('/logout', 'AuthController@logout');
 });

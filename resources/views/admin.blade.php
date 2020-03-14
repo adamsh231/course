@@ -7,7 +7,15 @@
 
 @section('content')
 <div class="content-body">
+
     <div class="container-fluid">
+
+        @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button> {{ session('status') }}
+        </div>
+        @endif
 
         {{-- CARD1 --}}
         <div class="card">
@@ -24,7 +32,7 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade" id="siswa" role="tabpanel">
-                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                            <button onclick="window.location.href = '{{ url('/admin/add/siswa') }}'" type="button" class="btn mb-1 btn-outline-success float-right">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <div class="table-responsive">

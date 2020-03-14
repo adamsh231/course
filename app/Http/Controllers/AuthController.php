@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
         $messages = [
             'required' => 'The :attribute field is required.',
@@ -32,7 +33,8 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         $messages = [
             'required' => 'The :attribute field is required.',
             'unique' => ':attribute has been taken'
@@ -42,7 +44,7 @@ class AuthController extends Controller
             'username' => ['required', 'unique:siswa'],
             'password' => ['required', 'min:8'],
             'email' => ['required', 'unique:siswa', 'email'],
-            'phone' => ['required', 'unique:siswa'],
+            'phone' => ['required', 'unique:siswa', 'numeric'],
         ], $messages);
 
         Siswa::create([
@@ -52,6 +54,11 @@ class AuthController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
-        return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
+
+        if($request->redirect == "admin"){
+            return redirect('/admin')->with('status', 'Siswa Berhasil Di Daftarkan!');
+        }else{
+            return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
+        }
     }
 }
