@@ -13,4 +13,7 @@ class Siswa extends Authenticatable
     protected $table = "siswa";
     protected $guarded = ['id'];
 
+    public function presensi(){
+        return $this->hasMany('App\Presensi', 'id_siswa');
+    }
 }

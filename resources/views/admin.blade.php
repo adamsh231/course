@@ -1,6 +1,10 @@
 @extends('layout/quixlab_auth')
 @section('title', 'Admin')
 
+@section('add_scrpt')
+<link href="{{ URL::asset('quixlab/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
@@ -11,16 +15,17 @@
                 <div class="default-tab">
                     <ul class="nav nav-tabs mb-3" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active show" onclick="info_pertemuan(0)" data-toggle="tab" href="#siswa">Siswa</a>
+                            <a class="nav-link" onclick="info_pertemuan(0)" data-toggle="tab" href="#siswa">Siswa</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" onclick="info_pertemuan(1)" data-toggle="tab" href="#pertemuan">Pertemuan</a>
+                            <a class="nav-link active show" onclick="info_pertemuan(1)" data-toggle="tab" href="#pertemuan">Pertemuan</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="siswa" role="tabpanel">
+
+                        <div class="tab-pane fade" id="siswa" role="tabpanel">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped verticle-middle">
+                                <table id="siswa_table" class="table table-bordered table-striped verticle-middle table-sm">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -69,9 +74,10 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="pertemuan" role="tabpanel">
+
+                        <div class="tab-pane fade active show" id="pertemuan" role="tabpanel">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped verticle-middle">
+                                <table class="table table-bordered table-striped verticle-middle table-sm">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -88,7 +94,7 @@
                                         @foreach ($pertemuan as $p)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td onclick="info_kegiatan({{ $loop->index }})"><a href="#kegiatan">{{ $p->nama }}</a></td>
+                                            <td onclick="info_kegiatan({{ $loop->index }})"><a href="#pertemuan-detail">{{ $p->nama }}</a></td>
                                             <td>{{ $p->judul }}</td>
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
@@ -128,6 +134,7 @@
                                 </table>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -135,12 +142,15 @@
         {{-- END CARD1 --}}
 
         {{-- CARD2 --}}
-        <div id="pertemuan-detail" class="card d-none">
+        <div id="pertemuan-detail" class="card">
             <div class="card-body">
                 <div class="default-tab">
                     <ul class="nav nav-tabs mb-3" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active show" data-toggle="tab" href="#kegiatan">Kegiatan</a>
+                            <a class="nav-link  active show" data-toggle="tab" href="#presensi">Presensi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#kegiatan">Kegiatan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#file">File</a>
@@ -150,13 +160,14 @@
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade active show" id="kegiatan" role="tabpanel">
+
+                        <div class="tab-pane fade" id="kegiatan" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-kegiatan d-none">
                                 <div class="card-title text-center">
                                     <h3>{{ ucwords($p->nama) }}</h3>
                                 </div>
-                                <table class="table table-bordered table-striped verticle-middle">
+                                <table class="table table-bordered table-striped verticle-middle table-sm">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -192,13 +203,14 @@
                             </div>
                             @endforeach
                         </div>
+
                         <div class="tab-pane fade" id="file" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-file d-none">
                                 <div class="card-title text-center">
                                     <h3>{{ ucwords($p->nama) }}</h3>
                                 </div>
-                                <table class="table table-bordered table-striped verticle-middle">
+                                <table class="table table-bordered table-striped verticle-middle table-sm">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -243,13 +255,14 @@
                             </div>
                             @endforeach
                         </div>
+
                         <div class="tab-pane fade" id="kuis" role="tabpanel">
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-kuis d-none">
                                 <div class="card-title text-center">
                                     <h3>{{ ucwords($p->nama) }}</h3>
                                 </div>
-                                <table class="table table-bordered table-striped verticle-middle">
+                                <table class="table table-bordered table-striped verticle-middle table-sm">
                                     <thead>
                                         <tr class="text-center">
                                             <th scope="col">No</th>
@@ -290,6 +303,45 @@
                             </div>
                             @endforeach
                         </div>
+
+                        <div class="tab-pane fade  active show" id="presensi" role="tabpanel">
+                            @foreach ($pertemuan as $p)
+                            <div class="table-responsive check-presensi d-none">
+                                <div class="card-title text-center">
+                                    <h3>{{ ucwords($p->nama) }}</h3>
+                                </div>
+                                <table id="presensi_table" class="table table-bordered table-striped verticle-middle table-sm">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th style="width: 10%" scope="col">No</th>
+                                            <th style="width: 40%" scope="col">Nama</th>
+                                            <th scope="col">Kehadiran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($presensi[$p->id] as $pr)
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td>{{ $pr->siswa->name }}</td>
+                                            <td class="text-center">
+                                                @if ($pr->kehadiran == "Hadir")
+                                                <button type="button" class="btn mb-1 btn-rounded btn-success btn-sm">
+                                                    <i class="fa fa-check fa-2x text-white" aria-hidden="true"></i>
+                                                </button>
+                                                @else
+                                                <button type="button" class="btn mb-1 btn-rounded btn-outline-danger btn-sm">
+                                                    <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                                                </button>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            @endforeach
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -301,7 +353,21 @@
 @endsection
 
 @section('add_script')
+<script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ URL::asset('quixlab/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+
 <script>
+    $(document).ready(function() {
+        $('#siswa_table').DataTable({
+            pageLength : 5,
+            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+        });
+        $('#presensi_table').DataTable({
+            pageLength : -1,
+            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+        });
+    });
     function info_pertemuan(bool){
         var pert_det = document.getElementById('pertemuan-detail');
         if(bool){
@@ -314,11 +380,13 @@
         var keg = document.getElementsByClassName('check-kegiatan');
         var file = document.getElementsByClassName('check-file');
         var kuis = document.getElementsByClassName('check-kuis');
+        var presensi = document.getElementsByClassName('check-presensi');
         for (let index = 0; index < keg.length; index++) {
             if(index == id){
                 keg[index].classList.remove('d-none');
                 file[index].classList.remove('d-none');
                 kuis[index].classList.remove('d-none');
+                presensi[index].classList.remove('d-none');
             }else{
                 keg[index].classList.remove('d-none');
                 keg[index].classList.add('d-none');
@@ -326,6 +394,8 @@
                 file[index].classList.add('d-none');
                 kuis[index].classList.remove('d-none');
                 kuis[index].classList.add('d-none');
+                presensi[index].classList.remove('d-none');
+                presensi[index].classList.add('d-none');
             }
         }
     }

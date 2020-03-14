@@ -13,7 +13,7 @@ use App\Presensi;
 
 class AdminController extends Controller
 {
-    function administrator()
+    public function administrator()
     {
         $siswa = $this->getAllSiswa();
         $pertemuan = $this->getAllPertemuan();
@@ -29,6 +29,10 @@ class AdminController extends Controller
         foreach ($pertemuan as $p) {
             $kuis[$p->id] = $this->getKuisByPertemuan($p->id);
         }
+        $presensi = [];
+        foreach ($pertemuan as $p) {
+            $presensi[$p->id] = $this->getPresensiSiswaByPertemuan($p->id);
+        }
         return view(
             'admin',
             [
@@ -36,37 +40,43 @@ class AdminController extends Controller
                 'pertemuan' => $pertemuan,
                 'detail' => $detail,
                 'file' => $file,
-                'kuis' => $kuis
+                'kuis' => $kuis,
+                'presensi' => $presensi
             ]
         );
     }
 
-    function getAllSiswa()
+    private function getAllSiswa()
     {
         $siswa = Siswa::all();
         return $siswa;
     }
 
-    function getAllPertemuan()
+    private function getAllPertemuan()
     {
         $pertemuan = Pertemuan::all();
         return $pertemuan;
     }
 
-    function getDetailByPertemuan($key)
+    private function getDetailByPertemuan($key)
     {
         $detail = Detail::where('id_pertemuan', $key)->get();
         return $detail;
     }
 
-    function getFileByPertemuan($key)
+    private function getFileByPertemuan($key)
     {
         $file = File::where('id_pertemuan', $key)->get();
         return $file;
     }
 
-    function getKuisByPertemuan($key){
+    private function getKuisByPertemuan($key){
         $kuis = Kuis::where('id_pertemuan', $key)->get();
         return $kuis;
+    }
+
+    private function getPresensiSiswaByPertemuan($key){
+        $presensi = Presensi::with(['siswa'])->where('id_pertemuan', $key)->get();
+        return $presensi;
     }
 }
