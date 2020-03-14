@@ -74,6 +74,7 @@
                                         <tr class="text-center">
                                             <th scope="col">No</th>
                                             <th scope="col">Nama</th>
+                                            <th scope="col">Judul</th>
                                             <th scope="col">Tanggal</th>
                                             <th scope="col">Diskusi</th>
                                             <th scope="col">Tugas</th>
@@ -86,6 +87,7 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $p->nama }}</td>
+                                            <td>{{ $p->judul }}</td>
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
                                                 <span>

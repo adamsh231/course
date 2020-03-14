@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             DB::table('pertemuan')->insert([
                 'id' => $i,
                 'nama' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
+                'judul' => $faker->sentence($nbWords = $faker->numberBetween(3, 5), $variableNbWords = true),
                 // 'tanggal' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 'tanggal' => '2020-04-' . ($i * 4),
                 'diskusi' => '/diskusi/' . $faker->word . '.pdf',
