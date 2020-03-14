@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('quixlab/images/favicon.png') }}">
     <!-- Custom Stylesheet -->
     <link href="{{ URL::asset('quixlab/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('quixlab//plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
     @yield('add_style')
 
 </head>
@@ -96,12 +97,21 @@
 
     </div>
 
-
     <script src="{{ URL::asset('quixlab/plugins/common/common.min.js') }}"></script>
     <script src="{{ URL::asset('quixlab/js/custom.min.js') }}"></script>
     <script src="{{ URL::asset('quixlab/js/settings.js') }}"></script>
     <script src="{{ URL::asset('quixlab/js/gleek.js') }}"></script>
 
+    <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script>
+        function maintenance(){
+            Swal.fire(
+                'We\'re Sorry',
+                'this feature is under construction',
+                'warning'
+            )
+        }
+        </script>
     @yield('add_script')
 </body>
 

@@ -24,6 +24,9 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade" id="siswa" role="tabpanel">
+                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             <div class="table-responsive">
                                 <table id="siswa_table" class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
@@ -48,7 +51,7 @@
                                             <td>{{ $s->username }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change Password">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change Password">
                                                         <i class="fa fa-refresh color-muted m-r-5"></i>
                                                     </a>
                                                 </span>
@@ -60,10 +63,10 @@
                                             <td class="text-center">{{ $s->team }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-close color-danger"></i>
                                                     </a>
                                                 </span>
@@ -76,6 +79,9 @@
                         </div>
 
                         <div class="tab-pane fade active show" id="pertemuan" role="tabpanel">
+                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
@@ -99,20 +105,20 @@
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
                                                         <i class="fa fa-refresh color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
                                                 </span>
                                             </td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
                                                         <i class="fa fa-refresh color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
                                                 </span>
@@ -120,10 +126,10 @@
                                             <td>{{ $p->deskripsi }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-close color-danger"></i>
                                                     </a>
                                                 </span>
@@ -165,6 +171,9 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade" id="kegiatan" role="tabpanel">
+                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-kegiatan d-none">
                                 <table class="table table-bordered table-striped verticle-middle table-md">
@@ -188,10 +197,10 @@
                                             <td>{{ $d->selesai }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-close color-danger"></i>
                                                     </a>
                                                 </span>
@@ -205,6 +214,9 @@
                         </div>
 
                         <div class="tab-pane fade" id="file" role="tabpanel">
+                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-file d-none">
                                 <table class="table table-bordered table-striped verticle-middle table-md">
@@ -226,10 +238,10 @@
                                             <td>{{ $f->deskripsi }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
                                                         <i class="fa fa-refresh color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
                                                 </span>
@@ -237,10 +249,10 @@
                                             <td>{{ $f->jenis }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-close color-danger"></i>
                                                     </a>
                                                 </span>
@@ -254,6 +266,9 @@
                         </div>
 
                         <div class="tab-pane fade" id="kuis" role="tabpanel">
+                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-kuis d-none">
                                 <table class="table table-bordered table-striped verticle-middle table-md">
@@ -272,20 +287,20 @@
                                             <td>{{ $k->nama }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
                                                         <i class="fa fa-refresh color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
                                                 </span>
                                             </td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-close color-danger"></i>
                                                     </a>
                                                 </span>
@@ -299,6 +314,9 @@
                         </div>
 
                         <div class="tab-pane fade  active show" id="presensi" role="tabpanel">
+                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
                             @foreach ($pertemuan as $p)
                             <div class="table-responsive check-presensi d-none">
                                 <table id="presensi_table{{ $loop->index }}" class="table table-bordered table-striped verticle-middle table-md">
@@ -316,11 +334,12 @@
                                             <td>{{ $pr->siswa->name }}</td>
                                             <td class="text-center">
                                                 @if ($pr->kehadiran == "Hadir")
-                                                <button type="button" class="btn mb-1 btn-rounded btn-success btn-sm">
+                                                <input type="hidden" value="Hadir">
+                                                <button onclick="maintenance()" type="button" class="btn mb-1 btn-rounded btn-success btn-sm">
                                                     <i class="fa fa-check fa-2x text-white" aria-hidden="true"></i>
                                                 </button>
                                                 @else
-                                                <button type="button" class="btn mb-1 btn-rounded btn-outline-danger btn-sm">
+                                                <button onclick="maintenance()" type="button" class="btn mb-1 btn-rounded btn-outline-danger btn-sm">
                                                     <i class="fa fa-times fa-2x" aria-hidden="true"></i>
                                                 </button>
                                                 @endif
@@ -354,6 +373,13 @@
             pageLength : 5,
             lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
         });
+        for (let index = 0; index < document.getElementsByClassName('check-kegiatan').length; index++) {
+            $('#presensi_table'+index).DataTable({
+                pageLength : -1,
+                lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
+            });
+        }
+
     });
     function info_pertemuan(bool){
         var pert_det = document.getElementById('pertemuan-detail');
@@ -375,10 +401,6 @@
                 file[index].classList.remove('d-none');
                 kuis[index].classList.remove('d-none');
                 presensi[index].classList.remove('d-none');
-                $('#presensi_table'+id).DataTable({
-                    pageLength : -1,
-                    lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
-                });
                 title.innerHTML = nama;
             }else{
                 keg[index].classList.remove('d-none');
