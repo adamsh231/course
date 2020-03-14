@@ -1,4 +1,4 @@
-@extends('layout/quixlab_auth')
+@extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
 @section('title', 'Admin By Pertemuan')
 
 @section('add_style')
@@ -13,7 +13,7 @@
             <div class="card-header">
                 <button onclick="window.location.href = 'javascript:history.back()'" class="btn mb-1 btn-rounded btn-outline-primary btn-sm d-inline">
                     <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-                    <h3 class="d-inline">{{ $pertemuan->nama }} ({{ date('d/m/Y', strtotime($pertemuan->tanggal)) }})</h3>
+                    <h3 class="d-inline">{{ $id_pertemuan->nama }} ({{ date('d/m/Y', strtotime($id_pertemuan->tanggal)) }})</h3>
                 </button>
             </div>
             <div class="card-body">

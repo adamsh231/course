@@ -31,35 +31,35 @@
                     <input type="text" class="form-control" value="{{ old('name') }}" name="name" placeholder="Name">
                 </div>
                 @error('name')
-                <small style="color: red;">{{ $message }}</small>
+                <small style="color: red; margin-left:40px">{{ $message }}</small>
                 @enderror
                 <div class="form-holder" @error('username') style="margin-bottom: 0" @enderror>
                     <span class="lnr lnr-user"></span>
                     <input type="text" class="form-control" value="{{ old('username') }}" name="username" placeholder="Username">
                 </div>
                 @error('username')
-                <small style="color: red;">{{ $message }}</small>
+                <small style="color: red; margin-left:40px">{{ $message }}</small>
                 @enderror
                 <div class="form-holder" @error('password') style="margin-bottom: 0" @enderror>
                     <span class="lnr lnr-lock"></span>
                     <input type="password" class="form-control" value="{{ old('password') }}" name="password" placeholder="Password">
                 </div>
                 @error('password')
-                <small style="color: red;">{{ $message }}</small>
+                <small style="color: red; margin-left:40px">{{ $message }}</small>
                 @enderror
                 <div class="form-holder" @error('phone') style="margin-bottom: 0" @enderror>
                     <span class="lnr lnr-phone-handset"></span>
                     <input type="text" class="form-control" value="{{ old('phone') }}" name="phone" placeholder="Phone Number">
                 </div>
                 @error('phone')
-                <small style="color: red;">{{ $message }}</small>
+                <small style="color: red; margin-left:40px">{{ $message }}</small>
                 @enderror
                 <div class="form-holder" @error('email') style="margin-bottom: 0" @enderror>
                     <span class="lnr lnr-envelope"></span>
                     <input type="text" class="form-control" value="{{ old('email') }}" name="email" placeholder="Mail">
                 </div>
                 @error('email')
-                <small style="color: red;">{{ $message }}</small>
+                <small style="color: red; margin-left:40px">{{ $message }}</small>
                 @enderror
                 <button type="submit">
                     <span>Sign Up</span>

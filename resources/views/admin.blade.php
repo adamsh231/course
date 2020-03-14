@@ -1,4 +1,4 @@
-@extends('layout/quixlab_auth')
+@extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
 @section('title', 'Admin')
 
 @section('add_style')

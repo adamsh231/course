@@ -20,18 +20,20 @@ class AdminController extends Controller
         return view('admin',['siswa' => $siswa, 'pertemuan' => $pertemuan]);
     }
 
-    public function pertemuanDetail(Pertemuan $pertemuan){
-        $detail = $this->getDetailByPertemuan($pertemuan->id);
-        $kuis = $this->getKuisByPertemuan($pertemuan->id);
-        $file = $this->getFileByPertemuan($pertemuan->id);
-        $presensi = $this->getPresensiByPertemuan($pertemuan->id);
+    public function pertemuanDetail(Pertemuan $id_pertemuan){
+        $detail = $this->getDetailByPertemuan($id_pertemuan->id);
+        $kuis = $this->getKuisByPertemuan($id_pertemuan->id);
+        $file = $this->getFileByPertemuan($id_pertemuan->id);
+        $presensi = $this->getPresensiByPertemuan($id_pertemuan->id);
+        $pertemuan = $this->getAllPertemuan();
         return view('admin_pertemuan',
         [
             'detail' => $detail,
             'kuis' => $kuis,
             'file' => $file,
             'presensi' => $presensi,
-            'pertemuan' => $pertemuan
+            'pertemuan' => $pertemuan,
+            'id_pertemuan' => $id_pertemuan
         ]);
     }
 

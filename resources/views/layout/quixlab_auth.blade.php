@@ -85,7 +85,9 @@
                             <i class="ti-notepad" style="margin-bottom:5px;"></i><span class="nav-text">Pembelajaran</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="{{ url('/pertemuan') }}" .html">Pertemuan 1</a></li>
+                            @foreach ($pertemuan as $p)
+                            <li><a href="{{ url('/pertemuan/'.$p->id) }}">{{ $p->nama }}</a></li>
+                            @endforeach
                         </ul>
                     </li>
                 </ul>

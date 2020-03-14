@@ -25,17 +25,13 @@ Route::group(['middleware' => ['islogout']], function () {
 });
 
 Route::group(['middleware' => ['islogin']], function () {
-    Route::get('/home', function () {
-        return view('home');
-    });
-    Route::get('/pertemuan', function () {
-        return view('pertemuan');
-    });
+    Route::get('/home', 'HomeController@home');
+    Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
 
     Route::get('/admin', 'AdminController@administrator');
-    Route::get('/admin/pertemuan/{pertemuan}', 'AdminController@pertemuanDetail');
+    Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
     Route::get('/admin/add/siswa', function () {
-        return view('admin_add_siswa');
+        return view('admin_add_siswa', ['pertemuan' => App\Pertemuan::all()]);
     });
     Route::post('/admin/add/siswa', 'AuthController@register');
 

@@ -1,4 +1,4 @@
-@extends('layout/quixlab_auth')
+@extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
 @section('title', 'Pertemuan')
 
 @section('content')
@@ -11,8 +11,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Pertemuan 1</h4>
-                        <p> Materi: Volume Kubus dan Balok </p>
+                        <h4 class="card-title">{{ $id_pertemuan->nama }}</h4>
+                        <p> Materi: {{ $id_pertemuan->judul }} </p>
                         <p class="text-muted"><code></code> </p>
                         <div id="accordion-three" class="accordion">
                             <div class="card">
