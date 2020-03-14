@@ -26,6 +26,9 @@ class CreateForeignKey extends Migration
         Schema::table('detail', function (Blueprint $table) {
             $table->foreign('id_pertemuan')->references('id')->on('pertemuan')->onDelete('cascade');
         });
+        Schema::table('kuis', function (Blueprint $table) {
+            $table->foreign('id_pertemuan')->references('id')->on('pertemuan')->onDelete('cascade');
+        });
     }
 
     /**
@@ -46,6 +49,9 @@ class CreateForeignKey extends Migration
             $table->dropForeign(['id_kuis']);
         });
         Schema::table('detail', function (Blueprint $table) {
+            $table->dropForeign(['id_pertemuan']);
+        });
+        Schema::table('kuis', function (Blueprint $table) {
             $table->dropForeign(['id_pertemuan']);
         });
     }

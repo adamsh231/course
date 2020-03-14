@@ -49,10 +49,10 @@
                                             <td class="text-center">{{ $s->team }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Close">
+                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-close color-danger"></i>
                                                     </a>
                                                 </span>
