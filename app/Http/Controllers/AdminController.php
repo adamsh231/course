@@ -17,33 +17,42 @@ class AdminController extends Controller
     {
         $siswa = $this->getAllSiswa();
         $pertemuan = $this->getAllPertemuan();
-        $detail = [];
-        foreach ($pertemuan as $p) {
-            $detail[$p->id] = $this->getDetailByPertemuan($p->id);
-        }
-        $file = [];
-        foreach ($pertemuan as $p) {
-            $file[$p->id] = $this->getFileByPertemuan($p->id);
-        }
-        $kuis = [];
-        foreach ($pertemuan as $p) {
-            $kuis[$p->id] = $this->getKuisByPertemuan($p->id);
-        }
-        $presensi = [];
-        foreach ($pertemuan as $p) {
-            $presensi[$p->id] = $this->getPresensiSiswaByPertemuan($p->id);
-        }
-        return view(
-            'admin',
-            [
-                'siswa' => $siswa,
-                'pertemuan' => $pertemuan,
-                'detail' => $detail,
-                'file' => $file,
-                'kuis' => $kuis,
-                'presensi' => $presensi
-            ]
-        );
+        return view('admin',['siswa' => $siswa, 'pertemuan' => $pertemuan]);
+    }
+
+    public function pertemuanDetail(Pertemuan $pertemuan){
+        $detail = $this->getDetailByPertemuan($pertemuan->id);
+        $kuis = $this->getKuisByPertemuan($pertemuan->id);
+        $file = $this->getFileByPertemuan($pertemuan->id);
+        $presensi = $this->getPresensiByPertemuan($pertemuan->id);
+        return view('admin_pertemuan',
+        [
+            'detail' => $detail,
+            'kuis' => $kuis,
+            'file' => $file,
+            'presensi' => $presensi,
+            'pertemuan' => $pertemuan
+        ]);
+    }
+
+    private function getDetailByPertemuan($key){
+        $detail = Detail::where('id_pertemuan',$key)->get();
+        return $detail;
+    }
+
+    private function getKuisByPertemuan($key){
+        $kuis = Kuis::where('id_pertemuan',$key)->get();
+        return $kuis;
+    }
+
+    private function getFileByPertemuan($key){
+        $file = File::where('id_pertemuan',$key)->get();
+        return $file;
+    }
+
+    private function getPresensiByPertemuan($key){
+        $presensi = Presensi::with(['siswa'])->where('id_pertemuan',$key)->get();
+        return $presensi;
     }
 
     private function getAllSiswa()
@@ -56,27 +65,5 @@ class AdminController extends Controller
     {
         $pertemuan = Pertemuan::all();
         return $pertemuan;
-    }
-
-    private function getDetailByPertemuan($key)
-    {
-        $detail = Detail::where('id_pertemuan', $key)->get();
-        return $detail;
-    }
-
-    private function getFileByPertemuan($key)
-    {
-        $file = File::where('id_pertemuan', $key)->get();
-        return $file;
-    }
-
-    private function getKuisByPertemuan($key){
-        $kuis = Kuis::where('id_pertemuan', $key)->get();
-        return $kuis;
-    }
-
-    private function getPresensiSiswaByPertemuan($key){
-        $presensi = Presensi::with(['siswa'])->where('id_pertemuan', $key)->get();
-        return $presensi;
     }
 }
