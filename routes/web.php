@@ -24,16 +24,26 @@ Route::group(['middleware' => ['islogout']], function () {
     Route::post('/register', 'AuthController@register');
 });
 
+ //!pass data pertemuan
 Route::group(['middleware' => ['islogin']], function () {
+    //!DONE
     Route::get('/home', 'HomeController@home');
+    //!DONE
     Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
 
-    Route::get('/admin', 'AdminController@administrator');
-    Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
-    Route::get('/admin/add/siswa', function () {
-        return view('admin_add_siswa', ['pertemuan' => App\Pertemuan::all()]);
+    Route::group(['middleware' => ['isAdmin']], function () {
+        //!DONE
+        Route::get('/admin', 'AdminController@administrator');
+        //!DONE
+        Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
+        //!DONE
+        Route::get('/admin/add/siswa', function () {
+            return view('admin_add_siswa', ['pertemuan' => App\Pertemuan::all()]);
+        });
+        //!DONE
+        Route::post('/admin/add/siswa', 'AuthController@register');
     });
-    Route::post('/admin/add/siswa', 'AuthController@register');
 
+    //! Unnecessary
     Route::get('/logout', 'AuthController@logout');
 });

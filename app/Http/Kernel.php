@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
 
         'islogout' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'islogin' => Middleware\LoggedIn::class,
+        'isAdmin' => Middleware\Teacher::class,
     ];
 
     /**
