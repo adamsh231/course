@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
         $faker = Faker::create('id_ID');
 
         $jml_siswa = $faker->numberBetween(15, 30);
-        $jml_pertemuan = $faker->numberBetween(3, 6);
+        $jml_pertemuan = 6;
         $jml_max_kegiatan = $faker->numberBetween(3, 6);
-        $jml_max_file = $faker->numberBetween(2, 6);
+        $jml_max_file = $faker->numberBetween(4, 6);
         $jml_soal = $faker->numberBetween(10, 30);
 
 
@@ -105,10 +105,10 @@ class DatabaseSeeder extends Seeder
         }
 
         $id_pertemuan_array = array_combine(range(1, $jml_pertemuan), range(1, $jml_pertemuan));
-        $id_pertemuan_random = array_rand($id_pertemuan_array, count($id_pertemuan_array));
+        $id_pertemuan_random = array_rand($id_pertemuan_array, 3);
         $id_soal = 1;
         $jawaban = ['A', 'B', 'C', 'D'];
-        for ($i = 1; $i <= $faker->numberBetween(2, $jml_pertemuan); $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             DB::table('kuis')->insert([
                 'id' => $i,
                 'id_pertemuan' => $id_pertemuan_random[($i-1)],

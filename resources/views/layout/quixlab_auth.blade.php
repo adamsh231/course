@@ -10,7 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('quixlab/images/favicon.png') }}">
     <!-- Custom Stylesheet -->
     <link href="{{ URL::asset('quixlab/css/style.css') }}" rel="stylesheet">
-    <link href="{{ URL::asset('quixlab//plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
     @yield('add_style')
 
 </head>

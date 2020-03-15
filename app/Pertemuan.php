@@ -18,7 +18,7 @@ class Pertemuan extends Model
     }
 
     public function kuis(){
-        return $this->hasMany('App\Kuis', 'id_pertemuan');
+        return $this->hasOne('App\Kuis', 'id_pertemuan');
     }
 
     public function presensi(){

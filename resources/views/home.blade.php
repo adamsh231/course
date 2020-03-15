@@ -1,10 +1,6 @@
 @extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
 @section('title', 'Home')
 
-@section('add_style')
-
-@endsection
-
 @section('content')
 
 <div class="content-body">
@@ -134,9 +130,5 @@
 
 
 </div>
-
-@endsection
-
-@section('add_script')
 
 @endsection

@@ -1,9 +1,11 @@
 @extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
 @section('title', 'Pertemuan')
 
-@section('content')
+@section('add_style')
 <link href="{{ URL::asset('quixlab/css/style_pertemuan.css') }}" rel="stylesheet">
+@endsection
 
+@section('content')
 <div class="content-body">
 
     <div class="container-fluid" style="margin-top:30px;">
@@ -22,7 +24,7 @@
                                 <i class="fa fa-book text-white"></i>
                             </span>
                         </button>
-                        <button onclick="maintenance()" type="button" class="btn mb-1 btn-warning float-right text-white">
+                        <button onclick="window.location.href = '{{ url('/kuis') }}'" type="button" class="btn mb-1 btn-warning float-right text-white">
                             Kuis
                             <span class="btn-icon-right">
                                 <i class="fa fa-pencil-square-o text-white"></i>
@@ -89,8 +91,8 @@
 
 </div>
 
-
 @endsection
+
 @section('add_script')
 <script>
     $('.member-title').click(function(e) {
