@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
                     // 'mulai' => $faker->time($format = 'H:i:s', $max = 'now'),
                     // 'selesai' => $faker->time($format = 'H:i:s', $max = 'now'),
                     'mulai' => ($j * 2) . ':00:00',
-                    'selesai' => (($j * 2) + 2) . ':00:00',
+                    'selesai' => (($j * 2) + 1) . ':'.$faker->numberBetween(0,5).$faker->numberBetween(0,5).':00',
                 ]);
                 $id['detail']++;
             }
