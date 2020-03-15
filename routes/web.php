@@ -30,10 +30,8 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/home', 'HomeController@home');
     //!DONE
     Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
-    //!Done
-    Route::get('/kuis', function () {
-        return view('kuis');
-    });
+    //! Not Necessary
+    Route::get('/kuis/{id_pertemuan}', 'HomeController@kuis');
 
     Route::group(['middleware' => ['isAdmin']], function () {
         //!DONE

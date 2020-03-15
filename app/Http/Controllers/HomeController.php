@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pertemuan;
 use App\Detail;
+use App\Soal;
+use App\Kuis;
 
 class HomeController extends Controller
 {
@@ -26,6 +28,18 @@ class HomeController extends Controller
             ]);
     }
 
+    //TODO: Ubah Relasi Table
+    public function kuis($id_pertemuan){
+        $kuis = Kuis::where('id_pertemuan', $id_pertemuan)->first();
+        $soal = "";
+        if(isset($kuis->id)){
+            $soal = Soal::where('id_kuis', $kuis->id)->get();
+            return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
+        }else{
+            return back();
+        }
+    }
+
     private function getAllPertemuan()
     {
         $pertemuan = Pertemuan::all();
@@ -37,4 +51,5 @@ class HomeController extends Controller
         $detail = Detail::where('id_pertemuan', $key)->get();
         return $detail;
     }
+
 }

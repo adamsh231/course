@@ -16,9 +16,10 @@ class DatabaseSeeder extends Seeder
 
         $jml_siswa = $faker->numberBetween(15, 30);
         $jml_pertemuan = 6;
-        $jml_max_kegiatan = $faker->numberBetween(3, 6);
-        $jml_max_file = $faker->numberBetween(4, 6);
-        $jml_soal = $faker->numberBetween(10, 30);
+
+        $jml_max_kegiatan = 7;
+        $jml_max_file = 10;
+        $jml_max_soal = 30;
 
 
         DB::table('siswa')->insert([
@@ -115,7 +116,7 @@ class DatabaseSeeder extends Seeder
                 'nama' => 'kuis' . $i,
                 'jawaban' => '/jawaban/' . 'kuis' . $i . '.pdf',
             ]);
-            for ($j = 1; $j <= $jml_soal; $j++) {
+            for ($j = 1; $j <= $faker->numberBetween(10, $jml_max_soal); $j++) {
                 DB::table('soal')->insert([
                     'id' => $id_soal,
                     'id_kuis' => $i,
