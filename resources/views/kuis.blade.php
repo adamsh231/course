@@ -56,25 +56,25 @@
                                                     <div class="form-group">
                                                         <div class="form-control input-default mb-2">
                                                             <div class="radio my-1">
-                                                                <input type="radio" name="answer">
+                                                                <input type="radio" name="answer{{ $s->id }}">
                                                                 <p class="ml-4 d-inline">{{ $s->A }}</p>
                                                             </div>
                                                         </div>
                                                         <div class="form-control input-default mb-2">
                                                             <div class="radio my-1">
-                                                                <input type="radio" name="answer">
+                                                                <input type="radio" name="answer{{ $s->id }}">
                                                                 <p class="ml-4 d-inline">{{ $s->B }}</p>
                                                             </div>
                                                         </div>
                                                         <div class="form-control input-default mb-2">
                                                             <div class="radio my-1">
-                                                                <input type="radio" name="answer">
+                                                                <input type="radio" name="answer{{ $s->id }}">
                                                                 <p class="ml-4 d-inline">{{ $s->C }}</p>
                                                             </div>
                                                         </div>
                                                         <div class="form-control input-default mb-2">
                                                             <div class="radio my-1">
-                                                                <input type="radio" name="answer">
+                                                                <input type="radio" name="answer{{ $s->id }}">
                                                                 <p class="ml-4 d-inline">{{ $s->D }}</p>
                                                             </div>
                                                         </div>
@@ -108,6 +108,32 @@
     <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 
     <script src="{{ URL::asset('js/kuis.js') }}"></script>
+
+    <script>
+        fab.addEventListener("click", function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Test Send!',
+                        text: "Test has been sent, Great work!",
+                        type: 'success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(function () {
+                        window.location = "{{ url('/pertemuan/'.$kuis->id_pertemuan) }}";
+                    });
+                }
+            })
+        });
+    </script>
 
 </body>
 

@@ -36,26 +36,3 @@ fab.addEventListener("mouseleave", function () {
     fab_icon.classList.remove('fa-paper-plane-o');
     fab_icon.classList.add('fa-clock-o');
 });
-fab.addEventListener("click", function () {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.value) {
-            Swal.fire({
-                title: 'Test Send!',
-                text: "Test has been sent, Great work!",
-                type: 'success',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(function () {
-                window.location = "{{ url('/pertemuan/'.$kuis->id_pertemuan) }}";
-            });
-        }
-    })
-});
