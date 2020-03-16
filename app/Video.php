@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class File extends Model
+class Video extends Model
 {
-    protected $table = "file";
+    protected $table = "video";
     protected $guarded = ['id'];
 
     public function pertemuan(){

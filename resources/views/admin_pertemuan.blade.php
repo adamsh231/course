@@ -23,10 +23,10 @@
                             <a class="nav-link  active show" data-toggle="tab" href="#presensi">Presensi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#kegiatan">Kegiatan</a>
+                            <a class="nav-link" data-toggle="tab" href="#detail">Detail</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#file">File</a>
+                            <a class="nav-link" data-toggle="tab" href="#video">Video</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#kuis">Kuis</a>
@@ -34,7 +34,7 @@
                     </ul>
                     <div class="tab-content">
 
-                        <div class="tab-pane fade" id="kegiatan" role="tabpanel">
+                        <div class="tab-pane fade" id="detail" role="tabpanel">
                             <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
@@ -44,7 +44,6 @@
                                         <tr class="text-center">
                                             <th scope="col">No</th>
                                             <th scope="col">Kegiatan</th>
-                                            <th scope="col">Deskripsi</th>
                                             <th scope="col">Mulai</th>
                                             <th scope="col">Selesai</th>
                                             <th scope="col">Action</th>
@@ -55,7 +54,6 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $d->kegiatan }}</td>
-                                            <td>{{ $d->deskripsi }}</td>
                                             <td>{{ $d->mulai }}</td>
                                             <td>{{ $d->selesai }}</td>
                                             <td class="text-center">
@@ -75,7 +73,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="file" role="tabpanel">
+                        <div class="tab-pane fade" id="video" role="tabpanel">
                             <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
@@ -87,16 +85,15 @@
                                             <th scope="col">Nama</th>
                                             <th scope="col">Deskripsi</th>
                                             <th scope="col">File</th>
-                                            <th scope="col">Jenis</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($file as $f)
+                                        @foreach ($video as $v)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td>{{ $f->nama }}</td>
-                                            <td>{{ $f->deskripsi }}</td>
+                                            <td>{{ $v->nama }}</td>
+                                            <td class="text-justify">{{ $v->deskripsi }}</td>
                                             <td class="text-center">
                                                 <span>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
@@ -107,7 +104,6 @@
                                                     </a>
                                                 </span>
                                             </td>
-                                            <td>{{ $f->jenis }}</td>
                                             <td class="text-center">
                                                 <span>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">

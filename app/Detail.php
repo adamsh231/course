@@ -12,4 +12,8 @@ class Detail extends Model
     public function pertemuan(){
         return $this->belongsTo('App\Pertemuan', 'id_pertemuan');
     }
+
+    public function deskripsi(){
+        return $this->hasMany('App\Deskripsi', 'id_detail');
+    }
 }

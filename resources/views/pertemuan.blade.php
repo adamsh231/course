@@ -42,8 +42,10 @@
 
                                 <div id="collapseOne4" class="collapse show">
                                     <div class="card-body">
-                                        <b> Deskripsi: </b> <br>
-                                        ({{ $id_pertemuan->deskripsi }})
+                                        <b> Kompetensi Dasar: </b>
+                                        <p>{{ $id_pertemuan->kompetensi }}</p>
+                                        <b> Tujuan: </b>
+                                        <p>{{ $id_pertemuan->tujuan }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -67,14 +69,12 @@
                                                 @endphp
                                                 <h1 class='member-title mb-2'>{{ $d->kegiatan }} ({{ $diff }} menit)</h1>
                                                 <div class="member-location">
+                                                    @foreach ($d->deskripsi as $ddes)
                                                     <p>
                                                         <i class="ti-angle-right"></i>
-                                                        Siswa melakukan PRETES selama 20 menit. Klik tombol kuis untuk melakukan pretes.
+                                                        {{ $ddes->teks }}
                                                     </p>
-                                                    <p>
-                                                        <i class="ti-angle-right"></i>
-                                                        Siswa diberikan gambaran awal mengenai volume kubus dan balok. Klik tombol materi untuk melihat materi ilustrasi.
-                                                    </p>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         </li>

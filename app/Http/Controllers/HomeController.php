@@ -21,21 +21,22 @@ class HomeController extends Controller
         $pertemuan = $this->getAllPertemuan();
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
         return view('/pertemuan',
-        [
-            'pertemuan' => $pertemuan,
-            'id_pertemuan' => $id_pertemuan,
-            'detail' => $detail
-            ]);
+            [
+                'pertemuan' => $pertemuan,
+                'id_pertemuan' => $id_pertemuan,
+                'detail' => $detail
+            ]
+        );
     }
 
-    //TODO: Ubah Relasi Table
-    public function kuis($id_pertemuan){
+    public function kuis($id_pertemuan)
+    {
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan)->first();
         $soal = "";
-        if(isset($kuis->id)){
+        if (isset($kuis->id)) {
             $soal = Soal::where('id_kuis', $kuis->id)->get();
             return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
-        }else{
+        } else {
             return back();
         }
     }
@@ -48,8 +49,7 @@ class HomeController extends Controller
 
     private function getDetailByPertemuan($key)
     {
-        $detail = Detail::where('id_pertemuan', $key)->get();
+        $detail = Detail::with(['deskripsi'])->where('id_pertemuan', $key)->get();
         return $detail;
     }
-
 }

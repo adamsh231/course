@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Siswa;
 use App\Pertemuan;
 use App\Detail;
-use App\File;
+use App\Video;
 use App\Kuis;
 use App\Soal;
 use App\Presensi;
@@ -23,14 +23,14 @@ class AdminController extends Controller
     public function pertemuanDetail(Pertemuan $id_pertemuan){
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
         $kuis = $this->getKuisByPertemuan($id_pertemuan->id);
-        $file = $this->getFileByPertemuan($id_pertemuan->id);
+        $video = $this->getVideoByPertemuan($id_pertemuan->id);
         $presensi = $this->getPresensiByPertemuan($id_pertemuan->id);
         $pertemuan = $this->getAllPertemuan();
         return view('admin_pertemuan',
         [
             'detail' => $detail,
             'kuis' => $kuis,
-            'file' => $file,
+            'video' => $video,
             'presensi' => $presensi,
             'pertemuan' => $pertemuan,
             'id_pertemuan' => $id_pertemuan
@@ -47,9 +47,9 @@ class AdminController extends Controller
         return $kuis;
     }
 
-    private function getFileByPertemuan($key){
-        $file = File::where('id_pertemuan',$key)->get();
-        return $file;
+    private function getVideoByPertemuan($key){
+        $video = Video::where('id_pertemuan',$key)->get();
+        return $video;
     }
 
     private function getPresensiByPertemuan($key){

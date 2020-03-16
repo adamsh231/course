@@ -100,7 +100,9 @@
                                             <th scope="col">Tanggal</th>
                                             <th scope="col">Diskusi</th>
                                             <th scope="col">Tugas</th>
-                                            <th scope="col">Deskripsi</th>
+                                            <th scope="col">Materi</th>
+                                            <th scope="col">Kompetensi</th>
+                                            <th scope="col">Tujuan</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -109,7 +111,7 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td><a href="{{ url('/admin/pertemuan/'.$p->id) }}">{{ $p->nama }}</a></td>
-                                            <td>{{ $p->judul }}</td>
+                                            <td class="text-justify">{{ $p->judul }}</td>
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
                                                 <span>
@@ -131,7 +133,18 @@
                                                     </a>
                                                 </span>
                                             </td>
-                                            <td>{{ $p->deskripsi }}</td>
+                                            <td class="text-center">
+                                                <span>
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
+                                                        <i class="fa fa-refresh color-muted m-r-5"></i>
+                                                    </a>
+                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
+                                                        <i class="fa fa-eye color-danger"></i>
+                                                    </a>
+                                                </span>
+                                            </td>
+                                            <td class="text-justify">{{ $p->tujuan }}</td>
+                                            <td class="text-justify">{{ $p->kompetensi }}</td>
                                             <td class="text-center">
                                                 <span>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">

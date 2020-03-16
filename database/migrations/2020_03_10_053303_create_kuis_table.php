@@ -15,7 +15,7 @@ class CreateKuisTable extends Migration
     {
         Schema::create('kuis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('id_pertemuan');
+            $table->unsignedBigInteger('id_pertemuan')->unique();
             $table->string('nama');
             $table->string('jawaban')->nullable(); // File
             $table->timestamps();

@@ -97,11 +97,14 @@
                                             </div>
                                             <img class="img-fluid" src="https://robohash.org/{{ $p->id }}" alt="">
                                             <div class="card-body">
-                                                <h5>Kompetensi Dasar dan Tujuan: </h5>
+                                                <h5>Kompetensi Dasar: </h5>
                                                 <p class="card-text" style="text-align:justify;">
-                                                    {{ substr($p->deskripsi,0,100) }}..
+                                                    {{ substr($p->kompetensi,0,100) }}..
                                                 </p>
-                                                <br>
+                                                <h5>Tujuan: </h5>
+                                                <p class="card-text" style="text-align:justify;">
+                                                    {{ substr($p->tujuan,0,100) }}..
+                                                </p>
                                             </div>
                                             <div class="card-footer">
                                                 <a href="{{ url('/pertemuan/'.$p->id) }}">
@@ -121,10 +124,6 @@
             </div>
 
         </div>
-
-
-
-
 
     </div>
 
