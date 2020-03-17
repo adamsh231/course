@@ -8,7 +8,7 @@ use App\Pertemuan;
 use App\Detail;
 use App\Video;
 use App\Kuis;
-use App\Soal;
+use App\Deskripsi;
 use App\Presensi;
 
 class AdminController extends Controller
@@ -38,12 +38,12 @@ class AdminController extends Controller
     }
 
     private function getDetailByPertemuan($key){
-        $detail = Detail::where('id_pertemuan',$key)->get();
+        $detail = Detail::with('deskripsi')->where('id_pertemuan',$key)->get();
         return $detail;
     }
 
     private function getKuisByPertemuan($key){
-        $kuis = Kuis::where('id_pertemuan',$key)->get();
+        $kuis = Kuis::where('id_pertemuan',$key)->first();
         return $kuis;
     }
 

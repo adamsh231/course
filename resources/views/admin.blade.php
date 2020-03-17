@@ -75,7 +75,7 @@
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
-                                                        <i class="fa fa-close color-danger"></i>
+                                                        <i class="fa fa-trash-o color-danger"></i>
                                                     </a>
                                                 </span>
                                             </td>
@@ -115,9 +115,6 @@
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
-                                                        <i class="fa fa-refresh color-muted m-r-5"></i>
-                                                    </a>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
@@ -125,9 +122,6 @@
                                             </td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
-                                                        <i class="fa fa-refresh color-muted m-r-5"></i>
-                                                    </a>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
@@ -135,9 +129,6 @@
                                             </td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change File">
-                                                        <i class="fa fa-refresh color-muted m-r-5"></i>
-                                                    </a>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
@@ -151,7 +142,7 @@
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
                                                     <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
-                                                        <i class="fa fa-close color-danger"></i>
+                                                        <i class="fa fa-trash-o color-danger"></i>
                                                     </a>
                                                 </span>
                                             </td>

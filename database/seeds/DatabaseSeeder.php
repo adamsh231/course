@@ -109,6 +109,8 @@ class DatabaseSeeder extends Seeder
                 'id' => $i,
                 'id_pertemuan' => $id_pertemuan_random[($i-1)],
                 'nama' => 'kuis' . $i,
+                'waktu' => $faker->numberBetween(20, 60),
+                'aktif' => $faker->numberBetween(0, 1),
                 'jawaban' => '/jawaban/' . 'kuis' . $i . '.pdf',
             ]);
             for ($j = 1; $j <= $faker->numberBetween(10, $jml_max_soal); $j++) {

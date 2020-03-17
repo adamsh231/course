@@ -20,11 +20,14 @@ class HomeController extends Controller
     {
         $pertemuan = $this->getAllPertemuan();
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
+        $kuis = Kuis::where('id_pertemuan', $id_pertemuan->id)->first();
+        // dd($kuis);
         return view('/pertemuan',
             [
                 'pertemuan' => $pertemuan,
                 'id_pertemuan' => $id_pertemuan,
-                'detail' => $detail
+                'detail' => $detail,
+                'kuis' => $kuis
             ]
         );
     }
@@ -33,9 +36,13 @@ class HomeController extends Controller
     {
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan)->first();
         $soal = "";
-        if (isset($kuis->id)) {
-            $soal = Soal::where('id_kuis', $kuis->id)->get();
-            return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
+        if (isset($kuis)) {
+            if($kuis->aktif){
+                $soal = Soal::where('id_kuis', $kuis->id)->get();
+                return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
+            }else{
+                return back()->with('status', 'Kuis Tidak Aktif!');
+            }
         } else {
             return back();
         }

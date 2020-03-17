@@ -3,12 +3,21 @@
 
 @section('add_style')
 <link href="{{ URL::asset('quixlab/css/style_pertemuan.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('css/getar.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
 <div class="content-body">
 
     <div class="container-fluid" style="margin-top:30px;">
+
+        @if (session('status'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+            </button> {{ session('status') }}
+        </div>
+        @endif
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -24,12 +33,14 @@
                                 <i class="fa fa-book text-white"></i>
                             </span>
                         </button>
-                        <button onclick="window.location.href = '{{ url('/kuis/'.$id_pertemuan->id) }}'" type="button" class="btn mb-1 btn-warning float-right text-white">
-                            Kuis
+                        @isset($kuis)
+                        <button @if(!$kuis->aktif) disabled @endif onclick="window.location.href = '{{ url('/kuis/'.$id_pertemuan->id) }}'" class="btn mb-1 btn-warning float-right text-white">
+                            {{ ucwords($kuis->nama) }}
                             <span class="btn-icon-right">
                                 <i class="fa fa-pencil-square-o text-white"></i>
                             </span>
                         </button>
+                        @endisset
                         <hr>
                         <div id="accordion-three" class="accordion">
                             <div class="card mb-3">
