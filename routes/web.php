@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group(['middleware' => ['islogout']], function () {
     Route::get('/', function () {
         return view('landing');
@@ -24,7 +25,7 @@ Route::group(['middleware' => ['islogout']], function () {
     Route::post('/register', 'AuthController@register');
 });
 
- //!pass data pertemuan
+//!pass data pertemuan
 Route::group(['middleware' => ['islogin']], function () {
     //!DONE
     Route::get('/home', 'HomeController@home');
@@ -44,8 +45,14 @@ Route::group(['middleware' => ['islogin']], function () {
         });
         //!DONE
         Route::post('/admin/add/siswa', 'AuthController@register');
+        //! NOT NECESSARRY, AJAX REQUEST
+        Route::post('/admin/hadir', 'AdminController@hadir');
     });
 
     //! Unnecessary
     Route::get('/logout', 'AuthController@logout');
 });
+
+// Route::fallback(function () {
+//     return view('landing');
+// });

@@ -47,13 +47,23 @@ class AuthController extends Controller
             'phone' => ['required', 'unique:siswa', 'numeric'],
         ], $messages);
 
-        Siswa::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-            'email' => $request->email,
-            'phone' => $request->phone,
-        ]);
+        //! Mass Assigment => Vulnerable for Injection, Require Fillable or Guarded ['*'] for All
+        // Siswa::create([
+        //     'name' => $request->name,
+        //     'username' => $request->username,
+        //     'password' => Hash::make($request->password),
+        //     'email' => $request->email,
+        //     'phone' => $request->phone,
+        // ]);
+
+        //! Manual Assignment
+        $siswa = new Siswa;
+        $siswa->name = $request->name;
+        $siswa->username = $request->username;
+        $siswa->password = Hash::make($request->password);
+        $siswa->email = $request->email;
+        $siswa->phone = $request->phone;
+        $siswa->save();
 
         if($request->redirect == "admin"){
             return redirect('/admin')->with('status', 'Siswa Berhasil Di Daftarkan!');
@@ -61,4 +71,5 @@ class AuthController extends Controller
             return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
         }
     }
+
 }

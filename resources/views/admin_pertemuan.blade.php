@@ -2,6 +2,7 @@
 @section('title', 'Admin By Detail Pertemuan')
 
 @section('add_style')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ URL::asset('quixlab/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
 
@@ -53,15 +54,14 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $pr->siswa->name }}</td>
-                                            <td class="text-center">
+                                            <td id="td_hadir{{ $pr->id }}" class="text-center">
                                                 @if ($pr->kehadiran == "Hadir")
-                                                <input type="hidden" value="Hadir">
-                                                <button onclick="maintenance()" type="button" class="btn mb-1 btn-rounded btn-success btn-sm">
-                                                    <i class="fa fa-check fa-2x text-white" aria-hidden="true"></i>
+                                                <button id="btn_hadir{{ $pr->id }}" onclick="hadir({{ $pr->id }}, 1)" type="button" class="btn mb-1 btn-rounded btn-success btn-sm">
+                                                    <i id="icon_hadir{{ $pr->id }}" class="fa fa-check fa-2x text-white" aria-hidden="true"></i>
                                                 </button>
                                                 @else
-                                                <button onclick="maintenance()" type="button" class="btn mb-1 btn-rounded btn-outline-danger btn-sm">
-                                                    <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                                                <button id="btn_hadir{{ $pr->id }}" onclick="hadir({{ $pr->id }}, 0)" type="button" class="btn mb-1 btn-rounded btn-danger btn-sm">
+                                                    <i id="icon_hadir{{ $pr->id }}" class="fa fa-times fa-2x" aria-hidden="true"></i>
                                                 </button>
                                                 @endif
                                             </td>
@@ -222,6 +222,11 @@
                                         @endif
                                         <div class="card-footer text-muted">Waktu Pengerjaan {{ $kuis->waktu }} Menit</div>
                                     </div>
+                                    <div>
+                                        <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                     <table class="table table-bordered table-striped verticle-middle table-md">
                                         <thead>
                                             <tr class="text-center">
@@ -303,4 +308,45 @@
         });
     });
     </script>
+    <script>
+        function hadir(id, hadir) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+               type:'POST',
+               url:'/admin/hadir',
+               data: {
+                   id: id,
+                   kehadiran: hadir
+               },
+               dataType: 'json',
+               beforeSend: function(data){
+                    $("#btn_hadir"+id).removeClass('btn-success btn-danger').addClass('btn-warning');
+                    $("#icon_hadir"+id).removeClass('fa-check').addClass('fa-spinner text-white');
+               },
+               success: function(data) {
+                    $("#td_hadir"+id).html(data.replace);
+               },
+               error: function(data){
+                    // var errors = $.parseJSON(data.responseText);
+                    // $("#ajax"+id).html(errors.error);
+                    $("#icon_hadir"+id).removeClass('fa-spinner').addClass('fa-exclamation-triangle');
+                    setTimeout(function () {
+                        if(hadir){
+                            $("#btn_hadir"+id).removeClass('btn-warning').addClass('btn-success');
+                            $("#icon_hadir"+id).removeClass('fa-exclamation-triangle').addClass('fa-check');
+                        }else{
+                            $("#btn_hadir"+id).removeClass('btn-warning').addClass('btn-danger');
+                            $("#icon_hadir"+id).removeClass('fa-exclamation-triangle').addClass('fa-times');
+                        }
+                    }, 1500);
+
+               }
+            });
+         }
+    </script>
+
     @endsection

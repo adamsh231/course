@@ -17,43 +17,76 @@ class AdminController extends Controller
     {
         $siswa = $this->getAllSiswa();
         $pertemuan = $this->getAllPertemuan();
-        return view('admin',['siswa' => $siswa, 'pertemuan' => $pertemuan]);
+        return view('admin', ['siswa' => $siswa, 'pertemuan' => $pertemuan]);
     }
 
-    public function pertemuanDetail(Pertemuan $id_pertemuan){
+    public function pertemuanDetail(Pertemuan $id_pertemuan)
+    {
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
         $kuis = $this->getKuisByPertemuan($id_pertemuan->id);
         $video = $this->getVideoByPertemuan($id_pertemuan->id);
         $presensi = $this->getPresensiByPertemuan($id_pertemuan->id);
         $pertemuan = $this->getAllPertemuan();
-        return view('admin_pertemuan',
-        [
-            'detail' => $detail,
-            'kuis' => $kuis,
-            'video' => $video,
-            'presensi' => $presensi,
-            'pertemuan' => $pertemuan,
-            'id_pertemuan' => $id_pertemuan
-        ]);
+        return view(
+            'admin_pertemuan',
+            [
+                'detail' => $detail,
+                'kuis' => $kuis,
+                'video' => $video,
+                'presensi' => $presensi,
+                'pertemuan' => $pertemuan,
+                'id_pertemuan' => $id_pertemuan
+            ]
+        );
     }
 
-    private function getDetailByPertemuan($key){
-        $detail = Detail::with('deskripsi')->where('id_pertemuan',$key)->get();
+    public function hadir(Request $request)
+    {
+        $replace = "";
+        $presensi = Presensi::find($request->id);
+
+        if ($request->kehadiran) {
+            $presensi->kehadiran = "Tidak Hadir";
+            $replace =
+                "
+                <button id='btn_hadir$request->id' onclick='hadir($request->id, 0)' type='button' class='btn mb-1 btn-rounded btn-danger btn-sm'>
+                    <i id='icon_hadir$request->id' class='fa fa-times fa-2x' aria-hidden='true'></i>
+                </button>
+                ";
+        }else{
+            $presensi->kehadiran = "Hadir";
+            $replace =
+                "
+                <button id='btn_hadir$request->id' onclick='hadir($request->id, 1)' type='button' class='btn mb-1 btn-rounded btn-success btn-sm'>
+                    <i id='icon_hadir$request->id' class='fa fa-check fa-2x text-white' aria-hidden='true'></i>
+                </button>
+                ";
+        }
+        $presensi->save();
+        return response()->json(['replace' => $replace], 200); //! 200, 422
+    }
+
+    private function getDetailByPertemuan($key)
+    {
+        $detail = Detail::with('deskripsi')->where('id_pertemuan', $key)->get();
         return $detail;
     }
 
-    private function getKuisByPertemuan($key){
-        $kuis = Kuis::where('id_pertemuan',$key)->first();
+    private function getKuisByPertemuan($key)
+    {
+        $kuis = Kuis::where('id_pertemuan', $key)->first();
         return $kuis;
     }
 
-    private function getVideoByPertemuan($key){
-        $video = Video::where('id_pertemuan',$key)->get();
+    private function getVideoByPertemuan($key)
+    {
+        $video = Video::where('id_pertemuan', $key)->get();
         return $video;
     }
 
-    private function getPresensiByPertemuan($key){
-        $presensi = Presensi::with(['siswa'])->where('id_pertemuan',$key)->get();
+    private function getPresensiByPertemuan($key)
+    {
+        $presensi = Presensi::with(['siswa'])->where('id_pertemuan', $key)->get();
         return $presensi;
     }
 
