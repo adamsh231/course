@@ -54,7 +54,7 @@
                 <br>
                 <p style="float: right"><a href="{{ url('/register') }}"> Sign Up</a></p>
             </form>
-            <img src="{{ URL::asset('assets/image-2.png') }}" alt="" class="image-2">
+            <img src="{{ asset('assets/image-2.png') }}" alt="" class="image-2">
         </div>
     </div>
 </body>

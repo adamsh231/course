@@ -24,4 +24,10 @@ class Pertemuan extends Model
     public function presensi(){
         return $this->hasMany('App\Presensi', 'id_pertemuan');
     }
+
+    // public function getGambar(){
+    //     if(!$this->gambar){ //Nullable
+
+    //     }
+    // }
 }

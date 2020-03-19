@@ -2,6 +2,7 @@
 @section('title', 'Admin')
 
 @section('add_style')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ URL::asset('quixlab/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 @endsection
 
@@ -10,12 +11,10 @@
 
     <div class="container-fluid">
 
-        @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show">
+        <div id="status" class="alert alert-success alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-            </button> {{ session('status') }}
+            </button>
         </div>
-        @endif
 
         {{-- CARD1 --}}
         <div class="card">
@@ -32,7 +31,7 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade" id="siswa" role="tabpanel">
-                            <button onclick="window.location.href = '{{ url('/admin/add/siswa') }}'" type="button" class="btn mb-1 btn-outline-success float-right">
+                            <button type="button" class="btn mb-1 btn-outline-success float-right" data-toggle="modal" data-target="#add_siswa">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <div class="table-responsive">
@@ -83,6 +82,73 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+
+                        {{-- Modal Add Siswa --}}
+                        <div class="bootstrap-modal">
+                            <div id="add_siswa" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Add Siswa</h5>
+                                            <button id="btn_close_modal_add" type="button" class="close" data-dismiss="modal"><span>×</span>
+                                            </button>
+                                        </div>
+                                        <form id="form_add">
+                                            @csrf
+                                            <div class="modal-body">
+                                                <div class="card-body">
+                                                    <div class="alert alert-danger" id="add-error-bag">
+                                                        <ul class="mb-0" id="add-task-errors">
+                                                        </ul>
+                                                    </div>
+                                                    <div class="form-validation">
+
+                                                        <div class="form-group row is-invalid">
+                                                            <label class="col-lg-4 col-form-label">Nama</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="form-control" name="name" placeholder="Enter your name...">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row is-invalid">
+                                                            <label class="col-lg-4 col-form-label">Username</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="form-control" name="username" placeholder="Enter username...">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row is-invalid">
+                                                            <label class="col-lg-4 col-form-label">Password</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="password" class="form-control" name="password" placeholder="Enter Password...">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row is-invalid">
+                                                            <label class="col-lg-4 col-form-label">Email</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="form-control" name="email" placeholder="Enter Email...">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row is-invalid">
+                                                            <label class="col-lg-4 col-form-label">Phone</label>
+                                                            <div class="col-lg-6">
+                                                                <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="modal-footer">
+                                            <button onclick="add()" class="btn btn-primary">Add</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -170,10 +236,49 @@
 
 <script>
     $(document).ready(function() {
+        $('#add-error-bag').hide();
+        $('#status').hide();
         $('#siswa_table').DataTable({
             pageLength : 5,
             lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
         });
     });
+</script>
+<script>
+    function add(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/admin/add/siswa',
+            data: {
+                name: $("#form_add input[name=name]").val(),
+                username: $("#form_add input[name=username]").val(),
+                password: $("#form_add input[name=password]").val(),
+                email: $("#form_add input[name=email]").val(),
+                phone: $("#form_add input[name=phone]").val(),
+            },
+            dataType: 'json',
+            success: function(data) {
+                $('#btn_close_modal_add').click();
+                $('#status').show();
+                $('#status').append("Data Siswa Berhasil Diinputkan");
+                setInterval(() => {
+                    window.location.reload();
+                }, 1500);
+            },
+            error: function(data) {
+                var errors = $.parseJSON(data.responseText);
+                $('#add-task-errors').html('');
+                $.each(errors.messages, function(key, value) {
+                    $('#add-task-errors').append('<li>' + value + '</li>');
+                });
+                $("#add-error-bag").show();
+            }
+        });
+    }
 </script>
 @endsection

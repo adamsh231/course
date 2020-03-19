@@ -40,11 +40,7 @@ Route::group(['middleware' => ['islogin']], function () {
         //!DONE
         Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
         //!DONE
-        Route::get('/admin/add/siswa', function () {
-            return view('admin_add_siswa', ['pertemuan' => App\Pertemuan::all()]);
-        });
-        //!DONE
-        Route::post('/admin/add/siswa', 'AuthController@register');
+        Route::post('/admin/add/siswa', 'AdminDataController@addSiswa');
         //! NOT NECESSARRY, AJAX REQUEST
         Route::post('/admin/hadir', 'AdminController@hadir');
     });

@@ -65,11 +65,7 @@ class AuthController extends Controller
         $siswa->phone = $request->phone;
         $siswa->save();
 
-        if($request->redirect == "admin"){
-            return redirect('/admin')->with('status', 'Siswa Berhasil Di Daftarkan!');
-        }else{
-            return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
-        }
+        return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
     }
 
 }
