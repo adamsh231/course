@@ -85,73 +85,6 @@
                             </div>
                         </div>
 
-                        {{-- Modal Add Siswa --}}
-                        <div class="bootstrap-modal">
-                            <div id="add_siswa" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Add Siswa</h5>
-                                            <button id="btn_close_modal_add" type="button" class="close" data-dismiss="modal"><span>×</span>
-                                            </button>
-                                        </div>
-                                        <form id="form_add">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <div class="card-body">
-                                                    <div class="alert alert-danger" id="add-error-bag">
-                                                        <ul class="mb-0" id="add-task-errors">
-                                                        </ul>
-                                                    </div>
-                                                    <div class="form-validation">
-
-                                                        <div class="form-group row is-invalid">
-                                                            <label class="col-lg-4 col-form-label">Nama</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" class="form-control" name="name" placeholder="Enter your name...">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row is-invalid">
-                                                            <label class="col-lg-4 col-form-label">Username</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" class="form-control" name="username" placeholder="Enter username...">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row is-invalid">
-                                                            <label class="col-lg-4 col-form-label">Password</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="password" class="form-control" name="password" placeholder="Enter Password...">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row is-invalid">
-                                                            <label class="col-lg-4 col-form-label">Email</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" class="form-control" name="email" placeholder="Enter Email...">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group row is-invalid">
-                                                            <label class="col-lg-4 col-form-label">Phone</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <div class="modal-footer">
-                                            <button onclick="add()" class="btn btn-primary">Add</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="tab-pane fade active show" id="pertemuan" role="tabpanel">
                             <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -218,7 +151,6 @@
                                 </table>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -227,58 +159,66 @@
 
     </div>
 </div>
+
+{{-- Modal Add Siswa --}}
+@component('component/modal')
+    @slot('modal_id', 'add_siswa')
+    @slot('modal_title', 'Add Siswa')
+    @slot('modal_body')
+    <form id="form_add">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="add-error-bag">
+                <ul class="mb-0" id="add-task-errors">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="name" placeholder="Enter your name...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Username</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="username" placeholder="Enter username...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Password</label>
+                    <div class="col-lg-6">
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Email</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="email" placeholder="Enter Email...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Phone</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @endslot
+@endcomponent
+
 @endsection
 
 @section('add_script')
 <script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#add-error-bag').hide();
-        $('#status').hide();
-        $('#siswa_table').DataTable({
-            pageLength : 5,
-            lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
-        });
-    });
-</script>
-<script>
-    function add(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            url: '/admin/add/siswa',
-            data: {
-                name: $("#form_add input[name=name]").val(),
-                username: $("#form_add input[name=username]").val(),
-                password: $("#form_add input[name=password]").val(),
-                email: $("#form_add input[name=email]").val(),
-                phone: $("#form_add input[name=phone]").val(),
-            },
-            dataType: 'json',
-            success: function(data) {
-                $('#btn_close_modal_add').click();
-                $('#status').show();
-                $('#status').append("Data Siswa Berhasil Diinputkan");
-                setInterval(() => {
-                    window.location.reload();
-                }, 1500);
-            },
-            error: function(data) {
-                var errors = $.parseJSON(data.responseText);
-                $('#add-task-errors').html('');
-                $.each(errors.messages, function(key, value) {
-                    $('#add-task-errors').append('<li>' + value + '</li>');
-                });
-                $("#add-error-bag").show();
-            }
-        });
-    }
-</script>
+<script src="{{ asset('js/admin.js') }}"></script>
 @endsection
