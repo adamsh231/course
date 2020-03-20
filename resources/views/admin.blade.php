@@ -4,17 +4,13 @@
 @section('add_style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ URL::asset('quixlab/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+<link href="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
 <div class="content-body">
 
     <div class="container-fluid">
-
-        <div id="status" class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-            </button>
-        </div>
 
         {{-- CARD1 --}}
         <div class="card">
@@ -41,7 +37,6 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Username</th>
-                                            <th scope="col">Password</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Phone</th>
                                             <th scope="col">Pre Test</th>
@@ -56,13 +51,6 @@
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $s->name }}</td>
                                             <td>{{ $s->username }}</td>
-                                            <td class="text-center">
-                                                <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Change Password">
-                                                        <i class="fa fa-refresh color-muted m-r-5"></i>
-                                                    </a>
-                                                </span>
-                                            </td>
                                             <td>{{ $s->email }}</td>
                                             <td>{{ $s->phone }}</td>
                                             <td class="text-center">{{ $s->pretest }}</td>
@@ -70,10 +58,12 @@
                                             <td class="text-center">{{ $s->team }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
-                                                        <i class="fa fa-pencil color-muted m-r-5"></i>
-                                                    </a>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                        <a onclick="fill_edit({{ $s->id }})" href="#" data-target="#edit_siswa" data-toggle="modal">
+                                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                                        </a>
+                                                    </span>
+                                                    <a onclick="confirm_delete({{ $s->id }}, '{{ $s->name }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-trash-o color-danger"></i>
                                                     </a>
                                                 </span>
@@ -169,7 +159,7 @@
         @csrf
         <div class="card-body">
             <div class="alert alert-danger" id="add-error-bag">
-                <ul class="mb-0" id="add-task-errors">
+                <ul class="mb-0" id="add-error">
                 </ul>
             </div>
             <div class="form-validation">
@@ -212,6 +202,66 @@
         </div>
     </form>
     @endslot
+    @slot('modal_footer')
+    <button onclick="add_siswa()" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Edit Siswa --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_siswa')
+    @slot('modal_title', 'Edit Siswa')
+    @slot('modal_body')
+    <form id="form_edit">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit-error-bag">
+                <ul class="mb-0" id="edit-error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="name" placeholder="Enter your name...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Username</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="username" placeholder="Enter username...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Password</label>
+                    <div class="col-lg-6">
+                        <input type="password" class="form-control" name="password" placeholder="Ganti Untuk Merubah Password">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Email</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="email" placeholder="Enter Email...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Phone</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Update</button>
+    @endslot
 @endcomponent
 
 @endsection
@@ -220,5 +270,6 @@
 <script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
+<script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
 @endsection

@@ -40,8 +40,14 @@ Route::group(['middleware' => ['islogin']], function () {
         //!DONE
         Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
         //!DONE
-        Route::post('/admin/add/siswa', 'AdminDataController@addSiswa');
-        //! NOT NECESSARRY, AJAX REQUEST
+        Route::post('/admin/siswa', 'AdminDataController@addSiswa');
+        //! Not Necessary, AJAX REQUEST
+        Route::get('/admin/siswa/{siswa}', 'AdminDataController@getSiswaById');
+        //! Not Necessary, AJAX REQUEST
+        Route::put('/admin/siswa/{siswa}', 'AdminDataController@editSiswa');
+        //! Not Necessary, AJAX REQUEST
+        Route::delete('/admin/siswa/{siswa}', 'AdminDataController@deleteSiswa');
+        //! Not Necessary, AJAX REQUEST
         Route::post('/admin/hadir', 'AdminController@hadir');
     });
 
