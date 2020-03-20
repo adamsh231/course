@@ -95,16 +95,16 @@
 
                                                 <div class="table-responsive check-kegiatan">
                                                     <table class="table table-bordered table-striped verticle-middle table-sm">
-                                                        <tbody>
+                                                        <tbody id="detail_kegiatan{{ $d->id }}">
                                                             @foreach ($d->deskripsi as $ddes)
                                                             <tr>
                                                                 <td>{{ $ddes->teks }}</td>
                                                                 <td style="width: 15%" class="text-center">
                                                                     <span>
-                                                                        <a class="mr-2" onclick="maintenance()" href="#">
+                                                                        <a class="mr-2" onclick="show_modal_edit_kegiatan({{ $ddes->id }}, '{{ $d->kegiatan }}')" href="#">
                                                                             <i class="fa fa-pencil color-muted m-r-5"></i>
                                                                         </a>
-                                                                        <a onclick="maintenance()" href="#">
+                                                                        <a onclick="confirm_delete_kegiatan({{ $ddes->id }}, '{{ $ddes->teks }}')" href="#">
                                                                             <i class="fa fa-trash-o color-danger"></i>
                                                                         </a>
                                                                     </span>
@@ -120,7 +120,7 @@
                                             <td>{{ $d->selesai }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a class="mr-2" onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tambah Detail Kegiatan">
+                                                    <a class="mr-2" onclick="show_modal_add_kegiatan({{ $d->id }}, '{{ $d->kegiatan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tambah Detail Kegiatan">
                                                         <i class="fa fa-plus color-muted m-r-5"></i>
                                                     </a>
                                                     <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
@@ -374,6 +374,68 @@
                     <label class="col-lg-4 col-form-label">Selesai</label>
                     <div class="col-lg-6">
                         <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Update</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Add Kegiatan --}}
+@component('component/modal')
+    @slot('modal_id', 'add_kegiatan')
+    @slot('modal_title', 'Add Detail Kegiatan')
+    @slot('modal_body')
+    <form id="form_add_kegiatan">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="add_kegiatan_error_bag">
+                <ul class="mb-0" id="add_kegiatan_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <input type="hidden" name="id_detail" value="">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="teks" placeholder="Nama Deskripsi...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button onclick="add_kegiatan()" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Add Kegiatan --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_kegiatan')
+    @slot('modal_title', 'Edit Detail Kegiatan')
+    @slot('modal_body')
+    <form id="form_edit_kegiatan">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit_kegiatan_error_bag">
+                <ul class="mb-0" id="edit_kegiatan_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="teks" placeholder="Nama Deskripsi...">
                     </div>
                 </div>
 

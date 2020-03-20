@@ -46,6 +46,10 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/pertemuan/detail/{detail}', 'AdminDetailController@getDetailById');
         Route::put('/admin/pertemuan/detail/{detail}', 'AdminDetailController@editDetail');
         Route::delete('/admin/pertemuan/detail/{detail}', 'AdminDetailController@deleteDetail');
+        Route::post('/admin/pertemuan/detail/kegiatan', 'AdminDetailController@addKegiatan');
+        Route::get('/admin/pertemuan/detail/kegiatan/{kegiatan}', 'AdminDetailController@getDeskripsiById');
+        Route::put('/admin/pertemuan/detail/kegiatan/{kegiatan}', 'AdminDetailController@editDeskripsi');
+        Route::delete('/admin/pertemuan/detail/kegiatan/{kegiatan}', 'AdminDetailController@deleteDeskripsi');
     });
 
     Route::get('/logout', 'AuthController@logout');
