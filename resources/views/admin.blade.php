@@ -76,7 +76,7 @@
                         </div>
 
                         <div class="tab-pane fade active show" id="pertemuan" role="tabpanel">
-                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                            <button type="button" class="btn mb-1 btn-outline-success float-right" data-toggle="modal" data-target="#add_pertemuan">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <div class="table-responsive">
@@ -127,10 +127,11 @@
                                             <td class="text-justify">{{ $p->kompetensi }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data"></span>
+                                                    <a href="#" onclick="fill_editP({{ $p->id }})" data-toggle="modal" data-target="#edit_pertemuan">
                                                         <i class="fa fa-pencil color-muted m-r-5"></i>
                                                     </a>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <a onclick="confirm_deleteP({{ $p->id }}, '{{ $p->nama }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-trash-o color-danger"></i>
                                                     </a>
                                                 </span>
@@ -261,6 +262,120 @@
     @endslot
     @slot('modal_footer')
     <button class="btn btn-primary submit">Update</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Add Pertemuan --}}
+@component('component/modal')
+    @slot('modal_id', 'add_pertemuan')
+    @slot('modal_title', 'Add Pertemuan')
+    @slot('modal_body')
+    <form id="form_addP">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="addP-error-bag">
+                <ul class="mb-0" id="addP-error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Pertemuan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="nama" placeholder="Enter Nama Pertemuan...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Materi</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="judul" placeholder="Enter Nama Materi...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Tanggal</label>
+                    <div class="col-lg-6">
+                        <input type="date" class="form-control" name="tanggal" placeholder="Enter Tanggal...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Kompetensi</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px kompetensi" rows="5"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Tujuan</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px tujuan" rows="5"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button onclick="add_pertemuan()" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Edit Pertemuan --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_pertemuan')
+    @slot('modal_title', 'Edit Pertemuan')
+    @slot('modal_body')
+    <form id="form_editP">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="editP-error-bag">
+                <ul class="mb-0" id="editP-error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Pertemuan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="nama" placeholder="Enter Nama Pertemuan...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Materi</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="judul" placeholder="Enter Nama Materi...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Tanggal</label>
+                    <div class="col-lg-6">
+                        <input type="date" class="form-control" name="tanggal" placeholder="Enter Tanggal...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Kompetensi</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px kompetensi" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Tujuan</label>
+                    <div class="col-lg-6">
+                        <textarea id="tujuan" class="form-control h-150px tujuan" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Add</button>
     @endslot
 @endcomponent
 

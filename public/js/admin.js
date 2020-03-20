@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $('#add-error-bag').hide();
-    $('#edit-error-bag').hide();
+    $('#addP-error-bag').hide();
     $('#siswa_table').DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
@@ -103,7 +103,6 @@ function edit_siswa(id) {
         },
         error: function (data) {
             var errors = $.parseJSON(data.responseText);
-            console.log(data.responseText);
             $('#edit-error').html('Error!');
             $.each(errors.messages, function (key, value) {
                 $('#edit-error').append('<li>' + value + '</li>');
@@ -154,6 +153,163 @@ function delete_siswa(id) {
                 title: 'Delete Gagal !',
                 type: 'error',
                 showConfirmButton: false,
+                timer: 1000
+            });
+        }
+    });
+}
+
+function add_pertemuan() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/pertemuan',
+        data: {
+            nama: $("#form_addP input[name=nama]").val(),
+            judul: $("#form_addP input[name=judul]").val(),
+            tanggal: $("#form_addP input[name=tanggal]").val(),
+            kompetensi: $.trim($("#form_addP .kompetensi").val()),
+            tujuan: $.trim($("#form_addP .tujuan").val()),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#add_pertemuan .close").click();
+            Swal.fire({
+                title: 'Berhasil ditambahkan!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setInterval(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            console.log(data.responseText);
+            var errors = $.parseJSON(data.responseText);
+            $('#addP-error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#addP-error').append('<li>' + value + '</li>');
+            });
+            $("#addP-error-bag").show();
+        }
+    });
+}
+
+function fill_editP(id) {
+    $.ajax({
+        type: 'GET',
+        url: '/admin/pertemuan/' + id + '/edit',
+        beforeSend: function () {
+            $('#editP-error-bag').hide();
+            $("#form_editP input[name=nama]").val('');
+            $("#form_editP input[name=judul]").val('');
+            $("#form_editP input[name=tanggal]").val('');
+            $("#form_editP .kompetensi").val('');
+            $("#form_editP .tujuan").val('');
+        },
+        success: function (data) {
+            $("#form_editP input[name=nama]").val(data.pertemuan.nama);
+            $("#form_editP input[name=judul]").val(data.pertemuan.judul);
+            $("#form_editP input[name=tanggal]").val(data.pertemuan.tanggal);
+            $("#form_editP .kompetensi").val(data.pertemuan.kompetensi);
+            $("#form_editP .tujuan").val(data.pertemuan.tujuan);
+            $("#edit_pertemuan .submit").click(function () {
+                edit_pertemuan(id);
+            });
+        },
+        error: function (data) {
+            $("#editP-error-bag").show();
+            $('#editP-error').html('<li>Error loading data!</li>');
+        }
+    });
+}
+
+function edit_pertemuan(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'PUT',
+        url: '/admin/pertemuan/' + id + '/edit',
+        data: {
+            nama: $("#form_editP input[name=nama]").val(),
+            judul: $("#form_editP input[name=judul]").val(),
+            tanggal: $("#form_editP input[name=tanggal]").val(),
+            kompetensi: $.trim($("#form_editP .kompetensi").val()),
+            tujuan: $.trim($("#form_editP .tujuan").val()),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#edit_pertemuan .close").click();
+            Swal.fire({
+                title: 'Update Berhasil!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setInterval(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            console.log(data.responseText);
+            var errors = $.parseJSON(data.responseText);
+            $('#editP-error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#editP-error').append('<li>' + value + '</li>');
+            });
+            $("#editP-error-bag").show();
+        }
+    });
+}
+
+function confirm_deleteP(id, nama) {
+    Swal.fire({
+        title: 'Apa anda yakin?',
+        text: "Menghapus "+nama+" !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            delete_pertemuan(id);
+        }
+    });
+}
+
+function delete_pertemuan(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin/pertemuan/' + id,
+        dataType: 'json',
+        success: function (data) {
+            Swal.fire({
+                title: 'Terhapus!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setInterval(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: 'Delete Gagal !',
+                type: 'error',
+                showConfirmButton: false,
+                timer: 1000
             });
         }
     });

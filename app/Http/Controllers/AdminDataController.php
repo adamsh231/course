@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Siswa;
+use App\Pertemuan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -88,6 +89,88 @@ class AdminDataController extends Controller
     public function deleteSiswa(Siswa $siswa)
     {
         $siswa->delete();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function addPertemuan(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => ['required'],
+                'judul' => ['required'],
+                'tanggal' => ['required'],
+                'kompetensi' => ['required'],
+                'tujuan' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $pertemuan = new Pertemuan;
+        $pertemuan->nama = $request->nama;
+        $pertemuan->judul = $request->judul;
+        $pertemuan->tanggal = $request->tanggal;
+        $pertemuan->kompetensi = $request->kompetensi;
+        $pertemuan->tujuan = $request->tujuan;
+        $pertemuan->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function getPertemuanById(Pertemuan $pertemuan)
+    {
+        return response()->json([
+            'error' => false,
+            'pertemuan' => $pertemuan,
+        ], 200);
+    }
+
+    public function editPertemuan(Request $request, Pertemuan $pertemuan)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => ['required'],
+                'judul' => ['required'],
+                'tanggal' => ['required'],
+                'kompetensi' => ['required'],
+                'tujuan' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $pertemuan->nama = $request->nama;
+        $pertemuan->judul = $request->judul;
+        $pertemuan->tanggal = $request->tanggal;
+        $pertemuan->kompetensi = $request->kompetensi;
+        $pertemuan->tujuan = $request->tujuan;
+        $pertemuan->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function deletePertemuan(Pertemuan $pertemuan)
+    {
+        $pertemuan->delete();
 
         return response()->json([
             'error' => false,

@@ -25,33 +25,25 @@ Route::group(['middleware' => ['islogout']], function () {
     Route::post('/register', 'AuthController@register');
 });
 
-//!pass data pertemuan
 Route::group(['middleware' => ['islogin']], function () {
-    //!DONE
     Route::get('/home', 'HomeController@home');
-    //!DONE
     Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
-    //! Not Necessary
     Route::get('/kuis/{id_pertemuan}', 'HomeController@kuis');
 
     Route::group(['middleware' => ['isAdmin']], function () {
-        //!DONE
         Route::get('/admin', 'AdminController@administrator');
-        //!DONE
-        Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
-        //!DONE
         Route::post('/admin/siswa', 'AdminDataController@addSiswa');
-        //! Not Necessary, AJAX REQUEST
         Route::get('/admin/siswa/{siswa}', 'AdminDataController@getSiswaById');
-        //! Not Necessary, AJAX REQUEST
         Route::put('/admin/siswa/{siswa}', 'AdminDataController@editSiswa');
-        //! Not Necessary, AJAX REQUEST
         Route::delete('/admin/siswa/{siswa}', 'AdminDataController@deleteSiswa');
-        //! Not Necessary, AJAX REQUEST
+        Route::post('/admin/pertemuan', 'AdminDataController@addPertemuan');
+        Route::get('/admin/pertemuan/{id_pertemuan}', 'AdminController@pertemuanDetail');
+        Route::get('/admin/pertemuan/{pertemuan}/edit', 'AdminDataController@getPertemuanById');
+        Route::put('/admin/pertemuan/{pertemuan}/edit', 'AdminDataController@editPertemuan');
+        Route::delete('/admin/pertemuan/{pertemuan}', 'AdminDataController@deletePertemuan');
         Route::post('/admin/hadir', 'AdminController@hadir');
     });
 
-    //! Unnecessary
     Route::get('/logout', 'AuthController@logout');
 });
 
