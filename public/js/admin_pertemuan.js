@@ -69,7 +69,7 @@ function add_detail(){
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -131,7 +131,7 @@ function edit_detail(id) {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -178,7 +178,7 @@ function delete_detail(id) {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },

@@ -30,7 +30,7 @@ function add_siswa() {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -97,7 +97,7 @@ function edit_siswa(id) {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -144,7 +144,7 @@ function delete_siswa(id) {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -183,7 +183,7 @@ function add_pertemuan() {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -251,7 +251,7 @@ function edit_pertemuan(id) {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
@@ -298,7 +298,7 @@ function delete_pertemuan(id) {
                 type: 'success',
                 showConfirmButton: false,
             });
-            setInterval(() => {
+            setTimeout(() => {
                 window.location.reload();
             }, 500);
         },
