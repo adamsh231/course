@@ -1,9 +1,11 @@
 $(document).ready(function () {
+    $('#add_detail_error_bag').hide();
     $('#table_presensi').DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
     });
 });
+
 function hadir(id, hadir) {
     $.ajaxSetup({
         headers: {
@@ -12,7 +14,7 @@ function hadir(id, hadir) {
     });
     $.ajax({
         type: 'POST',
-        url: '/admin/hadir',
+        url: '/admin/pertemuan/hadir',
         data: {
             id: id,
             kehadiran: hadir
@@ -39,6 +41,153 @@ function hadir(id, hadir) {
                 }
             }, 1500);
 
+        }
+    });
+}
+
+function add_detail(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/pertemuan/detail',
+        data: {
+            id_pertemuan: $("#form_add_detail input[name=id_pertemuan]").val(),
+            kegiatan: $("#form_add_detail input[name=kegiatan]").val(),
+            mulai: $("#form_add_detail input[name=mulai]").val(),
+            selesai: $("#form_add_detail input[name=selesai]").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#add_detail .close").click();
+            Swal.fire({
+                title: 'Berhasil ditambahkan!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setInterval(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#add_detail_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#add_detail_error').append('<li>' + value + '</li>');
+            });
+            $("#add_detail_error_bag").show();
+        }
+    });
+}
+
+function fill_edit_detail(id) {
+    $.ajax({
+        type: 'GET',
+        url: '/admin/pertemuan/detail/' + id,
+        beforeSend: function () {
+            $("#edit_detail_error_bag").hide();
+            $("#form_edit_detail input[name=kegiatan]").val('');
+            $("#form_edit_detail input[name=mulai]").val('');
+            $("#form_edit_detail input[name=selesai]").val('');
+        },
+        success: function (data) {
+            $("#form_edit_detail input[name=kegiatan]").val(data.detail.kegiatan);
+            $("#form_edit_detail input[name=mulai]").val(data.detail.mulai);
+            $("#form_edit_detail input[name=selesai]").val(data.detail.selesai);
+            $("#edit_detail .submit").click(function () {
+                edit_detail(id);
+            });
+        },
+        error: function (data) {
+            $('#edit_detail_error').html('<li>Error loading data!</li>');
+            $("#edit_detail_error_bag").show();
+        }
+    });
+}
+
+function edit_detail(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'PUT',
+        url: '/admin/pertemuan/detail/' + id ,
+        data: {
+            kegiatan: $("#form_edit_detail input[name=kegiatan]").val(),
+            mulai: $("#form_edit_detail input[name=mulai]").val(),
+            selesai: $("#form_edit_detail input[name=selesai]").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#edit_detail .close").click();
+            Swal.fire({
+                title: 'Update Berhasil!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setInterval(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#edit_detail_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#edit_detail_error').append('<li>' + value + '</li>');
+            });
+            $("#edit_detail_error_bag").show();
+        }
+    });
+}
+
+function confirm_delete_detail(id, nama) {
+    Swal.fire({
+        title: 'Apa anda yakin?',
+        text: "Menghapus "+nama+" !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            delete_detail(id);
+        }
+    });
+}
+
+function delete_detail(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin/pertemuan/detail/' + id,
+        dataType: 'json',
+        success: function (data) {
+            Swal.fire({
+                title: 'Terhapus!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setInterval(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: 'Delete Gagal !',
+                type: 'error',
+                showConfirmButton: false,
+                timer: 1000
+            });
         }
     });
 }

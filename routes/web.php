@@ -41,7 +41,11 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/pertemuan/{pertemuan}/edit', 'AdminDataController@getPertemuanById');
         Route::put('/admin/pertemuan/{pertemuan}/edit', 'AdminDataController@editPertemuan');
         Route::delete('/admin/pertemuan/{pertemuan}', 'AdminDataController@deletePertemuan');
-        Route::post('/admin/hadir', 'AdminController@hadir');
+        Route::post('/admin/pertemuan/hadir', 'AdminController@hadir');
+        Route::post('/admin/pertemuan/detail', 'AdminDetailController@addDetail');
+        Route::get('/admin/pertemuan/detail/{detail}', 'AdminDetailController@getDetailById');
+        Route::put('/admin/pertemuan/detail/{detail}', 'AdminDetailController@editDetail');
+        Route::delete('/admin/pertemuan/detail/{detail}', 'AdminDetailController@deleteDetail');
     });
 
     Route::get('/logout', 'AuthController@logout');

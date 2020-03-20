@@ -36,9 +36,6 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade  active show" id="presensi" role="tabpanel">
-                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
                             <div class="table-responsive check-presensi">
                                 <table id="table_presensi" class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
@@ -72,7 +69,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="detail" role="tabpanel">
-                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                            <button data-toggle="modal" data-target="#add_detail" type="button" class="btn mb-1 btn-outline-success float-right">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <div class="table-responsive check-kegiatan">
@@ -126,10 +123,12 @@
                                                     <a class="mr-2" onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tambah Detail Kegiatan">
                                                         <i class="fa fa-plus color-muted m-r-5"></i>
                                                     </a>
-                                                    <a class="mr-2" onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
-                                                        <i class="fa fa-pencil color-muted m-r-5"></i>
-                                                    </a>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                        <a onclick="fill_edit_detail({{ $d->id }})" class="mr-2" href="#" data-toggle="modal" data-target="#edit_detail">
+                                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                                        </a>
+                                                    </span>
+                                                    <a onclick="confirm_delete_detail({{ $d->id }},'{{ $d->kegiatan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-trash-o color-danger"></i>
                                                     </a>
                                                 </span>
@@ -294,7 +293,102 @@
         </div>
     </div>
 </div>
+
+{{-- Modal Add Detail --}}
+@component('component/modal')
+    @slot('modal_id', 'add_detail')
+    @slot('modal_title', 'Add Detail Pertemuan')
+    @slot('modal_body')
+    <form id="form_add_detail">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="add_detail_error_bag">
+                <ul class="mb-0" id="add_detail_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Kegiatan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="kegiatan" placeholder="Nama Kegiatan...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Mulai</label>
+                    <div class="col-lg-6">
+                        <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Selesai</label>
+                    <div class="col-lg-6">
+                        <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button onclick="add_detail()" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Edit Detail --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_detail')
+    @slot('modal_title', 'Edit Detail Pertemuan')
+    @slot('modal_body')
+    <form id="form_edit_detail">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit_detail_error_bag">
+                <ul class="mb-0" id="edit_detail_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Kegiatan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="kegiatan" placeholder="Nama Kegiatan...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Mulai</label>
+                    <div class="col-lg-6">
+                        <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Selesai</label>
+                    <div class="col-lg-6">
+                        <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Update</button>
+    @endslot
+@endcomponent
+
 @endsection
+
+
 
 @section('add_script')
 <script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>

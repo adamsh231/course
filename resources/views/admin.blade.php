@@ -375,7 +375,7 @@
     </form>
     @endslot
     @slot('modal_footer')
-    <button class="btn btn-primary submit">Add</button>
+    <button class="btn btn-primary submit">Update</button>
     @endslot
 @endcomponent
 
