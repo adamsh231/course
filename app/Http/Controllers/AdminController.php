@@ -8,8 +8,8 @@ use App\Pertemuan;
 use App\Detail;
 use App\Video;
 use App\Kuis;
-use App\Deskripsi;
 use App\Presensi;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -53,7 +53,7 @@ class AdminController extends Controller
                     <i id='icon_hadir$request->id' class='fa fa-times fa-2x' aria-hidden='true'></i>
                 </button>
                 ";
-        }else{
+        } else {
             $presensi->kehadiran = "Hadir";
             $replace =
                 "
@@ -64,6 +64,58 @@ class AdminController extends Controller
         }
         $presensi->save();
         return response()->json(['replace' => $replace], 200); //! 200, 422
+    }
+
+    public function acakTeam(Request $request)
+    {
+        $siswa = Siswa::all();
+        $jml_siswa = $siswa->count();
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'jumlah' => ['required', 'numeric']
+            ]
+        );
+
+        if ($request->has('ajax')) {
+            if ($validator->fails()) {
+                return response()->json([
+                    'error'    => true,
+                    'messages' => $validator->errors(),
+                    'type' => 1
+                ], 422);
+            } else if ($jml_siswa < $request->jumlah) {
+                return response()->json([
+                    'error'    => true,
+                    'messages' => 'Jumlah team tidak boleh lebih dari jumlah siswa: ' . $jml_siswa . ' siswa',
+                    'type' => 2
+                ], 417);
+            } else {
+                return response()->json([
+                    'error'    => false,
+                ], 200);
+            }
+        } else {
+            $arr_id = [];
+            $count = 0;
+            foreach ($siswa as $s) {
+                $arr_id[$count] = $s->id;
+                $count++;
+            }
+            shuffle($arr_id);
+
+            $kelompok = 1;
+            for ($i=0; $i < count($arr_id); $i++) {
+                $siswa_id = Siswa::find($arr_id[$i]);
+                $siswa_id->team = $kelompok;
+                if(($i+1) % $request->jumlah == 0){
+                    $kelompok++;
+                }
+                $siswa_id->save();
+            }
+
+            return redirect()->back();
+        }
     }
 
     private function getDetailByPertemuan($key)

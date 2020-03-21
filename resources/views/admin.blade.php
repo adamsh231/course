@@ -5,6 +5,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ URL::asset('quixlab/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('quixlab/plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -30,6 +31,18 @@
                             <button type="button" class="btn mb-1 btn-outline-success float-right" data-toggle="modal" data-target="#add_siswa">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
+
+                            <form class="form-inline" id="form_team" method="POST" action="{{ url('/admin/siswa/acak') }}">
+                                @csrf
+                                <div class="form-group mx-sm-3 mb-2">
+                                    <input type="number" class="form-control" name="jumlah" placeholder="Jumlah Team">
+                                    <div class="invalid-feedback">
+                                        Please choose a username.
+                                    </div>
+                                </div>
+                                <a href="#" onclick="acak_team()" class="btn btn-primary mb-2">Acak Team</a>
+                            </form>
+
                             <div class="table-responsive">
                                 <table id="siswa_table" class="table table-bordered table-striped verticle-middle table-md">
                                     <thead>
@@ -153,230 +166,230 @@
 
 {{-- Modal Add Siswa --}}
 @component('component/modal')
-    @slot('modal_id', 'add_siswa')
-    @slot('modal_title', 'Add Siswa')
-    @slot('modal_body')
-    <form id="form_add">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="add-error-bag">
-                <ul class="mb-0" id="add-error">
-                </ul>
+@slot('modal_id', 'add_siswa')
+@slot('modal_title', 'Add Siswa')
+@slot('modal_body')
+<form id="form_add">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add-error-bag">
+            <ul class="mb-0" id="add-error">
+            </ul>
+        </div>
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="name" placeholder="Enter your name...">
+                </div>
             </div>
-            <div class="form-validation">
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="name" placeholder="Enter your name...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Username</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="username" placeholder="Enter username...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Username</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="username" placeholder="Enter username...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Password</label>
+                <div class="col-lg-6">
+                    <input type="password" class="form-control" name="password" placeholder="Enter Password...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Password</label>
-                    <div class="col-lg-6">
-                        <input type="password" class="form-control" name="password" placeholder="Enter Password...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Email</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="email" placeholder="Enter Email...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Email</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="email" placeholder="Enter Email...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Phone</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Phone</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
                 </div>
             </div>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_siswa()" class="btn btn-primary">Add</button>
-    @endslot
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_siswa()" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Siswa --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_siswa')
-    @slot('modal_title', 'Edit Siswa')
-    @slot('modal_body')
-    <form id="form_edit">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="edit-error-bag">
-                <ul class="mb-0" id="edit-error">
-                </ul>
+@slot('modal_id', 'edit_siswa')
+@slot('modal_title', 'Edit Siswa')
+@slot('modal_body')
+<form id="form_edit">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="edit-error-bag">
+            <ul class="mb-0" id="edit-error">
+            </ul>
+        </div>
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="name" placeholder="Enter your name...">
+                </div>
             </div>
-            <div class="form-validation">
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="name" placeholder="Enter your name...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Username</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="username" placeholder="Enter username...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Username</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="username" placeholder="Enter username...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Password</label>
+                <div class="col-lg-6">
+                    <input type="password" class="form-control" name="password" placeholder="Ganti Untuk Merubah Password">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Password</label>
-                    <div class="col-lg-6">
-                        <input type="password" class="form-control" name="password" placeholder="Ganti Untuk Merubah Password">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Email</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="email" placeholder="Enter Email...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Email</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="email" placeholder="Enter Email...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Phone</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Phone</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
                 </div>
             </div>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 {{-- Modal Add Pertemuan --}}
 @component('component/modal')
-    @slot('modal_id', 'add_pertemuan')
-    @slot('modal_title', 'Add Pertemuan')
-    @slot('modal_body')
-    <form id="form_addP">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="addP-error-bag">
-                <ul class="mb-0" id="addP-error">
-                </ul>
+@slot('modal_id', 'add_pertemuan')
+@slot('modal_title', 'Add Pertemuan')
+@slot('modal_body')
+<form id="form_addP">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="addP-error-bag">
+            <ul class="mb-0" id="addP-error">
+            </ul>
+        </div>
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Pertemuan</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="nama" placeholder="Enter Nama Pertemuan...">
+                </div>
             </div>
-            <div class="form-validation">
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Pertemuan</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nama" placeholder="Enter Nama Pertemuan...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Materi</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="judul" placeholder="Enter Nama Materi...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Materi</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="judul" placeholder="Enter Nama Materi...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Tanggal</label>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="tanggal" placeholder="Enter Tanggal...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Tanggal</label>
-                    <div class="col-lg-6">
-                        <input type="date" class="form-control" name="tanggal" placeholder="Enter Tanggal...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Kompetensi</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px kompetensi" rows="5"></textarea>
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Kompetensi</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px kompetensi" rows="5"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Tujuan</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px tujuan" rows="5"></textarea>
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Tujuan</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px tujuan" rows="5"></textarea>
                 </div>
             </div>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_pertemuan()" class="btn btn-primary">Add</button>
-    @endslot
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_pertemuan()" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Pertemuan --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_pertemuan')
-    @slot('modal_title', 'Edit Pertemuan')
-    @slot('modal_body')
-    <form id="form_editP">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="editP-error-bag">
-                <ul class="mb-0" id="editP-error">
-                </ul>
+@slot('modal_id', 'edit_pertemuan')
+@slot('modal_title', 'Edit Pertemuan')
+@slot('modal_body')
+<form id="form_editP">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="editP-error-bag">
+            <ul class="mb-0" id="editP-error">
+            </ul>
+        </div>
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Pertemuan</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="nama" placeholder="Enter Nama Pertemuan...">
+                </div>
             </div>
-            <div class="form-validation">
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Pertemuan</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nama" placeholder="Enter Nama Pertemuan...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Materi</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="judul" placeholder="Enter Nama Materi...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Materi</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="judul" placeholder="Enter Nama Materi...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Tanggal</label>
+                <div class="col-lg-6">
+                    <input type="date" class="form-control" name="tanggal" placeholder="Enter Tanggal...">
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Tanggal</label>
-                    <div class="col-lg-6">
-                        <input type="date" class="form-control" name="tanggal" placeholder="Enter Tanggal...">
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Kompetensi</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px kompetensi" rows="3"></textarea>
                 </div>
+            </div>
 
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Kompetensi</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px kompetensi" rows="3"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Tujuan</label>
-                    <div class="col-lg-6">
-                        <textarea id="tujuan" class="form-control h-150px tujuan" rows="3"></textarea>
-                    </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Tujuan</label>
+                <div class="col-lg-6">
+                    <textarea id="tujuan" class="form-control h-150px tujuan" rows="3"></textarea>
                 </div>
             </div>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 @endsection
@@ -386,5 +399,6 @@
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
 @endsection

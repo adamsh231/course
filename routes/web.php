@@ -62,6 +62,7 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::put('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@editSoal');
         Route::delete('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@deleteSoal');
         Route::post('/admin/pertemuan/kuis/aktivasi/{kuis}', 'AdminDetailController@aktivasiSoal');
+        Route::post('/admin/siswa/acak', 'AdminController@acakTeam');
     });
 });
 

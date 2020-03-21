@@ -115,7 +115,7 @@ function edit_siswa(id) {
 function confirm_delete(id, nama) {
     Swal.fire({
         title: 'Apa anda yakin?',
-        text: "Menghapus "+nama+" !",
+        text: "Menghapus " + nama + " !",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -176,7 +176,7 @@ function add_pertemuan() {
             tujuan: $.trim($("#form_addP .tujuan").val()),
         },
         dataType: 'json',
-        beforeSend:function(){
+        beforeSend: function () {
             $("#add_pertemuan .btn").attr("disabled", true);
             $("#add_pertemuan .btn").html('...');
         },
@@ -276,7 +276,7 @@ function edit_pertemuan(id) {
 function confirm_deleteP(id, nama) {
     Swal.fire({
         title: 'Apa anda yakin?',
-        text: "Menghapus "+nama+" !",
+        text: "Menghapus " + nama + " !",
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -315,6 +315,48 @@ function delete_pertemuan(id) {
                 type: 'error',
                 showConfirmButton: false,
                 timer: 1000
+            });
+        }
+    });
+}
+
+function acak_team() {
+    Swal.fire({
+        title: 'Apa anda yakin?',
+        text: "Mengacak team akan merefresh ulang seluruh team yang telah dibuat!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya Acak!',
+        cancelButtonText: 'Tidak, Kembali',
+    }).then((result) => {
+        if (result.value) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/admin/siswa/acak',
+                data: {
+                    jumlah: $("#form_team input[name=jumlah]").val(),
+                    ajax: true,
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $( "#form_team" ).submit();
+                },
+                error: function (data) {
+                    var errors = $.parseJSON(data.responseText);
+                    if(errors.type == 1){
+                        toastr.error(errors.messages.jumlah);
+                    }else if(errors.type == 2){
+                        toastr.error(errors.messages);
+                    }
+
+                }
             });
         }
     });

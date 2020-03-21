@@ -9,8 +9,6 @@ use App\Deskripsi;
 use App\Video;
 use App\Kuis;
 use App\Soal;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
 
 class AdminDetailController extends Controller
 {

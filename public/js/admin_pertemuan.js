@@ -811,13 +811,14 @@ function aktivasi(id, aktif) {
             $("#block_button").html(data.replace);
         },
         error: function (data) {
-            // var errors = $.parseJSON(data.responseText);
-            // $("#ajax"+id).html(errors.error);
+            $("#btn_aktif").removeClass('btn-warning').addClass('btn-dark');
             $("#btn_aktif").html('Error!');
             setTimeout(function () {
                 if (aktif) {
+                    $("#btn_aktif").removeClass('btn-dark').addClass('btn-success');
                     $("#btn_aktif").html('Matikan Kuis');
                 }else{
+                    $("#btn_aktif").removeClass('btn-dark').addClass('btn-danger');
                     $("#btn_aktif").html('Aktifkan Kuis');
                 }
             }, 1500);
