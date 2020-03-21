@@ -266,6 +266,14 @@
                     <input type="text" class="form-control" name="phone" placeholder="Enter Phone Number...">
                 </div>
             </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Kelompok</label>
+                <div class="col-lg-6">
+                    <input type="number" class="form-control" name="team" placeholder="Kelompok siswa">
+                </div>
+            </div>
+
         </div>
     </div>
 </form>

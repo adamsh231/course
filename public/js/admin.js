@@ -56,12 +56,14 @@ function fill_edit(id) {
             $("#form_edit input[name=password]").val('');
             $("#form_edit input[name=email]").val('');
             $("#form_edit input[name=phone]").val('');
+            $("#form_edit input[name=team]").val('');
         },
         success: function (data) {
             $("#form_edit input[name=name]").val(data.siswa.name);
             $("#form_edit input[name=username]").val(data.siswa.username);
             $("#form_edit input[name=email]").val(data.siswa.email);
             $("#form_edit input[name=phone]").val(data.siswa.phone);
+            $("#form_edit input[name=team]").val(data.siswa.team);
             $("#edit_siswa .submit").click(function () {
                 edit_siswa(id);
             });
@@ -88,6 +90,7 @@ function edit_siswa(id) {
             password: $("#form_edit input[name=password]").val(),
             email: $("#form_edit input[name=email]").val(),
             phone: $("#form_edit input[name=phone]").val(),
+            team: $("#form_edit input[name=team]").val(),
         },
         dataType: 'json',
         success: function (data) {

@@ -63,6 +63,7 @@ class AdminDataController extends Controller
                 'password' => [($request->filled('password') ? 'min:8' : '')],
                 'email' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'email'],
                 'phone' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'numeric'],
+                'team' => ['required', 'numeric'],
             ]
         );
 
@@ -80,6 +81,7 @@ class AdminDataController extends Controller
         }
         $siswa->email = $request->email;
         $siswa->phone = $request->phone;
+        $siswa->team = $request->team;
         $siswa->save();
 
         return response()->json([
