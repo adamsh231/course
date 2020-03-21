@@ -35,12 +35,9 @@
                             <form class="form-inline" id="form_team" method="POST" action="{{ url('/admin/siswa/acak') }}">
                                 @csrf
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <input type="number" class="form-control" name="jumlah" placeholder="Jumlah Team">
-                                    <div class="invalid-feedback">
-                                        Please choose a username.
-                                    </div>
+                                    <input type="number" class="form-control" name="jumlah" placeholder="Jumlah Kelompok">
                                 </div>
-                                <a href="#" onclick="acak_team()" class="btn btn-primary mb-2">Acak Team</a>
+                                <a href="#" onclick="acak_team()" class="btn btn-primary mb-2">Acak Kelompok</a>
                             </form>
 
                             <div class="table-responsive">
@@ -54,7 +51,7 @@
                                             <th scope="col">Phone</th>
                                             <th scope="col">Pre Test</th>
                                             <th scope="col">Post Test</th>
-                                            <th scope="col">Team</th>
+                                            <th scope="col">Kelompok</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>

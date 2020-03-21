@@ -108,7 +108,7 @@ class AdminController extends Controller
             for ($i=0; $i < count($arr_id); $i++) {
                 $siswa_id = Siswa::find($arr_id[$i]);
                 $siswa_id->team = $kelompok;
-                if(($i+1) % $request->jumlah == 0){
+                if(($i+1) % ($jml_siswa/$request->jumlah) == 0){
                     $kelompok++;
                 }
                 $siswa_id->save();
