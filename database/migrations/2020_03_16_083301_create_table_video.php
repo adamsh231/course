@@ -17,7 +17,7 @@ class CreateTableVideo extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_pertemuan');
             $table->string('nama');
-            $table->string('path');
+            $table->string('path')->nullable();
             $table->text('deskripsi')->nullable();
             $table->timestamps();
         });

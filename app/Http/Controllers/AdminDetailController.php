@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Detail;
 use App\Deskripsi;
+use App\Video;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -223,6 +224,74 @@ class AdminDetailController extends Controller
             'error' => false,
             'append' => $append,
             'id_detail' => $id_detail
+        ], 200);
+    }
+
+    public function addVideo(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => ['required'],
+                'deskripsi' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $video = new Video;
+        $video->id_pertemuan = $request->id_pertemuan;
+        $video->nama = $request->nama;
+        $video->deskripsi = $request->deskripsi;
+        $video->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function getVideoById(Video $video){
+        return response()->json([
+            'error' => false,
+            'video' => $video,
+        ], 200);
+    }
+
+    public function editVideo(Request $request,Video $video){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => ['required'],
+                'deskripsi' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $video->nama = $request->nama;
+        $video->deskripsi = $request->deskripsi;
+        $video->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function deleteVideo(Video $video)
+    {
+        $video->delete();
+
+        return response()->json([
+            'error' => false,
         ], 200);
     }
 }

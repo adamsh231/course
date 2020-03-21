@@ -29,7 +29,7 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/home', 'HomeController@home');
     Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
     Route::get('/kuis/{id_pertemuan}', 'HomeController@kuis');
-
+    Route::get('/logout', 'AuthController@logout');
     Route::group(['middleware' => ['isAdmin']], function () {
         Route::get('/admin', 'AdminController@administrator');
         Route::post('/admin/siswa', 'AdminDataController@addSiswa');
@@ -50,9 +50,11 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/pertemuan/detail/kegiatan/{kegiatan}', 'AdminDetailController@getDeskripsiById');
         Route::put('/admin/pertemuan/detail/kegiatan/{kegiatan}', 'AdminDetailController@editDeskripsi');
         Route::delete('/admin/pertemuan/detail/kegiatan/{kegiatan}', 'AdminDetailController@deleteDeskripsi');
+        Route::post('/admin/pertemuan/video', 'AdminDetailController@addVideo');
+        Route::get('/admin/pertemuan/video/{video}', 'AdminDetailController@getVideoById');
+        Route::put('/admin/pertemuan/video/{video}', 'AdminDetailController@editVideo');
+        Route::delete('/admin/pertemuan/video/{video}', 'AdminDetailController@deleteVideo');
     });
-
-    Route::get('/logout', 'AuthController@logout');
 });
 
 // Route::fallback(function () {

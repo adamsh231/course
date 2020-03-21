@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $('#add_detail_error_bag').hide();
     $('#add_kegiatan_error_bag').hide();
+    $('#add_video_error_bag').hide();
     $('#table_presensi').DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
@@ -337,6 +338,149 @@ function delete_kegiatan(id) {
                 type: 'error',
                 showConfirmButton: false,
                 timer: 700
+            });
+        }
+    });
+}
+
+function add_video(){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/pertemuan/video',
+        data: {
+            id_pertemuan: $("#form_add_video input[name=id_pertemuan]").val(),
+            nama: $("#form_add_video input[name=nama]").val(),
+            deskripsi: $.trim($("#form_add_video .deskripsi").val()),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#add_video .close").click();
+            Swal.fire({
+                title: 'Berhasil ditambahkan!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#add_video_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#add_video_error').append('<li>' + value + '</li>');
+            });
+            $("#add_video_error_bag").show();
+        }
+    });
+}
+
+function fill_edit_video(id) {
+    $.ajax({
+        type: 'GET',
+        url: '/admin/pertemuan/video/' + id,
+        beforeSend: function () {
+            $("#edit_video_error_bag").hide();
+            $("#form_edit_video input[name=nama]").val('');
+            $("#form_edit_video .deskripsi").val('');
+        },
+        success: function (data) {
+            $("#form_edit_video input[name=nama]").val(data.video.nama);
+            $("#form_edit_video .deskripsi").val(data.video.deskripsi);
+            $("#edit_video .submit").click(function () {
+                edit_video(id);
+            });
+        },
+        error: function (data) {
+            $('#edit_video_error').html('<li>Error loading data!</li>');
+            $("#edit_video_error_bag").show();
+        }
+    });
+}
+
+function edit_video(id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'PUT',
+        url: '/admin/pertemuan/video/' + id ,
+        data: {
+            nama: $("#form_edit_video input[name=nama]").val(),
+            deskripsi: $.trim($("#form_edit_video .deskripsi").val()),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#edit_video .close").click();
+            Swal.fire({
+                title: 'Update Berhasil!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#edit_video_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#edit_video_error').append('<li>' + value + '</li>');
+            });
+            $("#edit_video_error_bag").show();
+        }
+    });
+}
+
+function confirm_delete_video(id, nama) {
+    Swal.fire({
+        title: 'Apa anda yakin?',
+        text: "Menghapus "+nama+" !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+             delete_video(id);
+        }
+    });
+}
+
+function delete_video(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin/pertemuan/video/' + id,
+        dataType: 'json',
+        success: function (data) {
+            Swal.fire({
+                title: 'Terhapus!',
+                type: 'success',
+                showConfirmButton: false,
+            });
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+        },
+        error: function (data) {
+            Swal.fire({
+                title: 'Delete Gagal !',
+                type: 'error',
+                showConfirmButton: false,
+                timer: 1000
             });
         }
     });

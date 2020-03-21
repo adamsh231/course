@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="tab-pane fade" id="video" role="tabpanel">
-                            <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                            <button data-target="#add_video" data-toggle="modal" type="button" class="btn mb-1 btn-outline-success float-right">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <div class="table-responsive check-file">
@@ -170,10 +170,12 @@
                                             </td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
-                                                        <i class="fa fa-pencil color-muted m-r-5"></i>
-                                                    </a>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                        <a onclick="fill_edit_video({{ $v->id }})" data-target="#edit_video" data-toggle="modal" href="#">
+                                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                                        </a>
+                                                    </span>
+                                                    <a onclick="confirm_delete_video({{ $v->id }}, '{{ $v->nama }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                         <i class="fa fa-trash-o color-danger"></i>
                                                     </a>
                                                 </span>
@@ -418,24 +420,70 @@
     @endslot
 @endcomponent
 
-{{-- Modal Add Kegiatan --}}
+{{-- Modal Add Video --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_kegiatan')
-    @slot('modal_title', 'Edit Detail Kegiatan')
+    @slot('modal_id', 'add_video')
+    @slot('modal_title', 'Add Video')
     @slot('modal_body')
-    <form id="form_edit_kegiatan">
+    <form id="form_add_video">
         @csrf
         <div class="card-body">
-            <div class="alert alert-danger" id="edit_kegiatan_error_bag">
-                <ul class="mb-0" id="edit_kegiatan_error">
+            <div class="alert alert-danger" id="add_video_error_bag">
+                <ul class="mb-0" id="add_video_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Video</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Deskripsi</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button onclick="add_video()" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Edit Video --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_video')
+    @slot('modal_title', 'Edit Video')
+    @slot('modal_body')
+    <form id="form_edit_video">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit_video_error_bag">
+                <ul class="mb-0" id="edit_video_error">
                 </ul>
             </div>
             <div class="form-validation">
 
                 <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
+                    <label class="col-lg-4 col-form-label">Nama Video</label>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control" name="teks" placeholder="Nama Deskripsi...">
+                        <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Deskripsi</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
                     </div>
                 </div>
 
