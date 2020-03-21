@@ -349,6 +349,13 @@ function acak_team() {
                 },
                 dataType: 'json',
                 success: function (data) {
+                    Swal.fire({
+                        title: 'Generated!',
+                        text: 'Reloading...',
+                        type: 'success',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
                     $( "#form_team" ).submit();
                 },
                 error: function (data) {
