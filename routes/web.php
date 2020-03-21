@@ -54,6 +54,14 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/pertemuan/video/{video}', 'AdminDetailController@getVideoById');
         Route::put('/admin/pertemuan/video/{video}', 'AdminDetailController@editVideo');
         Route::delete('/admin/pertemuan/video/{video}', 'AdminDetailController@deleteVideo');
+        Route::post('/admin/pertemuan/kuis/', 'AdminDetailController@addKuis');
+        Route::put('/admin/pertemuan/kuis/{kuis}', 'AdminDetailController@editKuis');
+        Route::delete('/admin/pertemuan/kuis/{kuis}', 'AdminDetailController@deleteKuis');
+        Route::post('/admin/pertemuan/kuis/soal', 'AdminDetailController@addSoal');
+        Route::get('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@getSoalById');
+        Route::put('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@editSoal');
+        Route::delete('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@deleteSoal');
+        Route::post('/admin/pertemuan/kuis/aktivasi/{kuis}', 'AdminDetailController@aktivasiSoal');
     });
 });
 

@@ -194,12 +194,12 @@
                                     <div>
                                         <ul class="mb-0 form-profile__icons float-right">
                                             <li class="d-inline-block">
-                                                <button onclick="maintenance()" class="btn btn-transparent p-0 mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Kuis">
+                                                <button onclick="fill_edit_kuis({{ $kuis->id }}, '{{ $kuis->nama }}', '{{ $kuis->waktu }}')" class="btn btn-transparent p-0 mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Kuis">
                                                     <i class="fa fa-pencil fa-2x"></i>
                                                 </button>
                                             </li>
                                             <li class="d-inline-block">
-                                                <button onclick="maintenance()" class="btn btn-transparent p-0 mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Kuis">
+                                                <button onclick="confirm_delete_kuis({{ $kuis->id }}, '{{ $kuis->nama }}')" class="btn btn-transparent p-0 mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Kuis">
                                                     <i class="fa fa-trash-o fa-2x"></i>
                                                 </button>
                                             </li>
@@ -212,18 +212,22 @@
                                             Lihat Kunci Jawaban
                                         </button>
                                         @if ($kuis->aktif)
-                                        <button onclick="maintenance()" type="button" class="btn mb-4 btn-success text-white">
-                                            Matikan Kuis
-                                        </button>
+                                        <div id="block_button" class="d-inline">
+                                            <button id="btn_aktif" onclick="aktivasi({{ $kuis->id }}, 1)" type="button" class="btn mb-4 btn-success text-white">
+                                                Matikan Kuis
+                                            </button>
+                                        </div>
                                         @else
-                                        <button onclick="maintenance()" type="button" class="btn mb-4 btn-danger">
-                                            Aktifkan Kuis
-                                        </button>
+                                        <div id="block_button" class="d-inline">
+                                            <button id="btn_aktif" onclick="aktivasi({{ $kuis->id }}, 0)" type="button" class="btn mb-4 btn-danger">
+                                                Aktifkan Kuis
+                                            </button>
+                                        </div>
                                         @endif
                                         <div class="card-footer text-muted">Waktu Pengerjaan {{ $kuis->waktu }} Menit</div>
                                     </div>
                                     <div>
-                                        <button onclick="maintenance()" type="button" class="btn mb-1 btn-outline-success float-right">
+                                        <button data-target="#add_soal" data-toggle="modal" type="button" class="btn mb-1 btn-outline-success float-right">
                                             <i class="fa fa-plus" aria-hidden="true"></i>
                                         </button>
                                     </div>
@@ -241,7 +245,7 @@
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="table_soal">
                                             @foreach ($kuis->soal as $ks)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
@@ -260,10 +264,10 @@
                                                 <td class="text-center">{{ $ks->jawaban }}</td>
                                                 <td class="text-center">
                                                     <span>
-                                                        <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                        <a onclick="fill_edit_soal({{ $ks->id }})" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                             <i class="fa fa-pencil color-muted m-r-5"></i>
                                                         </a>
-                                                        <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                        <a onclick="confirm_delete_soal({{ $ks->id }}, '{{ $ks->pertanyaan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                             <i class="fa fa-trash-o color-danger"></i>
                                                         </a>
                                                     </span>
@@ -279,7 +283,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Tidak ada Kuis pada pertemuan ini</h5>
                                         <p class="card-text">Jika ingin menambahkan klik tambahkan</p>
-                                        <a href="#" onclick="maintenance()" class="btn btn-primary">Tambahkan</a>
+                                        <a href="#" data-toggle="modal" data-target="#add_kuis" class="btn btn-primary">Tambahkan</a>
                                     </div>
                                 </div>
                                 @endif
@@ -420,6 +424,37 @@
     @endslot
 @endcomponent
 
+{{-- Modal Edit Kegiatan --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_kegiatan')
+    @slot('modal_title', 'Edit Detail Kegiatan')
+    @slot('modal_body')
+    <form id="form_edit_kegiatan">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit_kegiatan_error_bag">
+                <ul class="mb-0" id="edit_kegiatan_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="teks" placeholder="Nama Deskripsi...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Update</button>
+    @endslot
+@endcomponent
+
 {{-- Modal Add Video --}}
 @component('component/modal')
     @slot('modal_id', 'add_video')
@@ -484,6 +519,220 @@
                     <label class="col-lg-4 col-form-label">Deskripsi</label>
                     <div class="col-lg-6">
                         <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Update</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Add Kuis --}}
+@component('component/modal')
+    @slot('modal_id', 'add_kuis')
+    @slot('modal_title', 'Add Kuis')
+    @slot('modal_body')
+    <form id="form_add_kuis">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="add_kuis_error_bag">
+                <ul class="mb-0" id="add_kuis_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Kuis</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="nama" placeholder="Nama Kuis...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
+                    <div class="col-lg-6">
+                        <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button onclick="add_kuis({{ $id_pertemuan->id }})" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Edit Kuis --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_kuis')
+    @slot('modal_title', 'Edit Kuis')
+    @slot('modal_body')
+    <form id="form_edit_kuis">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit_kuis_error_bag">
+                <ul class="mb-0" id="edit_kuis_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Nama Kuis</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="nama" placeholder="Nama Kuis...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
+                    <div class="col-lg-6">
+                        <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button class="btn btn-primary submit">Update</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Add Soal --}}
+@component('component/modal')
+    @slot('modal_id', 'add_soal')
+    @slot('modal_title', 'Add Soal')
+    @slot('modal_body')
+    <form id="form_add_soal">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="add_soal_error_bag">
+                <ul class="mb-0" id="add_soal_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Pertanyaan</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">A</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="A" placeholder="Pilihan A">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">B</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="B" placeholder="Pilihan B">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">C</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="C" placeholder="Pilihan C">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">D</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="D" placeholder="Pilihan D">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Jawaban</label>
+                    <div class="col-lg-6">
+                        <select class="form-control select">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    @endslot
+    @slot('modal_footer')
+    <button onclick="add_soal({{ $kuis->id ?? '' }})" class="btn btn-primary">Add</button>
+    @endslot
+@endcomponent
+
+{{-- Modal Edit Soal --}}
+@component('component/modal')
+    @slot('modal_id', 'edit_soal')
+    @slot('modal_title', 'Edit Soal')
+    @slot('modal_body')
+    <form id="form_edit_soal">
+        @csrf
+        <div class="card-body">
+            <div class="alert alert-danger" id="edit_soal_error_bag">
+                <ul class="mb-0" id="edit_soal_error">
+                </ul>
+            </div>
+            <div class="form-validation">
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Pertanyaan</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">A</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="A" placeholder="Pilihan A">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">B</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="B" placeholder="Pilihan B">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">C</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="C" placeholder="Pilihan C">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">D</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="D" placeholder="Pilihan D">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Jawaban</label>
+                    <div class="col-lg-6">
+                        <select class="form-control select">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
                     </div>
                 </div>
 

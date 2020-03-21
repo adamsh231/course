@@ -188,6 +188,7 @@ function add_pertemuan() {
             }, 500);
         },
         error: function (data) {
+            console.log(data.responseText);
             var errors = $.parseJSON(data.responseText);
             $('#addP-error').html('Error!');
             $.each(errors.messages, function (key, value) {

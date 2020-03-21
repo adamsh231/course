@@ -17,7 +17,7 @@ class CreatePresensiTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_pertemuan');
             $table->unsignedBigInteger('id_siswa');
-            $table->enum('kehadiran',['Tidak Hadir', 'Hadir']);
+            $table->enum('kehadiran',['Tidak Hadir', 'Hadir'])->default('Tidak Hadir');
             $table->timestamps();
         });
     }

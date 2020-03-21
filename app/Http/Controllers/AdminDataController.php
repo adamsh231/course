@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Siswa;
 use App\Pertemuan;
+use App\Presensi;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -122,6 +123,14 @@ class AdminDataController extends Controller
         $pertemuan->kompetensi = $request->kompetensi;
         $pertemuan->tujuan = $request->tujuan;
         $pertemuan->save();
+
+        $siswa = Siswa::all();
+        foreach($siswa as $s){
+            $presensi = new Presensi;
+            $presensi->id_pertemuan = $pertemuan->id;
+            $presensi->id_siswa = $s->id;
+            $presensi->save();
+        }
 
         return response()->json([
             'error' => false,
