@@ -176,6 +176,10 @@ function add_pertemuan() {
             tujuan: $.trim($("#form_addP .tujuan").val()),
         },
         dataType: 'json',
+        beforeSend:function(){
+            $("#add_pertemuan .btn").attr("disabled", true);
+            $("#add_pertemuan .btn").html('...');
+        },
         success: function (data) {
             $("#add_pertemuan .close").click();
             Swal.fire({
@@ -188,6 +192,8 @@ function add_pertemuan() {
             }, 500);
         },
         error: function (data) {
+            $("#add_pertemuan .btn").attr("disabled", false);
+            $("#add_pertemuan .btn").html('Add');
             console.log(data.responseText);
             var errors = $.parseJSON(data.responseText);
             $('#addP-error').html('Error!');
