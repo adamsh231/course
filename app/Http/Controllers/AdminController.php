@@ -42,14 +42,17 @@ class AdminController extends Controller
     }
 
     public function filePertemuan(Pertemuan $id_pertemuan){
+        $kuis = Kuis::where('id_pertemuan',$id_pertemuan->id)->first();
         $pertemuan = $this->getAllPertemuan();
         return view('file_pertemuan', [
             'pertemuan' => $pertemuan,
-            'id_pertemuan' => $id_pertemuan
+            'id_pertemuan' => $id_pertemuan,
+            'kuis' => $kuis
         ]);
     }
 
     public function addFilePertemuan(Request $request,Pertemuan $pertemuan){
+        $kuis = Kuis::where('id_pertemuan',$pertemuan->id)->first();
         $messages = "";
         if($request->has('materi')){
             $request->validate(['materi' => ['mimes:pdf']]);
@@ -78,9 +81,17 @@ class AdminController extends Controller
             $pertemuan->tugas = 'file/tugas/'.$file_name;
             $pertemuan->save();
             $messages = "Upload Tugas Sukses!";
+        }else if($request->has('jawaban')){
+            $request->validate(['jawaban' => ['mimes:pdf']]);
+            $file = $request->file('jawaban');
+            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file->storeAs('file/jawaban/', $file_name, 'public');
+            Storage::disk('public')->delete($pertemuan->tugas);
+            $kuis->jawaban = 'file/jawaban/'.$file_name;
+            $kuis->save();
+            $messages = "Upload Kunci Jawaban Sukses!";
         }
 
-        // dd($messages);
         return back()->with('status', $messages == "" ? 'Upload Gagal File Tidak Boleh Kosong!' : $messages);
     }
 

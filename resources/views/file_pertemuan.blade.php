@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-6 border-right">
                                 <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                    <button class="btn btn-info mt-2 ml-2">Lihat File</button>
+                                    <a href="{{ url('storage/'.$id_pertemuan->materi) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -85,7 +85,7 @@
                         <div class="row">
                             <div class="col-6 border-right">
                                 <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                    <button class="btn btn-info mt-2 ml-2">Lihat File</button>
+                                    <a href="{{ url('storage/'.$id_pertemuan->diskusi) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -124,7 +124,7 @@
                         <div class="row">
                             <div class="col-6 border-right">
                                 <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                    <button class="btn btn-info mt-2 ml-2">Lihat File</button>
+                                    <a href="{{ url('storage/'.$id_pertemuan->tugas) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -155,7 +155,8 @@
                     </div>
                 </div>
 
-                {{-- <div class="col-lg-3 col-sm-6">
+                @if ($kuis)
+                <div class="col-lg-3 col-sm-6">
                     <div class="card">
                         <div class="social-graph-wrapper widget-linkedin">
                             <span class="s-icon">Jawaban</span>
@@ -163,12 +164,12 @@
                         <div class="row">
                             <div class="col-6 border-right">
                                 <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                    <button class="btn btn-info mt-2 ml-2">Lihat File</button>
+                                    <a href="{{ url('storage/'.$kuis->jawaban) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="pt-3 pb-3 pl-0 pr-0 text-center">
-                                    @if ($id_pertemuan->materi)
+                                    @if ($kuis->jawaban)
                                     <i class="fa fa-check-circle fa-4x  text-success"></i>
                                     @else
                                     <i class="fa fa-times-circle fa-4x  text-danger"></i>
@@ -181,8 +182,9 @@
                                     <div class="card mb-0">
                                         <div class="card-body">
                                             <h4 class="mt-1">Change / Upload File</h4>
-                                            <form class="form-control" action="">
-                                                <input type="file" name="materi">
+                                            <form class="form-control" action="{{ url('/admin/pertemuan/'.$id_pertemuan->id.'/file') }}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="file" name="jawaban">
                                                 <button type="submit" class="btn btn-info btn-sm float-right mt-4">Submit</button>
                                             </form>
                                         </div>
@@ -191,7 +193,9 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
+                @endif
+
 
             </div>
 

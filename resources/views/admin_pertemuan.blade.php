@@ -204,9 +204,9 @@
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{ strtoupper($kuis->nama) }}</h5>
                                         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <button onclick="maintenance()" type="button" class="btn mb-4 btn-info">
+                                        <a href="{{ url('storage/'.$kuis->jawaban) }}" target="_blank" type="button" class="btn mb-4 btn-info">
                                             Lihat Kunci Jawaban
-                                        </button>
+                                        </a>
                                         @if ($kuis->aktif)
                                         <div id="block_button" class="d-inline">
                                             <button id="btn_aktif" onclick="aktivasi({{ $kuis->id }}, 1)" type="button" class="btn mb-4 btn-success text-white">
