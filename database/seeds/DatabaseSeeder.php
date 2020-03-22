@@ -55,9 +55,9 @@ class DatabaseSeeder extends Seeder
                 'judul' => $faker->sentence($nbWords = $faker->numberBetween(3, 5), $variableNbWords = true),
                 'tanggal' => $faker->date($format = 'Y-m-d', $max = 'now'),
                 // 'tanggal' => '2020-04-' . ($i * 4),
-                'diskusi' => '/diskusi/' . $faker->word . '.pdf',
-                'tugas' => '/tugas/' . $faker->word . '.pdf',
-                'materi' => '/materi/' . $faker->word . '.pdf',
+                // 'diskusi' => '/diskusi/' . $faker->word . '.pdf',
+                // 'tugas' => '/tugas/' . $faker->word . '.pdf',
+                // 'materi' => '/materi/' . $faker->word . '.pdf',
                 'kompetensi' => $faker->sentence($nbWords = $faker->numberBetween(20, 30), $variableNbWords = true),
                 'tujuan' => $faker->sentence($nbWords = $faker->numberBetween(20, 30), $variableNbWords = true),
             ]);
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
                     'id' => $id['video'],
                     'id_pertemuan' => $i,
                     'nama' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
-                    'path' => '/materi/' . $faker->word . '.mp4',
+                    // 'path' => '/materi/' . $faker->word . '.mp4',
                     'deskripsi' => $faker->sentence($nbWords = $faker->numberBetween(20, 30), $variableNbWords = true),
                 ]);
                 $id['video']++;
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder
                 'nama' => 'kuis' . $i,
                 'waktu' => $faker->numberBetween(20, 60),
                 'aktif' => $faker->numberBetween(0, 1),
-                'jawaban' => '/jawaban/' . 'kuis' . $i . '.pdf',
+                // 'jawaban' => '/jawaban/' . 'kuis' . $i . '.pdf',
             ]);
             for ($j = 1; $j <= $faker->numberBetween(10, $jml_max_soal); $j++) {
                 DB::table('soal')->insert([

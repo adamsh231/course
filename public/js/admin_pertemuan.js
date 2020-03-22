@@ -356,6 +356,7 @@ function add_video(){
         data: {
             id_pertemuan: $("#form_add_video input[name=id_pertemuan]").val(),
             nama: $("#form_add_video input[name=nama]").val(),
+            path: $("#form_add_video input[name=path]").val(),
             deskripsi: $.trim($("#form_add_video .deskripsi").val()),
         },
         dataType: 'json',
@@ -388,10 +389,12 @@ function fill_edit_video(id) {
         beforeSend: function () {
             $("#edit_video_error_bag").hide();
             $("#form_edit_video input[name=nama]").val('');
+            $("#form_edit_video input[name=path]").val(),
             $("#form_edit_video .deskripsi").val('');
         },
         success: function (data) {
             $("#form_edit_video input[name=nama]").val(data.video.nama);
+            $("#form_edit_video input[name=path]").val(data.video.path),
             $("#form_edit_video .deskripsi").val(data.video.deskripsi);
             $("#edit_video .submit").click(function () {
                 edit_video(id);
@@ -415,6 +418,7 @@ function edit_video(id){
         url: '/admin/pertemuan/video/' + id ,
         data: {
             nama: $("#form_edit_video input[name=nama]").val(),
+            path: $("#form_edit_video input[name=path]").val(),
             deskripsi: $.trim($("#form_edit_video .deskripsi").val()),
         },
         dataType: 'json',

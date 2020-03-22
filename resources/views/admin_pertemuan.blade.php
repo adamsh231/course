@@ -151,7 +151,7 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Deskripsi</th>
-                                            <th scope="col">File</th>
+                                            <th scope="col">Link</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -161,12 +161,8 @@
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $v->nama }}</td>
                                             <td class="text-justify">{{ $v->deskripsi }}</td>
-                                            <td class="text-center">
-                                                <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
-                                                        <i class="fa fa-eye color-danger"></i>
-                                                    </a>
-                                                </span>
+                                            <td>
+                                                <a href="{{ $v->path }}" target="_blank">{{ substr($v->path, 0, 40) }}</a>
                                             </td>
                                             <td class="text-center">
                                                 <span>
@@ -479,6 +475,13 @@
                 </div>
 
                 <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Link</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="path" placeholder="Link URL Video">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Deskripsi</label>
                     <div class="col-lg-6">
                         <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
@@ -512,6 +515,13 @@
                     <label class="col-lg-4 col-form-label">Nama Video</label>
                     <div class="col-lg-6">
                         <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">Link</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="path" placeholder="Link URL Video ...">
                     </div>
                 </div>
 

@@ -10,6 +10,7 @@ use App\Video;
 use App\Kuis;
 use App\Presensi;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -38,6 +39,49 @@ class AdminController extends Controller
                 'id_pertemuan' => $id_pertemuan
             ]
         );
+    }
+
+    public function filePertemuan(Pertemuan $id_pertemuan){
+        $pertemuan = $this->getAllPertemuan();
+        return view('file_pertemuan', [
+            'pertemuan' => $pertemuan,
+            'id_pertemuan' => $id_pertemuan
+        ]);
+    }
+
+    public function addFilePertemuan(Request $request,Pertemuan $pertemuan){
+        $messages = "";
+        if($request->has('materi')){
+            $request->validate(['materi' => ['mimes:pdf']]);
+            $file = $request->file('materi');
+            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file->storeAs('file/materi/', $file_name, 'public');
+            Storage::disk('public')->delete($pertemuan->materi);
+            $pertemuan->materi = 'file/materi/'.$file_name;
+            $pertemuan->save();
+            $messages = "Upload Materi Sukses!";
+        }else if($request->has('diskusi')){
+            $request->validate(['diskusi' => ['mimes:html']]);
+            $file = $request->file('diskusi');
+            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file->storeAs('file/diskusi/', $file_name, 'public');
+            Storage::disk('public')->delete($pertemuan->diskusi);
+            $pertemuan->diskusi = 'file/diskusi/'.$file_name;
+            $pertemuan->save();
+            $messages = "Upload Diskusi Sukses!";
+        }else if($request->has('tugas')){
+            $request->validate(['tugas' => ['mimes:pdf']]);
+            $file = $request->file('tugas');
+            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file->storeAs('file/tugas/', $file_name, 'public');
+            Storage::disk('public')->delete($pertemuan->tugas);
+            $pertemuan->tugas = 'file/tugas/'.$file_name;
+            $pertemuan->save();
+            $messages = "Upload Tugas Sukses!";
+        }
+
+        // dd($messages);
+        return back()->with('status', $messages == "" ? 'Upload Gagal File Tidak Boleh Kosong!' : $messages);
     }
 
     public function hadir(Request $request)

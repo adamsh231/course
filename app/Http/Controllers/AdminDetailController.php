@@ -235,6 +235,7 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'nama' => ['required'],
+                'path' => ['required', 'url'],
                 'deskripsi' => ['required'],
             ]
         );
@@ -249,6 +250,7 @@ class AdminDetailController extends Controller
         $video = new Video;
         $video->id_pertemuan = $request->id_pertemuan;
         $video->nama = $request->nama;
+        $video->path = $request->path;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 
@@ -271,6 +273,7 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'nama' => ['required'],
+                'path' => ['required', 'url'],
                 'deskripsi' => ['required'],
             ]
         );
@@ -283,6 +286,7 @@ class AdminDetailController extends Controller
         }
 
         $video->nama = $request->nama;
+        $video->path = $request->path;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 

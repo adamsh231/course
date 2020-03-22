@@ -97,9 +97,7 @@
                                             <th scope="col">Nama</th>
                                             <th scope="col">Judul</th>
                                             <th scope="col">Tanggal</th>
-                                            <th scope="col">Diskusi</th>
-                                            <th scope="col">Tugas</th>
-                                            <th scope="col">Materi</th>
+                                            <th scope="col">File</th>
                                             <th scope="col">Kompetensi</th>
                                             <th scope="col">Tujuan</th>
                                             <th scope="col">Action</th>
@@ -114,21 +112,7 @@
                                             <td class="text-center">{{ date('d/m/Y', strtotime($p->tanggal)) }}</td>
                                             <td class="text-center">
                                                 <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
-                                                        <i class="fa fa-eye color-danger"></i>
-                                                    </a>
-                                                </span>
-                                            </td>
-                                            <td class="text-center">
-                                                <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
-                                                        <i class="fa fa-eye color-danger"></i>
-                                                    </a>
-                                                </span>
-                                            </td>
-                                            <td class="text-center">
-                                                <span>
-                                                    <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
+                                                    <a href="{{ url('/admin/pertemuan/'.$p->id.'/file') }}" data-toggle="tooltip" data-placement="top" title="" data-original-title="File detail">
                                                         <i class="fa fa-eye color-danger"></i>
                                                     </a>
                                                 </span>
