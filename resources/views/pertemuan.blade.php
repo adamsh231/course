@@ -54,7 +54,7 @@
                                 <div id="collapseOne4" class="collapse show">
                                     <div class="card-body">
                                         <b> Kompetensi Dasar: </b>
-                                        <p>{{ $id_pertemuan->kompetensi }}</p>
+                                        <p>{{ $id_pertemuan->kompetensi}}</p>
                                         <b> Tujuan: </b>
                                         <p>{{ $id_pertemuan->tujuan }}</p>
                                     </div>
@@ -78,7 +78,8 @@
                                                 $diff_minute = (date('i', strtotime($d->selesai)) - date('i', strtotime($d->mulai)));
                                                 $diff = $diff_hour + $diff_minute;
                                                 @endphp
-                                                <h1 class='member-title mb-2'>{{ $d->kegiatan }} ({{ $diff }} menit)</h1>
+                                                {{-- <h1 class='member-title mb-2'>{{ $d->kegiatan }} ({{ $diff }} menit)</h1> --}}
+                                                <h1 class='member-title mb-2'>{{ $d->kegiatan }}</h1>
                                                 <div class="member-location">
                                                     @foreach ($d->deskripsi as $ddes)
                                                     <p>

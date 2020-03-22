@@ -117,8 +117,8 @@
                                                     </a>
                                                 </span>
                                             </td>
-                                            <td class="text-justify">{{ $p->tujuan }}</td>
                                             <td class="text-justify">{{ $p->kompetensi }}</td>
+                                            <td class="text-justify">{{ $p->tujuan }}</td>
                                             <td class="text-center">
                                                 <span>
                                                     <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data"></span>

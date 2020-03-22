@@ -116,8 +116,8 @@
                                                 </div>
 
                                             </td>
-                                            <td>{{ $d->mulai }}</td>
-                                            <td>{{ $d->selesai }}</td>
+                                            <td class="text-center">{{ $d->mulai }}</td>
+                                            <td class="text-center">{{ $d->selesai }}</td>
                                             <td class="text-center">
                                                 <span>
                                                     <a class="mr-2" onclick="show_modal_add_kegiatan({{ $d->id }}, '{{ $d->kegiatan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Tambah Detail Kegiatan">
@@ -244,7 +244,7 @@
                                             @foreach ($kuis->soal as $ks)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-justify">{{ $ks->pertanyaan }}</td>
+                                                <td class="text-justify">{!! $ks->pertanyaan !!}</td>
                                                 <td>{{ $ks->A }}</td>
                                                 <td>{{ $ks->B }}</td>
                                                 <td>{{ $ks->C }}</td>
@@ -314,7 +314,7 @@
                 <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Mulai</label>
                     <div class="col-lg-6">
-                        <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam...">
+                        <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam..." >
                     </div>
                 </div>
 
