@@ -13,6 +13,7 @@
     <link href="{{ URL::asset('quixlab/css/style_pertemuan.css') }}" rel="stylesheet">
 
     <link href="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('quixlab/plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
 
     <style>
         .centered {
@@ -113,83 +114,98 @@
     <script src="{{ URL::asset('quixlab/js/settings.js') }}"></script>
     <script src="{{ URL::asset('quixlab/js/gleek.js') }}"></script>
     <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
 
     <script>
-        var fab = document.getElementById("fab");
-        var fab_time = document.getElementById("fab_time");
-        var fab_done = document.getElementById("fab_done");
-        var fab_icon = document.getElementById("fab_icon");
-        var duration = 60 * {{ $kuis->waktu }};
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+        $(document).ready(function() {
+            var fab = document.getElementById("fab");
+            var fab_time = document.getElementById("fab_time");
+            var fab_done = document.getElementById("fab_done");
+            var fab_icon = document.getElementById("fab_icon");
+            var duration = 60 * {{ $kuis->waktu }} - 1;
+            var timer = duration, minutes, seconds;
+            var interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            fab_time.textContent = minutes + ":" + seconds;
+                fab_time.textContent = minutes + ":" + seconds;
 
-            if (--timer < 0) {
-                timer = duration;
-            }
-        }, 1000);
-        setTimeout(function(){
-            Swal.fire({
-                title: 'Waktu Telah Habis!',
-                text: "Form akan dikirim otomatis",
-                type: 'error',
-                showCancelButton: false,
-                showConfirmButton: false,
-                allowOutsideClick: false,
-            });
-            setTimeout(function(){
-                $('#form_kuis').submit();
-            }, 2000);
-        }, {{ $kuis->waktu * 60 * 1000 }});
-
-        fab.addEventListener("mouseenter", function () {
-            fab_done.classList.remove('d-none');
-            fab_done.classList.add('d-inline');
-            fab_time.classList.remove('d-inline');
-            fab_time.classList.add('d-none');
-
-            fab_icon.classList.remove('fa-clock-o');
-            fab_icon.classList.add('fa-paper-plane-o');
-        });
-        fab.addEventListener("mouseleave", function () {
-            fab_time.classList.remove('d-none');
-            fab_time.classList.add('d-inline');
-            fab_done.classList.remove('d-inline');
-            fab_done.classList.add('d-none');
-
-            fab_icon.classList.remove('fa-paper-plane-o');
-            fab_icon.classList.add('fa-clock-o');
-        });
-        fab.addEventListener("click", function () {
-            Swal.fire({
-                title: 'Apa anda yakin?',
-                text: "Ingin mengirim hasil test sekarang.",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Saya yakin!'
-            }).then((result) => {
-                if (result.value) {
-                    Swal.fire({
-                        title: 'Test terkirim!',
-                        text: "Semoga beruntung",
-                        type: 'success',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(function () {
-                        $('#form_kuis').submit();
-                        // window.location = "{{ url('/pertemuan/'.$kuis->id_pertemuan) }}";
-                    });
+                if (--timer < 0) {
+                    timer = duration;
                 }
-            })
+            }, 1000);
+            setTimeout(function(){
+                toastr.options = {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "positionClass": "toast-top-full-width",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "2000",
+                }
+                toastr.warning("Waktu sudah mau habis");
+            }, ({{ $kuis->waktu * 60 * 1000 * 0.8}}));
+            setTimeout(function(){
+                clearInterval(interval);
+                Swal.fire({
+                    title: 'Waktu Telah Habis!',
+                    text: "Form akan dikirim otomatis",
+                    type: 'error',
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    allowOutsideClick: false,
+                });
+                setTimeout(function(){
+                    $('#form_kuis').submit();
+                }, 2000);
+            }, {{ $kuis->waktu * 60 * 1000 }});
+
+            fab.addEventListener("mouseenter", function () {
+                fab_done.classList.remove('d-none');
+                fab_done.classList.add('d-inline');
+                fab_time.classList.remove('d-inline');
+                fab_time.classList.add('d-none');
+
+                fab_icon.classList.remove('fa-clock-o');
+                fab_icon.classList.add('fa-paper-plane-o');
+            });
+            fab.addEventListener("mouseleave", function () {
+                fab_time.classList.remove('d-none');
+                fab_time.classList.add('d-inline');
+                fab_done.classList.remove('d-inline');
+                fab_done.classList.add('d-none');
+
+                fab_icon.classList.remove('fa-paper-plane-o');
+                fab_icon.classList.add('fa-clock-o');
+            });
+            fab.addEventListener("click", function () {
+                Swal.fire({
+                    title: 'Apa anda yakin?',
+                    text: "Ingin mengirim hasil test sekarang.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Saya yakin!'
+                }).then((result) => {
+                    if (result.value) {
+                        Swal.fire({
+                            title: 'Test terkirim!',
+                            text: "Semoga beruntung",
+                            type: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(function () {
+                            $('#form_kuis').submit();
+                            // window.location = "{{ url('/pertemuan/'.$kuis->id_pertemuan) }}";
+                        });
+                    }
+                })
+            });
         });
+
     </script>
 
 </body>
