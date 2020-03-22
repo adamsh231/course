@@ -95,7 +95,7 @@
                                                 <h5 class="card-title">{{ $p->nama }}</h5>
                                                 <h6 class="card-subtitle mb-2 text-muted">{{ date('d M Y', strtotime($p->tanggal)) }}</h6>
                                             </div>
-                                            <img class="img-fluid" src="https://robohash.org/{{ $p->id }}" alt="">
+                                            <img class="img-fluid" src="{{ asset('assets/'.($loop->iteration % 3 == 0 ? 3 : $loop->iteration % 3).'.png') }}" alt="">
                                             <div class="card-body">
                                                 <h5>Kompetensi Dasar: </h5>
                                                 <p class="card-text" style="text-align:justify;">

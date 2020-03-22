@@ -399,7 +399,7 @@
                 <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control" name="teks" placeholder="Nama Deskripsi...">
+                        <textarea class="form-control h-150px teks" rows="6"></textarea>
                     </div>
                 </div>
 
@@ -430,7 +430,7 @@
                 <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control" name="teks" placeholder="Nama Deskripsi...">
+                        <textarea class="form-control h-150px teks" rows="6"></textarea>
                     </div>
                 </div>
 

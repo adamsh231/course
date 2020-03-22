@@ -214,7 +214,7 @@ function add_kegiatan(){
         url: '/admin/pertemuan/detail/kegiatan',
         data: {
             id_detail: $("#form_add_kegiatan input[name=id_detail]").val(),
-            teks: $("#form_add_kegiatan input[name=teks]").val(),
+            teks: $.trim($("#form_add_kegiatan .teks").val()),
         },
         dataType: 'json',
         success: function (data) {
@@ -246,10 +246,10 @@ function show_modal_edit_kegiatan(id, nama){
         url: '/admin/pertemuan/detail/kegiatan/' + id,
         beforeSend: function () {
             $("#edit_kegiatan_error_bag").hide();
-            $("#form_edit_kegiatan input[name=teks]").val('');
+            $("#form_edit_kegiatan .teks").val('');
         },
         success: function (data) {
-            $("#form_edit_kegiatan input[name=teks]").val(data.kegiatan.teks);
+            $("#form_edit_kegiatan .teks").val(data.kegiatan.teks),
             $('#edit_kegiatan .submit').off('click'); //! Clear INHERITED JQUERY CLICK
             $("#edit_kegiatan .submit").click(function () {
                 edit_kegiatan(id);
@@ -274,7 +274,7 @@ function edit_kegiatan(id){
         type: 'PUT',
         url: '/admin/pertemuan/detail/kegiatan/' + id ,
         data: {
-            teks: $("#form_edit_kegiatan input[name=teks]").val(),
+            teks: $.trim($("#form_edit_kegiatan .teks").val()),
         },
         dataType: 'json',
         success: function (data) {

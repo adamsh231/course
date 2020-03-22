@@ -217,7 +217,7 @@ class AdminController extends Controller
 
     private function getAllPertemuan()
     {
-        $pertemuan = Pertemuan::all();
+        $pertemuan = Pertemuan::orderBy('tanggal')->get();
         return $pertemuan;
     }
 }
