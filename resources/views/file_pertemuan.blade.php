@@ -30,7 +30,7 @@
         {{-- CARD2 --}}
         <div id="pertemuan-detail" class="card">
             <div class="card-header">
-                <button onclick="window.location.href = 'javascript:history.back()'" class="btn mb-1 btn-rounded btn-outline-primary btn-sm d-inline">
+                <button onclick="window.location.href = '{{ url('/admin') }}'" class="btn mb-1 btn-rounded btn-outline-primary btn-sm d-inline">
                     <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
                     <h3 class="d-inline">{{ $id_pertemuan->nama }} ({{ date('d/m/Y', strtotime($id_pertemuan->tanggal)) }})</h3>
                 </button>
@@ -199,7 +199,50 @@
 
             </div>
 
-
+            @isset ($kuis->soal)
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered table-striped verticle-middle table-md">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">No</th>
+                                <th scope="col">Pertanyaan</th>
+                                <th scope="col">Lihat File</th>
+                                <th scope="col">Change / Upload</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table_soal">
+                            @foreach ($kuis->soal as $ks)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-justify">{{ $ks->pertanyaan }}</td>
+                                <td>
+                                    <a href="{{ url('storage/'.$ks->gambar) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
+                                </td>
+                                <td class="text-center">
+                                    <form class="form-control" action="{{ url('/admin/pertemuan/file/soal/'.$ks->id) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="gambar">
+                                        <button type="submit" class="btn btn-info btn-sm float-right mt-4">Submit</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                                        @if ($ks->gambar)
+                                        <i class="fa fa-check-circle fa-4x  text-success"></i>
+                                        @else
+                                        <i class="fa fa-times-circle fa-4x  text-danger"></i>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @endisset
 
         </div>
     </div>

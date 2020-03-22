@@ -52,7 +52,7 @@
                                                 <div class="card-body">
                                                     <h3 class="card-title"><b>Soal {{ $loop->iteration }} dari {{ count($soal) }} </b></h3>
                                                     <p> {{ $s->pertanyaan }} </p>
-                                                    <img class="ml-3 mb-3" src="soal2.png" width="150px" height="80px;">
+                                                    <img class="ml-3 mb-3" src="{{ url('storage/'.$s->gambar) }}" width="300px" height="300px;">
                                                     <div class="form-group">
                                                         <div class="form-control input-default mb-2">
                                                             <div class="radio my-1">

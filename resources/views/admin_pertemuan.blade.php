@@ -12,7 +12,7 @@
         {{-- CARD2 --}}
         <div id="pertemuan-detail" class="card">
             <div class="card-header">
-                <button onclick="window.location.href = 'javascript:history.back()'" class="btn mb-1 btn-rounded btn-outline-primary btn-sm d-inline">
+                <button onclick="window.location.href = '{{ url('/admin') }}'" class="btn mb-1 btn-rounded btn-outline-primary btn-sm d-inline">
                     <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
                     <h3 class="d-inline">{{ $id_pertemuan->nama }} ({{ date('d/m/Y', strtotime($id_pertemuan->tanggal)) }})</h3>
                 </button>
@@ -204,8 +204,8 @@
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{ strtoupper($kuis->nama) }}</h5>
                                         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                        <a href="{{ url('storage/'.$kuis->jawaban) }}" target="_blank" type="button" class="btn mb-4 btn-info">
-                                            Lihat Kunci Jawaban
+                                        <a href="{{ url('admin/pertemuan/'.$id_pertemuan->id.'/file') }}" type="button" class="btn mb-4 btn-info">
+                                            Manage Gambar dan Kunci Jawaban
                                         </a>
                                         @if ($kuis->aktif)
                                         <div id="block_button" class="d-inline">
@@ -232,7 +232,6 @@
                                             <tr class="text-center">
                                                 <th scope="col">No</th>
                                                 <th scope="col">Pertanyaan</th>
-                                                <th scope="col">Gambar</th>
                                                 <th scope="col">A</th>
                                                 <th scope="col">B</th>
                                                 <th scope="col">C</th>
@@ -246,13 +245,6 @@
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-justify">{{ $ks->pertanyaan }}</td>
-                                                <td class="text-center">
-                                                    <span>
-                                                        <a onclick="maintenance()" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Open File">
-                                                            <i class="fa fa-eye color-danger"></i>
-                                                        </a>
-                                                    </span>
-                                                </td>
                                                 <td>{{ $ks->A }}</td>
                                                 <td>{{ $ks->B }}</td>
                                                 <td>{{ $ks->C }}</td>

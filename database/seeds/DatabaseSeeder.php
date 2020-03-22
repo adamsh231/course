@@ -117,7 +117,7 @@ class DatabaseSeeder extends Seeder
                 DB::table('soal')->insert([
                     'id' => $id_soal,
                     'id_kuis' => $i,
-                    'gambar' => '/kuis/' . $i . '/soal/' . $j . '.jpg',
+                    // 'gambar' => '/kuis/' . $i . '/soal/' . $j . '.jpg',
                     'pertanyaan' => $faker->sentence($nbWords = $faker->numberBetween(10, 20), $variableNbWords = true) . '?',
                     'A' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
                     'B' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),

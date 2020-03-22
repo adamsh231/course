@@ -9,6 +9,7 @@ use App\Deskripsi;
 use App\Video;
 use App\Kuis;
 use App\Soal;
+use Illuminate\Support\Facades\Storage;
 
 class AdminDetailController extends Controller
 {
@@ -360,8 +361,12 @@ class AdminDetailController extends Controller
 
     public function deleteKuis(Kuis $kuis)
     {
+        $soal = Soal::where('id_kuis',$kuis->id)->get();
+        Storage::disk('public')->delete($kuis->jawaban);
+        foreach($soal as $s){
+            Storage::disk('public')->delete($s->gambar);
+        }
         $kuis->delete();
-
         return response()->json([
             'error' => false,
         ], 200);

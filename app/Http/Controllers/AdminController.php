@@ -8,6 +8,7 @@ use App\Pertemuan;
 use App\Detail;
 use App\Video;
 use App\Kuis;
+use App\Soal;
 use App\Presensi;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -42,7 +43,7 @@ class AdminController extends Controller
     }
 
     public function filePertemuan(Pertemuan $id_pertemuan){
-        $kuis = Kuis::where('id_pertemuan',$id_pertemuan->id)->first();
+        $kuis = Kuis::with(['soal'])->where('id_pertemuan',$id_pertemuan->id)->first();
         $pertemuan = $this->getAllPertemuan();
         return view('file_pertemuan', [
             'pertemuan' => $pertemuan,
@@ -93,6 +94,17 @@ class AdminController extends Controller
         }
 
         return back()->with('status', $messages == "" ? 'Upload Gagal File Tidak Boleh Kosong!' : $messages);
+    }
+
+    public function addGambarPertemuan(Request $request, Soal $soal){
+        $request->validate(['gambar' => ['required','mimes:jpg,png,jpeg','max:2048']]);
+        $file = $request->file('gambar');
+        $file_name = time().$soal->id.".".strtolower($file->getClientOriginalExtension());
+        $file->storeAs('file/gambar/', $file_name, 'public');
+        Storage::disk('public')->delete($soal->gambar);
+        $soal->gambar = 'file/gambar/'.$file_name;
+        $soal->save();
+        return back()->with('status', 'Upload Gambar Berhasil!');
     }
 
     public function hadir(Request $request)

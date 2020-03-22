@@ -9,6 +9,7 @@ use App\Pertemuan;
 use App\Presensi;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class AdminDataController extends Controller
 {
@@ -181,6 +182,9 @@ class AdminDataController extends Controller
 
     public function deletePertemuan(Pertemuan $pertemuan)
     {
+        Storage::disk('public')->delete($pertemuan->diskusi);
+        Storage::disk('public')->delete($pertemuan->materi);
+        Storage::disk('public')->delete($pertemuan->tugas);
         $pertemuan->delete();
 
         return response()->json([

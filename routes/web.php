@@ -65,9 +65,10 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::post('/admin/siswa/acak', 'AdminController@acakTeam');
         Route::get('/admin/pertemuan/{id_pertemuan}/file', 'AdminController@filePertemuan');
         Route::post('/admin/pertemuan/{pertemuan}/file', 'AdminController@addFilePertemuan');
+        Route::post('/admin/pertemuan/file/soal/{soal}', 'AdminController@addGambarPertemuan');
     });
 });
 
 // Route::fallback(function () {
-//     return view('landing');
+//     return redirect('/');
 // });
