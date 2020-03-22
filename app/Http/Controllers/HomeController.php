@@ -38,7 +38,7 @@ class HomeController extends Controller
         $soal = "";
         if (isset($kuis)) {
             if($kuis->aktif){
-                $soal = Soal::where('id_kuis', $kuis->id)->get();
+                $soal = Soal::where('id_kuis', $kuis->id)->inRandomOrder()->get();
                 return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
             }else{
                 return back()->with('status', 'Kuis Tidak Aktif!');
@@ -46,6 +46,18 @@ class HomeController extends Controller
         } else {
             return back();
         }
+    }
+
+    public function nilai(Request $request, Kuis $kuis){
+        $soal = Soal::where('id_kuis', $kuis->id)->get();
+        $nilai = 0;
+        foreach($soal as $s){
+            if($request['answer'.$s->id] == $s->jawaban){
+                $nilai++;
+            }
+        }
+        $nilai =  (int)($nilai / count($soal) * 100);
+        return redirect('/pertemuan/'.$kuis->id_pertemuan)->with('status', 'Nilai anda adalah '.$nilai);
     }
 
     private function getAllPertemuan()

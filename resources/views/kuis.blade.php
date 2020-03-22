@@ -38,44 +38,50 @@
     <div id="main-wrapper">
 
         <div class="container" style="margin-top: 20px">
-            @foreach($soal as $s)
-            <center>
-                <table>
-                    <tr>
-                        <td>
-                            <div style="width:1000px;">
-                                <!-- row -->
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <h3 class="card-title"><b>Soal {{ $loop->iteration }} dari {{ count($soal) }} </b></h3>
-                                                    <p> {!! $s->pertanyaan !!} </p>
-                                                    <img class="ml-3 mb-3" src="{{ url('storage/'.$s->gambar) }}" width="300px" height="300px;">
-                                                    <div class="form-group">
-                                                        <div class="form-control input-default mb-2">
-                                                            <div class="radio my-1">
-                                                                <input type="radio" name="answer{{ $s->id }}">
-                                                                <p class="ml-4 d-inline">{{ $s->A }}</p>
+            <form id="form_kuis" action="{{ url('/nilai/'.$kuis->id) }}" method="POST">
+                @csrf
+
+                @foreach($soal as $s)
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <div style="width:1000px;">
+                                    <!-- row -->
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h3 class="card-title"><b>Soal {{ $loop->iteration }} dari {{ count($soal) }} </b></h3>
+                                                        <p> {!! $s->pertanyaan !!} </p>
+                                                        @if ($s->gambar)
+                                                        <img class="ml-3 mb-3" src="{{ url('storage/'.$s->gambar) }}" width="300px" height="300px;">
+                                                        @endif
+                                                        <div class="form-group">
+                                                            <div class="form-control input-default mb-2">
+                                                                <div class="radio my-1">
+                                                                    <input type="radio" name="answer{{ $s->id }}" value="A">
+                                                                    <p class="ml-4 d-inline">{{ $s->A }}</p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-control input-default mb-2">
-                                                            <div class="radio my-1">
-                                                                <input type="radio" name="answer{{ $s->id }}">
-                                                                <p class="ml-4 d-inline">{{ $s->B }}</p>
+                                                            <div class="form-control input-default mb-2">
+                                                                <div class="radio my-1">
+                                                                    <input type="radio" name="answer{{ $s->id }}" value="B">
+                                                                    <p class="ml-4 d-inline">{{ $s->B }}</p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-control input-default mb-2">
-                                                            <div class="radio my-1">
-                                                                <input type="radio" name="answer{{ $s->id }}">
-                                                                <p class="ml-4 d-inline">{{ $s->C }}</p>
+                                                            <div class="form-control input-default mb-2">
+                                                                <div class="radio my-1">
+                                                                    <input type="radio" name="answer{{ $s->id }}" value="C">
+                                                                    <p class="ml-4 d-inline">{{ $s->C }}</p>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-control input-default mb-2">
-                                                            <div class="radio my-1">
-                                                                <input type="radio" name="answer{{ $s->id }}">
-                                                                <p class="ml-4 d-inline">{{ $s->D }}</p>
+                                                            <div class="form-control input-default mb-2">
+                                                                <div class="radio my-1">
+                                                                    <input type="radio" name="answer{{ $s->id }}" value="D">
+                                                                    <p class="ml-4 d-inline">{{ $s->D }}</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -84,12 +90,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </center>
-            @endforeach
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+                @endforeach
+
+            </form>
         </div>
     </div>
 
@@ -127,6 +134,19 @@
                 timer = duration;
             }
         }, 1000);
+        setTimeout(function(){
+            Swal.fire({
+                title: 'Waktu Telah Habis!',
+                text: "Form akan dikirim otomatis",
+                type: 'error',
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowOutsideClick: false,
+            });
+            setTimeout(function(){
+                $('#form_kuis').submit();
+            }, 2000);
+        }, {{ $kuis->waktu * 60 * 1000 }});
 
         fab.addEventListener("mouseenter", function () {
             fab_done.classList.remove('d-none');
@@ -148,23 +168,24 @@
         });
         fab.addEventListener("click", function () {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'Apa anda yakin?',
+                text: "Ingin mengirim hasil test sekarang.",
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Ya, Saya yakin!'
             }).then((result) => {
                 if (result.value) {
                     Swal.fire({
-                        title: 'Test Send!',
-                        text: "Test has been sent, Great work!",
+                        title: 'Test terkirim!',
+                        text: "Semoga beruntung",
                         type: 'success',
                         showConfirmButton: false,
                         timer: 1500
                     }).then(function () {
-                        window.location = "{{ url('/pertemuan/'.$kuis->id_pertemuan) }}";
+                        $('#form_kuis').submit();
+                        // window.location = "{{ url('/pertemuan/'.$kuis->id_pertemuan) }}";
                     });
                 }
             })
