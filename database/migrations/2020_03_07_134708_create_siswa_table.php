@@ -20,9 +20,8 @@ class CreateSiswaTable extends Migration
             $table->string('password')->index();
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->integer('pretest')->nullable();
-            $table->integer('posttest')->nullable();
             $table->char('team')->nullable();
+            $table->integer('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

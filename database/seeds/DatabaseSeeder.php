@@ -29,8 +29,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('dayung231'),
             'email' => 'adamsyarif217@yahoo.com',
             'phone' => '082140320499',
-            'pretest' => $faker->numberBetween(0, 100),
-            'posttest' => $faker->numberBetween(0, 100),
+            'status' => 1,
         ]);
 
         for ($i = 1; $i <= $jml_siswa; $i++) {
@@ -41,8 +40,6 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('dayung231'),
                 'email' => $faker->email,
                 'phone' => $faker->phoneNumber,
-                'pretest' => $faker->numberBetween(0, 100),
-                'posttest' => $faker->numberBetween(0, 100),
             ]);
         }
 

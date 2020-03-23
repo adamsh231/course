@@ -754,7 +754,6 @@
 @section('add_script')
 <script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ URL::asset('quixlab/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
 <script src="{{ asset('js/admin_pertemuan.js') }}"></script>
 
 @endsection

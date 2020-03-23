@@ -28,10 +28,13 @@
                     <div class="tab-content">
 
                         <div class="tab-pane fade" id="siswa" role="tabpanel">
+
                             <button type="button" class="btn mb-1 btn-outline-success float-right" data-toggle="modal" data-target="#add_siswa">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
-
+                            <a href="{{ url('/admin/nilai') }}" class="btn mb-1 btn-primary mr-2 text-white float-right">
+                                Daftar Nilai Siswa
+                            </a>
                             <form class="form-inline" id="form_team" method="POST" action="{{ url('/admin/siswa/acak') }}">
                                 @csrf
                                 <div class="form-group mx-sm-3 mb-2">
@@ -49,8 +52,6 @@
                                             <th scope="col">Username</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Phone</th>
-                                            <th scope="col">Pre Test</th>
-                                            <th scope="col">Post Test</th>
                                             <th scope="col">Kelompok</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -63,8 +64,6 @@
                                             <td>{{ $s->username }}</td>
                                             <td>{{ $s->email }}</td>
                                             <td>{{ $s->phone }}</td>
-                                            <td class="text-center">{{ $s->pretest }}</td>
-                                            <td class="text-center">{{ $s->posttest }}</td>
                                             <td class="text-center">{{ $s->team }}</td>
                                             <td class="text-center">
                                                 <span>
@@ -386,7 +385,6 @@
 @section('add_script')
 <script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ URL::asset('quixlab/plugins/tables/js/datatable-init/datatable-basic.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
 <script src="{{ asset('js/admin.js') }}"></script>

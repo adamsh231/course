@@ -135,7 +135,7 @@ class AdminDataController extends Controller
         $pertemuan->tujuan = $request->tujuan;
         $pertemuan->save();
 
-        $siswa = Siswa::all();
+        $siswa = Siswa::where('status', 0)->get();
         foreach($siswa as $s){
             $presensi = new Presensi;
             $presensi->id_pertemuan = $pertemuan->id;

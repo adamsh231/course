@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateForeignKey extends Migration
+class CreateForeign extends Migration
 {
     /**
      * Run the migrations.
@@ -31,6 +31,10 @@ class CreateForeignKey extends Migration
         });
         Schema::table('deskripsi', function (Blueprint $table) {
             $table->foreign('id_detail')->references('id')->on('detail')->onDelete('cascade');
+        });
+        Schema::table('nilai', function (Blueprint $table) {
+            $table->foreign('id_kuis')->references('id')->on('kuis')->onDelete('cascade');
+            $table->foreign('id_siswa')->references('id')->on('siswa')->onDelete('cascade');
         });
     }
 
@@ -59,6 +63,10 @@ class CreateForeignKey extends Migration
         });
         Schema::table('deskripsi', function (Blueprint $table) {
             $table->dropForeign(['id_detail']);
+        });
+        Schema::table('nilai', function (Blueprint $table) {
+            $table->dropForeign(['id_kuis']);
+            $table->dropForeign(['id_siswa']);
         });
     }
 }

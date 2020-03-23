@@ -16,4 +16,8 @@ class Kuis extends Model
     public function soal(){
         return $this->hasMany('App\Soal', 'id_kuis');
     }
+
+    public function nilai(){
+        return $this->hasMany('App\Nilai', 'id_siswa');
+    }
 }

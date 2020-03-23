@@ -16,4 +16,8 @@ class Siswa extends Authenticatable
     public function presensi(){
         return $this->hasMany('App\Presensi', 'id_siswa');
     }
+
+    public function nilai(){
+        return $this->hasMany('App\Nilai', 'id_siswa');
+    }
 }

@@ -9,6 +9,7 @@ use App\Detail;
 use App\Video;
 use App\Kuis;
 use App\Soal;
+use App\Nilai;
 use App\Presensi;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -135,7 +136,7 @@ class AdminController extends Controller
 
     public function acakTeam(Request $request)
     {
-        $siswa = Siswa::all();
+        $siswa = Siswa::where('status', 0)->get();
         $jml_siswa = $siswa->count();
         $validator = Validator::make(
             $request->all(),
@@ -185,6 +186,16 @@ class AdminController extends Controller
         }
     }
 
+    public function nilai(){
+        $pertemuan = $this->getAllPertemuan();
+        $nilai = Nilai::with(['siswa','kuis'])->get();
+        return view('admin_nilai',
+        [
+            'nilai' => $nilai,
+            'pertemuan' => $pertemuan
+        ]);
+    }
+
     private function getDetailByPertemuan($key)
     {
         $detail = Detail::with('deskripsi')->where('id_pertemuan', $key)->get();
@@ -211,7 +222,7 @@ class AdminController extends Controller
 
     private function getAllSiswa()
     {
-        $siswa = Siswa::all();
+        $siswa = Siswa::where('status', 0)->get();
         return $siswa;
     }
 

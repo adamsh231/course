@@ -67,6 +67,7 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/pertemuan/{id_pertemuan}/file', 'AdminController@filePertemuan');
         Route::post('/admin/pertemuan/{pertemuan}/file', 'AdminController@addFilePertemuan');
         Route::post('/admin/pertemuan/file/soal/{soal}', 'AdminController@addGambarPertemuan');
+        Route::get('/admin/nilai', 'AdminController@nilai');
     });
 });
 
