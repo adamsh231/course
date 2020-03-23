@@ -19,7 +19,7 @@ class Teacher
         if(Auth::user()->status == 1){
             return $next($request);
         }else{
-            return back();
+            return redirect('/');
         }
 
     }

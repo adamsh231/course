@@ -34,12 +34,12 @@
                             </span>
                         </button>
                         @isset($kuis)
-                        <button @if(!$kuis->aktif) disabled @endif onclick="window.location.href = '{{ url('/kuis/'.$id_pertemuan->id) }}'" class="btn mb-1 btn-warning float-right text-white">
+                        <a href="{{ url('/kuis/'.$id_pertemuan->id) }}" target="_blank" class="btn mb-1 btn-warning float-right text-white @if(!$kuis->aktif) disabled @endif">
                             {{ ucwords($kuis->nama) }}
                             <span class="btn-icon-right">
                                 <i class="fa fa-pencil-square-o text-white"></i>
                             </span>
-                        </button>
+                        </a>
                         @endisset
                         <hr>
                         <div id="accordion-three" class="accordion">

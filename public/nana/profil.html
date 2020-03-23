@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Profil</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+	<link href="./plugins/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+    
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="index.html">
+                    <b class="logo-abbr"><img src="images/logo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="./images/logo-compact.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/logo-text.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="clearfix">
+                        <li class="icons dropdown" style="margin-right:10px;">
+                            <div class="user-img c-pointer position-relative" data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="page-login.html"><i class="ti-user"></i> <span>Profil</span></a>
+                                        </li>
+										<hr class="my-2">
+                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label"></li>
+                    <li>
+                        <a href="index.html">
+                            <i class="ti-home" style="margin-bottom:5px;"></i><span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="ti-notepad" style="margin-bottom:5px;"></i><span class="nav-text">Pembelajaran</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="pertemuan1.html".html">Pertemuan 1</a></li> 
+                            <li><a href="pertemuan2.html".html">Pertemuan 2</a></li> 
+                            <li><a href="pertemuan3.html".html">Pertemuan 3</a></li> 
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+				<div class="card">
+                    <div class="card-body">
+                        <div class="media align-items-center mb-4">
+                            <img class="mr-3" src="images/avatar/11.png" width="80" height="80" alt="">
+                                <div class="media-body">
+                                    <h3 class="mb-0">Pikamy Cha</h3>
+                                    <p class="text-muted mb-0">Canada</p>
+                                </div>
+                        </div>
+                                <!-- Nav tabs -->
+                                <div class="custom-tab-1">
+                                    <ul class="nav nav-tabs mb-3">
+                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#profil">Profil</a>
+                                        </li>
+										<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#kehadiran">Kehadiran</a>
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#nilai">Nilai</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="profil" role="tabpanel">
+                                            <div class="p-t-15 ml-3 mt-4">
+                                                <div class="form-group row ml-3">
+													<i class="fa fa-user-o mt-2"></i><label class="col-lg-4 col-form-label" for="val-username"> Nama </label>
+													<div class="col-lg-6">
+														<input type="text" class="form-control" id="val-username" name="val-username">
+													</div>
+												</div>
+												<div class="form-group row ml-3">
+													<i class="fa fa-user-o mt-2"></i><label class="col-lg-4 col-form-label" for="val-username">Username </label>
+													<div class="col-lg-6">
+														<input type="text" class="form-control" id="val-username" name="val-username">
+													</div>
+												</div>
+												<div class="form-group row ml-3">
+													<i class="icon-key mt-2"></i><label class="col-lg-4 col-form-label" for="val-username"> Password </label>
+													<div class="col-lg-6">
+														<input type="text" class="form-control" id="val-username" name="val-username">
+													</div>
+												</div>
+												<div class="form-group row ml-3">
+													<i class="icon-phone mt-2"></i><label class="col-lg-4 col-form-label" for="val-username">Telepon </label>
+													<div class="col-lg-6">
+														<input type="text" class="form-control" id="val-username" name="val-username">
+													</div>
+												</div>
+												<div class="form-group row ml-3">
+													<i class="fa fa-envelope-o mt-2"></i><label class="col-lg-4 col-form-label" for="val-username">E-mail </label>
+													<div class="col-lg-6">
+														<input type="text" class="form-control" id="val-username" name="val-username">
+													</div>
+												</div>
+                                                <div class="col-12 text-center">
+													<button class="btn btn-danger px-5">Edit</button>
+													<button class="btn btn-info px-5">Simpan</button>
+												</div>
+                                            </div>
+                                        </div>
+										<div class="tab-pane fade" id="kehadiran">
+                                            <div class="p-t-15 mb-3">
+                                                <h4 class="mt-4 ml-3">Data Kehadiran Siswa </h4>
+												<div class="alert alert-warning mx-4">Apabila ada data yang tidak sesuai, konfirmasikan pada guru Anda untuk segera diubah. Jika Anda hadir akan muncul tanda
+												centang hijau pada kolom absensi <i class="fa fa-check-circle-o fa-2x text-success"></i>, dan jika Anda tidak hadir akan muncul silang merah pada kolom
+												absensi <td><i class="fa fa-times-circle-o fa-2x text-danger"></i></td>.
+												</div>
+													<div class="card mx-4 mt-3">
+														<div class="table-responsive">
+															<table class="table table-striped">
+																<thead>
+																	<tr>
+																		<th>Tanggal</th>
+																		<th>Pertemuan</th>
+																		<th>Absensi</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>January 22</td>
+																		<td>Pertemuan 1</td>
+																		<td><i class="fa fa-check-circle-o fa-2x text-success"></i></td>
+																	</tr>
+																	<tr>
+																		<td>January 22</td>
+																		<td>Pertemuan 2</td>
+																		<td><i class="fa fa-check-circle-o fa-2x text-success"></i></td>
+																	</tr>
+																	<tr>
+																		<td>January 22</td>
+																		<td>Pertemuan 3</td>
+																		<td><i class="fa fa-times-circle-o fa-2x text-danger"></i></td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+													</div>
+											</div>
+										</div>
+                                        <div class="tab-pane fade" id="nilai">
+                                            <div class="p-t-15 mb-3">
+                                                <h4 class="mt-4 ml-3">Data Nilai Siswa </h4>
+												<div class="alert alert-warning mx-4">Jika ada data yang tidak sesuai, segara konfirmasikan pada guru untuk segera diubah. </div>
+													<div class="col-xl-12">
+															<div class="basic-list-group">
+																<ul class="list-group list-group-flush">
+																	<li class="list-group-item">
+																		<div class="row">
+																			<h6 class="mt-1"> Pretest </h6>
+																			<div class="sweetalert m-t-30">
+																				<button onclick="tombol()" class="btn btn-success btn sweet-success btn-sm text-white ml-5">Lihat Hasil</button>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="list-group-item">
+																		<div class="row">
+																			<h6 class="mt-1"> Postest </h6>
+																			<div class="sweetalert m-t-30">
+																				<button onclick="tombol1()" class="btn btn-success btn sweet-success btn-sm text-white ml-5">Lihat Hasil</button>
+																			</div>
+																		</div>
+																	</li>
+																</ul> 
+															</div>
+													</div>
+											</div>
+                                        </div>
+                                    </div>
+                                </div>
+					</div>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <!--**********************************
+            Content body end
+        ***********************************-->
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+
+    <script src="./plugins/sweetalert2/dist/sweetalert2.min.js"></script>
+	<script>
+	function tombol(){
+		Swal.fire({
+		  type: 'success',
+		  title: 'Anda Sudah Melakukan Pretest!',
+		  text: 'Skor Anda: 90/100',
+		});
+	}
+	function tombol1(){
+		Swal.fire({
+		  type: 'success',
+		  title: 'Anda Sudah Melakukan Postest!',
+		  text: 'Skor Anda: 100/100',
+		});
+	}
+	</script>
+
+</body>
+
+</html>

@@ -92,7 +92,7 @@
                     </li>
                 </ul>
             </div>
-            @if (Auth::user()->username == "adamsh231")
+            @if (Auth::user()->status == 1)
             <a href="{{ url('/admin') }}" class="text-primary" style="position: fixed;bottom: 20px;left: 20px;"><i class="fa fa-cog fa-3x"></i></a>
             @endif
         </div>

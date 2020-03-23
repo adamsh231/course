@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Siswa;
+use App\Pertemuan;
+use App\Presensi;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -63,6 +65,14 @@ class AuthController extends Controller
         $siswa->email = $request->email;
         $siswa->phone = $request->phone;
         $siswa->save();
+
+        $pertemuan = Pertemuan::all();
+        foreach($pertemuan as $p){
+            $presensi = new Presensi;
+            $presensi->id_pertemuan = $p->id;
+            $presensi->id_siswa = $siswa->id;
+            $presensi->save();
+        }
 
         return redirect('/login')->with('status', 'Account Anda Berhasil Di Daftarkan!');
     }
