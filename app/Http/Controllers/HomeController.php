@@ -38,16 +38,31 @@ class HomeController extends Controller
     public function kuis($id_pertemuan)
     {
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan)->first();
-        $soal = "";
-        if (isset($kuis)) {
+
+        $exist = Nilai::where([
+            ['id_siswa', '=', Auth::user()->id],
+            ['id_kuis', '=', $kuis->id]
+        ])->count();
+
+        if ($kuis) {
             if ($kuis->aktif) {
-                $soal = Soal::where('id_kuis', $kuis->id)->inRandomOrder()->get();
-                return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
+                if ($exist == 0) {
+                    $soal = Soal::where('id_kuis', $kuis->id)->inRandomOrder()->get();
+                    $nilai = new Nilai;
+                    $nilai->id_siswa = Auth::user()->id;
+                    $nilai->id_kuis = $kuis->id;
+                    $nilai->nilai = 0;
+                    $nilai->save();
+                    return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
+                } else {
+                    return redirect('/pertemuan/' . $id_pertemuan)
+                        ->with('status', 'Anda dianggap telah melakukan test, Hubungi Guru jika ingin mengulang test!');
+                }
             } else {
-                return back()->with('status', 'Kuis Tidak Aktif!');
+                return redirect('/pertemuan/' . $id_pertemuan)->with('status', 'Kuis Tidak Aktif!');
             }
         } else {
-            return back();
+            return redirect('/pertemuan/' . $id_pertemuan);
         }
     }
 
@@ -65,22 +80,15 @@ class HomeController extends Controller
             ['id_kuis', '=', $kuis->id]
         ])->count();
         $nilai =  (int) ($nilai / count($soal) * 100);
-        if ($exist == 0) {
-            $nilai_table = new Nilai;
-            $nilai_table->id_siswa = Auth::user()->id;
-            $nilai_table->id_kuis = $kuis->id;
-            $nilai_table->nilai = $nilai;
-            $nilai_table->save();
-        } else {
-            $nilai_table = Nilai::where([
-                ['id_siswa', '=', Auth::user()->id],
-                ['id_kuis', '=', $kuis->id]
-            ])->first();
-            $nilai_table->id_siswa = Auth::user()->id;
-            $nilai_table->id_kuis = $kuis->id;
-            $nilai_table->nilai = $nilai;
-            $nilai_table->save();
-        }
+        $nilai_table = Nilai::where([
+            ['id_siswa', '=', Auth::user()->id],
+            ['id_kuis', '=', $kuis->id]
+        ])->first();
+        $nilai_table->id_siswa = Auth::user()->id;
+        $nilai_table->id_kuis = $kuis->id;
+        $nilai_table->nilai = $nilai;
+        $nilai_table->save();
+
         return redirect('/pertemuan/' . $kuis->id_pertemuan)->with('status', 'Nilai anda adalah ' . $nilai);
     }
 

@@ -11,7 +11,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-
         $messages = [
             'required' => 'The :attribute field is required.',
         ];

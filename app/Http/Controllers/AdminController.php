@@ -182,7 +182,7 @@ class AdminController extends Controller
                 $siswa_id->save();
             }
 
-            return redirect()->back();
+            return back();
         }
     }
 

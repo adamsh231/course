@@ -10,11 +10,9 @@
 
 @section('content')
 <div class="content-body">
-
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-
                 <div class="table-responsive">
                     <table id="nilai_table" class="table table-bordered table-striped verticle-middle table-md">
                         <thead>
@@ -50,11 +48,9 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 
@@ -63,10 +59,5 @@
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
-<script>
-    $('#nilai_table').DataTable({
-        pageLength: 5,
-        lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
-    });
-</script>
+<script src="{{ asset('js/admin_nilai.js') }}"></script>
 @endsection
