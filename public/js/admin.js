@@ -64,6 +64,7 @@ function fill_edit(id) {
             $("#form_edit input[name=email]").val(data.siswa.email);
             $("#form_edit input[name=phone]").val(data.siswa.phone);
             $("#form_edit input[name=team]").val(data.siswa.team);
+            $('#edit_siswa .submit').off('click');
             $("#edit_siswa .submit").click(function () {
                 edit_siswa(id);
             });
@@ -226,6 +227,7 @@ function fill_editP(id) {
             $("#form_editP input[name=tanggal]").val(data.pertemuan.tanggal);
             $("#form_editP .kompetensi").val(data.pertemuan.kompetensi);
             $("#form_editP .tujuan").val(data.pertemuan.tujuan);
+            $('#edit_pertemuan .submit').off('click');
             $("#edit_pertemuan .submit").click(function () {
                 edit_pertemuan(id);
             });

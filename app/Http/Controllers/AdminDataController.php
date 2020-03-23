@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Siswa;
 use App\Pertemuan;
 use App\Presensi;
+use App\Nilai;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -72,7 +73,6 @@ class AdminDataController extends Controller
                 'password' => [($request->filled('password') ? 'min:8' : '')],
                 'email' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'email'],
                 'phone' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'numeric'],
-                'team' => ['required', 'numeric'],
             ]
         );
 
@@ -195,6 +195,36 @@ class AdminDataController extends Controller
         Storage::disk('public')->delete($pertemuan->tugas);
         $pertemuan->delete();
 
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function editNilai(Request $request,Nilai $nilai){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nilai' => ['required','numeric'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $nilai->nilai = $request->nilai;
+        $nilai->save();
+
+        return response()->json([
+            'error' => false,
+        ], 200);
+    }
+
+    public function deleteNilai(Nilai $nilai){
+        $nilai->delete();
         return response()->json([
             'error' => false,
         ], 200);

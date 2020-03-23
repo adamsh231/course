@@ -101,6 +101,7 @@ function fill_edit_detail(id) {
             $("#form_edit_detail input[name=kegiatan]").val(data.detail.kegiatan);
             $("#form_edit_detail input[name=mulai]").val(data.detail.mulai);
             $("#form_edit_detail input[name=selesai]").val(data.detail.selesai);
+            $('#edit_detail .submit').off('click');
             $("#edit_detail .submit").click(function () {
                 edit_detail(id);
             });
@@ -396,6 +397,7 @@ function fill_edit_video(id) {
             $("#form_edit_video input[name=nama]").val(data.video.nama);
             $("#form_edit_video input[name=path]").val(data.video.path),
             $("#form_edit_video .deskripsi").val(data.video.deskripsi);
+            $('#edit_video .submit').off('click');
             $("#edit_video .submit").click(function () {
                 edit_video(id);
             });
@@ -533,6 +535,7 @@ function fill_edit_kuis(id, nama, waktu) {
     $("#form_edit_kuis input[name=nama]").val(nama);
     $("#form_edit_kuis input[name=waktu]").val(waktu);
     $('#edit_kuis').modal('show');
+    $('#edit_kuis .submit').off('click');
     $("#edit_kuis .submit").click(function () {
         edit_kuis(id);
     });

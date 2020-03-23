@@ -43,8 +43,9 @@ class AdminController extends Controller
         );
     }
 
-    public function filePertemuan(Pertemuan $id_pertemuan){
-        $kuis = Kuis::with(['soal'])->where('id_pertemuan',$id_pertemuan->id)->first();
+    public function filePertemuan(Pertemuan $id_pertemuan)
+    {
+        $kuis = Kuis::with(['soal'])->where('id_pertemuan', $id_pertemuan->id)->first();
         $pertemuan = $this->getAllPertemuan();
         return view('file_pertemuan', [
             'pertemuan' => $pertemuan,
@@ -53,43 +54,44 @@ class AdminController extends Controller
         ]);
     }
 
-    public function addFilePertemuan(Request $request,Pertemuan $pertemuan){
-        $kuis = Kuis::where('id_pertemuan',$pertemuan->id)->first();
+    public function addFilePertemuan(Request $request, Pertemuan $pertemuan)
+    {
+        $kuis = Kuis::where('id_pertemuan', $pertemuan->id)->first();
         $messages = "";
-        if($request->has('materi')){
+        if ($request->has('materi')) {
             $request->validate(['materi' => ['mimes:pdf']]);
             $file = $request->file('materi');
-            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file_name = time() . $pertemuan->id . "." . $file->getClientOriginalExtension();
             $file->storeAs('file/materi/', $file_name, 'public');
             Storage::disk('public')->delete($pertemuan->materi);
-            $pertemuan->materi = 'file/materi/'.$file_name;
+            $pertemuan->materi = 'file/materi/' . $file_name;
             $pertemuan->save();
             $messages = "Upload Materi Sukses!";
-        }else if($request->has('diskusi')){
+        } else if ($request->has('diskusi')) {
             $request->validate(['diskusi' => ['mimes:html']]);
             $file = $request->file('diskusi');
-            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file_name = time() . $pertemuan->id . "." . $file->getClientOriginalExtension();
             $file->storeAs('file/diskusi/', $file_name, 'public');
             Storage::disk('public')->delete($pertemuan->diskusi);
-            $pertemuan->diskusi = 'file/diskusi/'.$file_name;
+            $pertemuan->diskusi = 'file/diskusi/' . $file_name;
             $pertemuan->save();
             $messages = "Upload Diskusi Sukses!";
-        }else if($request->has('tugas')){
+        } else if ($request->has('tugas')) {
             $request->validate(['tugas' => ['mimes:pdf']]);
             $file = $request->file('tugas');
-            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file_name = time() . $pertemuan->id . "." . $file->getClientOriginalExtension();
             $file->storeAs('file/tugas/', $file_name, 'public');
             Storage::disk('public')->delete($pertemuan->tugas);
-            $pertemuan->tugas = 'file/tugas/'.$file_name;
+            $pertemuan->tugas = 'file/tugas/' . $file_name;
             $pertemuan->save();
             $messages = "Upload Tugas Sukses!";
-        }else if($request->has('jawaban')){
+        } else if ($request->has('jawaban')) {
             $request->validate(['jawaban' => ['mimes:pdf']]);
             $file = $request->file('jawaban');
-            $file_name = time().$pertemuan->id.".".$file->getClientOriginalExtension();
+            $file_name = time() . $pertemuan->id . "." . $file->getClientOriginalExtension();
             $file->storeAs('file/jawaban/', $file_name, 'public');
             Storage::disk('public')->delete($pertemuan->tugas);
-            $kuis->jawaban = 'file/jawaban/'.$file_name;
+            $kuis->jawaban = 'file/jawaban/' . $file_name;
             $kuis->save();
             $messages = "Upload Kunci Jawaban Sukses!";
         }
@@ -97,13 +99,14 @@ class AdminController extends Controller
         return back()->with('status', $messages == "" ? 'Upload Gagal File Tidak Boleh Kosong!' : $messages);
     }
 
-    public function addGambarPertemuan(Request $request, Soal $soal){
-        $request->validate(['gambar' => ['required','mimes:jpg,png,jpeg','max:2048']]);
+    public function addGambarPertemuan(Request $request, Soal $soal)
+    {
+        $request->validate(['gambar' => ['required', 'mimes:jpg,png,jpeg', 'max:2048']]);
         $file = $request->file('gambar');
-        $file_name = time().$soal->id.".".strtolower($file->getClientOriginalExtension());
+        $file_name = time() . $soal->id . "." . strtolower($file->getClientOriginalExtension());
         $file->storeAs('file/gambar/', $file_name, 'public');
         Storage::disk('public')->delete($soal->gambar);
-        $soal->gambar = 'file/gambar/'.$file_name;
+        $soal->gambar = 'file/gambar/' . $file_name;
         $soal->save();
         return back()->with('status', 'Upload Gambar Berhasil!');
     }
@@ -173,10 +176,10 @@ class AdminController extends Controller
             shuffle($arr_id);
 
             $kelompok = 1;
-            for ($i=0; $i < count($arr_id); $i++) {
+            for ($i = 0; $i < count($arr_id); $i++) {
                 $siswa_id = Siswa::find($arr_id[$i]);
                 $siswa_id->team = $kelompok;
-                if(($i+1) % ($jml_siswa/$request->jumlah) == 0){
+                if (($i + 1) % ($jml_siswa / $request->jumlah) == 0) {
                     $kelompok++;
                 }
                 $siswa_id->save();
@@ -186,14 +189,29 @@ class AdminController extends Controller
         }
     }
 
-    public function nilai(){
+    public function nilai($kuis = 0)
+    {
         $pertemuan = $this->getAllPertemuan();
-        $nilai = Nilai::with(['siswa','kuis'])->get();
-        return view('admin_nilai',
-        [
-            'nilai' => $nilai,
-            'pertemuan' => $pertemuan
-        ]);
+        // $nilai = Nilai::with(['siswa', 'kuis'])->whereNotIn('id_siswa', function ($query) {
+        //     $query->select('id')->from('siswa')->where('status', 1);
+        // })->get();
+        $current = $kuis;
+        $nilai = "";
+        if($kuis == 0){
+            $nilai = Nilai::with(['siswa', 'kuis'])->get();
+        }else{
+            $nilai = Nilai::with(['siswa', 'kuis'])->where('id_kuis', $kuis)->get();
+        }
+        $kuis = Kuis::all();
+        return view(
+            'admin_nilai',
+            [
+                'nilai' => $nilai,
+                'pertemuan' => $pertemuan,
+                'kuis' => $kuis,
+                'current' => $current
+            ]
+        );
     }
 
     private function getDetailByPertemuan($key)
