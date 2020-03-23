@@ -75,7 +75,6 @@ class AdminDataController extends Controller
                 'phone' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'numeric'],
             ]
         );
-
         if ($validator->fails()) {
             return response()->json([
                 'error'    => true,

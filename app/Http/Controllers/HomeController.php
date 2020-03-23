@@ -7,7 +7,11 @@ use App\Pertemuan;
 use App\Detail;
 use App\Soal;
 use App\Nilai;
+use App\Siswa;
 use App\Kuis;
+use App\Presensi;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -16,6 +20,46 @@ class HomeController extends Controller
     {
         $pertemuan = $this->getAllPertemuan();
         return view('/home', ['pertemuan' => $pertemuan]);
+    }
+
+    public function profile()
+    {
+        $pertemuan = $this->getAllPertemuan();
+        $siswa = Siswa::find(Auth::user()->id);
+        $nilai = Nilai::with(['kuis'])->where('id_siswa', $siswa->id)->get();
+        $presensi = Presensi::with(['pertemuan'])->where('id_siswa',$siswa->id)->get();
+        return view(
+            'profile',
+            [
+                'pertemuan' => $pertemuan,
+                'siswa' => $siswa,
+                'presensi' => $presensi,
+                'nilai' => $nilai
+            ]
+        );
+    }
+
+    public function editProfile(Request $request)
+    {
+        $siswa = Siswa::find(Auth::user()->id);
+        $request->validate(
+            [
+                'name' => ['required'],
+                'username' => ['required', Rule::unique('siswa')->ignore($siswa->id)],
+                'password' => [($request->filled('password') ? 'min:8' : '')],
+                'email' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'email'],
+                'phone' => ['required', Rule::unique('siswa')->ignore($siswa->id), 'numeric'],
+            ]
+        );
+        $siswa->name = $request->name;
+        $siswa->username = $request->username;
+        $siswa->email = $request->email;
+        $siswa->phone = $request->phone;
+        if ($request->filled('password')) {
+            $siswa->password = Hash::make($request->password);
+        }
+        $siswa->save();
+        return redirect('/profile')->with('status', 'Data Tersimpan!');
     }
 
     public function pertemuan(Pertemuan $id_pertemuan)
@@ -89,7 +133,7 @@ class HomeController extends Controller
         $nilai_table->nilai = $nilai;
         $nilai_table->save();
 
-        return redirect('/pertemuan/' . $kuis->id_pertemuan)->with('status', 'Nilai anda adalah ' . $nilai);
+        return redirect('/profile');
     }
 
     private function getAllPertemuan()

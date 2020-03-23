@@ -33,14 +33,6 @@
                 @error('username')
                 <small style="color: red; margin-left:40px">{{ $message }}</small>
                 @enderror
-                {{-- <div class="form-holder">
-                    <span class="lnr lnr-phone-handset"></span>
-                    <input type="text" class="form-control" placeholder="Phone Number">
-                </div>
-                <div class="form-holder">
-                    <span class="lnr lnr-envelope"></span>
-                    <input type="text" class="form-control" placeholder="Mail">
-                </div> --}}
                 <div class="form-holder" @error('password') style="margin-bottom: 0" @enderror>
                     <span class="lnr lnr-lock"></span>
                     <input type="password" class="form-control" value="{{ old('password') }}" name="password" placeholder="Password">

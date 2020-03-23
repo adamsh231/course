@@ -53,14 +53,17 @@
                         <li class="icons dropdown" style="margin-right:10px;">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="{{ URL::asset('quixlab/images/user/1.png') }}" height="40" width="40" alt="">
+                                <img src="{{ asset('quixlab/images/avatar/11.png') }}" height="40" width="40" alt="">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <hr class="my-2">
-
-                                        <li><a href="{{ url('/logout') }}"><i class="icon-key"></i> <span>Logout</span></a>
+                                        <li>
+                                            <a href="{{ url('/profile') }}"><i class="ti-user"></i> <span>Profile</span></a>
+                                        </li>
+										<hr class="my-2">
+                                        <li>
+                                            <a href="{{ url('/logout') }}"><i class="icon-key"></i> <span>Logout</span></a>
                                         </li>
                                     </ul>
                                 </div>

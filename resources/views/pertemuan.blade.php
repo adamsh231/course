@@ -34,7 +34,7 @@
                             </span>
                         </button>
                         @isset($kuis)
-                        <a href="{{ url('/kuis/'.$id_pertemuan->id) }}" target="_blank" class="btn mb-1 btn-warning float-right text-white @if(!$kuis->aktif) disabled @endif">
+                        <a href="{{ url('/kuis/'.$id_pertemuan->id) }}" onclick="javascript:window.open('','_self').close();" target="_blank" class="btn mb-1 btn-warning float-right text-white @if(!$kuis->aktif) disabled @endif">
                             {{ ucwords($kuis->nama) }}
                             <span class="btn-icon-right">
                                 <i class="fa fa-pencil-square-o text-white"></i>
