@@ -29,7 +29,9 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/home', 'HomeController@home');
     Route::get('/profile', 'HomeController@profile');
     Route::put('/profile', 'HomeController@editProfile');
+    Route::get('/kelompok', 'HomeController@kelompok');
     Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
+    Route::get('/pertemuan/{id_pertemuan}/materi', 'HomeController@materi');
     Route::get('/kuis/{id_pertemuan}', 'HomeController@kuis');
     Route::post('/nilai/{kuis}', 'HomeController@nilai');
     Route::get('/logout', 'AuthController@logout');

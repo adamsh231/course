@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
 
-                        <button onclick="maintenance()" type="button" class="btn mb-1 btn-info">
+                        <button onclick="window.location.href='{{ url('/pertemuan/'.$id_pertemuan->id.'/materi/') }}'" type="button" class="btn mb-1 btn-info">
                             Materi
                             <span class="btn-icon-right">
                                 <i class="fa fa-book text-white"></i>

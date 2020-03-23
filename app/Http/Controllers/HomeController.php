@@ -9,6 +9,7 @@ use App\Soal;
 use App\Nilai;
 use App\Siswa;
 use App\Kuis;
+use App\Video;
 use App\Presensi;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -27,7 +28,7 @@ class HomeController extends Controller
         $pertemuan = $this->getAllPertemuan();
         $siswa = Siswa::find(Auth::user()->id);
         $nilai = Nilai::with(['kuis'])->where('id_siswa', $siswa->id)->get();
-        $presensi = Presensi::with(['pertemuan'])->where('id_siswa',$siswa->id)->get();
+        $presensi = Presensi::with(['pertemuan'])->where('id_siswa', $siswa->id)->get();
         return view(
             'profile',
             [
@@ -35,6 +36,39 @@ class HomeController extends Controller
                 'siswa' => $siswa,
                 'presensi' => $presensi,
                 'nilai' => $nilai
+            ]
+        );
+    }
+
+    public function kelompok()
+    {
+        $pertemuan = $this->getAllPertemuan();
+        $siswa = Siswa::where(
+            [
+                ['team', Auth::user()->team],
+                ['status', 0]
+            ])->get();
+        return view(
+            'kelompok',
+            [
+                'siswa' => $siswa,
+                'pertemuan' => $pertemuan
+            ]
+        );
+    }
+
+    public function materi(Pertemuan $id_pertemuan)
+    {
+        $pertemuan = $this->getAllPertemuan();
+        $kuis = Kuis::where('id_pertemuan', $id_pertemuan->id)->first();
+        $video = Video::where('id_pertemuan', $id_pertemuan->id)->get();
+        return view(
+            'materi',
+            [
+                'video' => $video,
+                'kuis' => $kuis,
+                'id_pertemuan' => $id_pertemuan,
+                'pertemuan' => $pertemuan
             ]
         );
     }

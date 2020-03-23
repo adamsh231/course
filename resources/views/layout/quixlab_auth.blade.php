@@ -50,6 +50,14 @@
                 </div>
                 <div class="header-right">
                     <ul class="clearfix">
+                        <li class="icons dropdown">
+                            <button onclick="window.location.href='{{ url('/kelompok') }}'" class="btn mb-1 btn-primary btn-sm mb-2 mr-4">
+                                Daftar kelompok
+                                <span class="btn-icon-right text-white">
+                                    <i class="fa fa-sticky-note"></i>
+                                </span>
+                            </button>
+                        </li>
                         <li class="icons dropdown" style="margin-right:10px;">
                             <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                                 <span class="activity active"></span>
@@ -61,7 +69,7 @@
                                         <li>
                                             <a href="{{ url('/profile') }}"><i class="ti-user"></i> <span>Profile</span></a>
                                         </li>
-										<hr class="my-2">
+                                        <hr class="my-2">
                                         <li>
                                             <a href="{{ url('/logout') }}"><i class="icon-key"></i> <span>Logout</span></a>
                                         </li>
@@ -118,7 +126,7 @@
                 'warning'
             )
         }
-        </script>
+    </script>
     @yield('add_script')
 </body>
 
