@@ -277,7 +277,7 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'nama' => ['required'],
-                'path' => ['required', 'url'],
+                'path' => [($request->filled('path') ? 'url' : '')],
                 'deskripsi' => ['required'],
             ]
         );
@@ -289,11 +289,12 @@ class AdminDetailController extends Controller
             ], 422);
         }
 
-        parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
-        $youtube_id = $youtube_ids['v'];
-
         $video->nama = $request->nama;
-        $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
+        if($request->filled('path')){
+            parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
+            $youtube_id = $youtube_ids['v'];
+            $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
+        }
         $video->deskripsi = $request->deskripsi;
         $video->save();
 

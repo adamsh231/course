@@ -390,12 +390,12 @@ function fill_edit_video(id) {
         beforeSend: function () {
             $("#edit_video_error_bag").hide();
             $("#form_edit_video input[name=nama]").val('');
-            $("#form_edit_video input[name=path]").val(),
+            $("#form_edit_video input[name=path]").val(''),
             $("#form_edit_video .deskripsi").val('');
         },
         success: function (data) {
             $("#form_edit_video input[name=nama]").val(data.video.nama);
-            $("#form_edit_video input[name=path]").val(data.video.path),
+            // $("#form_edit_video input[name=path]").val(data.video.path),
             $("#form_edit_video .deskripsi").val(data.video.deskripsi);
             $('#edit_video .submit').off('click');
             $("#edit_video .submit").click(function () {
