@@ -71,6 +71,7 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/pertemuan/{id_pertemuan}/file', 'AdminController@filePertemuan');
         Route::post('/admin/pertemuan/{pertemuan}/file', 'AdminController@addFilePertemuan');
         Route::post('/admin/pertemuan/file/soal/{soal}', 'AdminController@addGambarPertemuan');
+        Route::delete('/admin/pertemuan/file/soal/{soal}', 'AdminController@deleteGambarPertemuan');
         Route::get('/admin/nilai/{kuis?}', 'AdminController@nilai');
         Route::put('/admin/nilai/{nilai}', 'AdminDataController@editNilai');
         Route::delete('/admin/nilai/{nilai}', 'AdminDataController@deleteNilai');

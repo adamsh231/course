@@ -1,6 +1,10 @@
 @extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
 @section('title', 'Detail File Pertemuan')
 
+@section('add_style')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('content')
 <div class="content-body">
     <div class="container-fluid">
@@ -228,9 +232,11 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                                    <div class="pt-3 pb-3 pl-0 pr-0 text-center" id="status_gambar{{ $ks->id }}">
                                         @if ($ks->gambar)
-                                        <i class="fa fa-check-circle fa-4x  text-success"></i>
+                                        <button onclick="delete_file_soal({{ $ks->id }})" class="btn btn-rounded btn-success btn-sm">
+                                            <i class="fa fa-trash-o fa-3x text-white" aria-hidden="true"></i>
+                                        </button>
                                         @else
                                         <i class="fa fa-times-circle fa-4x  text-danger"></i>
                                         @endif
@@ -250,5 +256,5 @@
 @endsection
 
 @section('add_script')
-
+<script src="{{ asset('js/admin_file.js') }}"></script>
 @endsection

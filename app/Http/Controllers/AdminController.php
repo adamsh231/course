@@ -111,6 +111,18 @@ class AdminController extends Controller
         return back()->with('status', 'Upload Gambar Berhasil!');
     }
 
+    public function deleteGambarPertemuan(Soal $soal)
+    {
+        Storage::disk('public')->delete($soal->gambar);
+        $soal->gambar = NULL;
+        $soal->save();
+        $append =
+        "
+        <i class='fa fa-times-circle fa-4x  text-danger'></i>
+        ";
+        return response()->json(['append' => $append], 200);
+    }
+
     public function hadir(Request $request)
     {
         $replace = "";
