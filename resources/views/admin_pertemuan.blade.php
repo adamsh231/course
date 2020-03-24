@@ -513,7 +513,7 @@
                 <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Link</label>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control" name="path" placeholder="Link URL Video ...">
+                        <input type="text" class="form-control" name="path" placeholder="Isi form untuk mengganti link...">
                     </div>
                 </div>
 
