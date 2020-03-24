@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="media align-items-center m-4">
-                    <img class="mr-3" src="{{ asset('quixlab/images/avatar/11.png') }}" width="80" height="80" alt="">
+                    <img class="mr-3" src="{{ asset('assets/profile.png') }}" width="80" height="80" alt="">
                     <div class="media-body">
                         <h3 class="mb-0">{{ $siswa->name }}</h3>
                         <p class="text-muted mb-0">{{ $siswa->email }}</p>

@@ -248,10 +248,13 @@ class AdminDetailController extends Controller
             ], 422);
         }
 
+        parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
+        $youtube_id = $youtube_ids['v'];
+
         $video = new Video;
         $video->id_pertemuan = $request->id_pertemuan;
         $video->nama = $request->nama;
-        $video->path = $request->path;
+        $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 
@@ -286,8 +289,11 @@ class AdminDetailController extends Controller
             ], 422);
         }
 
+        parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
+        $youtube_id = $youtube_ids['v'];
+
         $video->nama = $request->nama;
-        $video->path = $request->path;
+        $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 

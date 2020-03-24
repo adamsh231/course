@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ $id_pertemuan->nama }}</h4>
                     <p> Materi: {{ $id_pertemuan->nama }} ({{ date('d M Y', strtotime($id_pertemuan->tanggal)) }}) </p>
+                    @isset($kuis)
                     <div class="float-right text-white">
                         <a href="{{ url('storage/'.$kuis->jawaban) }}" target="_blank" class="btn mb-1 btn-primary">
                             Kunci Jawaban
@@ -17,6 +18,7 @@
                             </span>
                         </a>
                     </div>
+                    @endisset
                     <br>
                     <div class="basic-list-group mt-5">
                         <div class="list-group">
@@ -51,7 +53,7 @@
                                 <ul class="list-icons">
                                     @foreach ($video as $v)
                                     <li>
-                                        <a href="{{ $v->path }}" target="_blank">
+                                        <a href="#" onclick="youtube('{{ $v->path }}')" data-target="#modal_youtube" data-toggle="modal">
                                             <i class="fa fa-chevron-right"></i>
                                             {{ $v->nama }}: {{ $v->deskripsi }}
                                         </a>
@@ -66,4 +68,26 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="modal_youtube">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
+@section('add_script')
+<script>
+$("#modal_youtube").on('hidden.bs.modal', function (e) {
+    $("#modal_youtube iframe").attr("src", $("#modal_youtube iframe").attr("src"));
+});
+function youtube(path){
+    $('#modal_youtube iframe').attr('src', path);
+}
+</script>
 @endsection

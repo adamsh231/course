@@ -117,6 +117,10 @@ class HomeController extends Controller
     {
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan)->first();
 
+        if(!$kuis){
+            return redirect('/home');
+        }
+
         $exist = Nilai::where([
             ['id_siswa', '=', Auth::user()->id],
             ['id_kuis', '=', $kuis->id]
