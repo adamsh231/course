@@ -45,7 +45,7 @@ class AdminDataController extends Controller
         $siswa->save();
 
         $pertemuan = Pertemuan::all();
-        foreach($pertemuan as $p){
+        foreach ($pertemuan as $p) {
             $presensi = new Presensi;
             $presensi->id_pertemuan = $p->id;
             $presensi->id_siswa = $siswa->id;
@@ -137,7 +137,7 @@ class AdminDataController extends Controller
         $pertemuan->save();
 
         $siswa = Siswa::where('status', 0)->get();
-        foreach($siswa as $s){
+        foreach ($siswa as $s) {
             $presensi = new Presensi;
             $presensi->id_pertemuan = $pertemuan->id;
             $presensi->id_siswa = $s->id;
@@ -196,11 +196,13 @@ class AdminDataController extends Controller
         Storage::disk('public')->delete($pertemuan->tugas);
 
         $kuis = Kuis::where('id_pertemuan', $pertemuan->id)->first();
-        Storage::disk('public')->delete($kuis->jawaban);
-        $soal = Soal::where('id_kuis',$kuis->id)->get();
-        Storage::disk('public')->delete($kuis->jawaban);
-        foreach($soal as $s){
-            Storage::disk('public')->delete($s->gambar);
+        if ($kuis) {
+            Storage::disk('public')->delete($kuis->jawaban);
+            $soal = Soal::where('id_kuis', $kuis->id)->get();
+            Storage::disk('public')->delete($kuis->jawaban);
+            foreach ($soal as $s) {
+                Storage::disk('public')->delete($s->gambar);
+            }
         }
 
         $pertemuan->delete();
@@ -210,11 +212,12 @@ class AdminDataController extends Controller
         ], 200);
     }
 
-    public function editNilai(Request $request,Nilai $nilai){
+    public function editNilai(Request $request, Nilai $nilai)
+    {
         $validator = Validator::make(
             $request->all(),
             [
-                'nilai' => ['required','numeric'],
+                'nilai' => ['required', 'numeric'],
             ]
         );
 
@@ -233,7 +236,8 @@ class AdminDataController extends Controller
         ], 200);
     }
 
-    public function deleteNilai(Nilai $nilai){
+    public function deleteNilai(Nilai $nilai)
+    {
         $nilai->delete();
         return response()->json([
             'error' => false,
