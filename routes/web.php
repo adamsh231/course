@@ -75,6 +75,11 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::get('/admin/nilai/{kuis?}', 'AdminController@nilai');
         Route::put('/admin/nilai/{nilai}', 'AdminDataController@editNilai');
         Route::delete('/admin/nilai/{nilai}', 'AdminDataController@deleteNilai');
+
+        // Route::get('/artisan/migrate/fresh/seed', function(){
+        //     Artisan::call('migrate:fresh --seed');
+        //     return back();
+        // });
     });
 });
 
