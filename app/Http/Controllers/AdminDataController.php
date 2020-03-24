@@ -8,6 +8,8 @@ use App\Siswa;
 use App\Pertemuan;
 use App\Presensi;
 use App\Nilai;
+use App\Soal;
+use App\Kuis;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
@@ -192,6 +194,15 @@ class AdminDataController extends Controller
         Storage::disk('public')->delete($pertemuan->diskusi);
         Storage::disk('public')->delete($pertemuan->materi);
         Storage::disk('public')->delete($pertemuan->tugas);
+
+        $kuis = Kuis::where('id_pertemuan', $pertemuan->id)->first();
+        Storage::disk('public')->delete($kuis->jawaban);
+        $soal = Soal::where('id_kuis',$kuis->id)->get();
+        Storage::disk('public')->delete($kuis->jawaban);
+        foreach($soal as $s){
+            Storage::disk('public')->delete($s->gambar);
+        }
+
         $pertemuan->delete();
 
         return response()->json([
