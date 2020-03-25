@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- LINEARICONS -->
-    <link rel="stylesheet" href="{{ URL::asset('quixlab/icons/fonts/linearicons/style.css') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('assets/icon.png') }}">
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="{{ URL::asset('quixlab/css/style_login.css') }}">

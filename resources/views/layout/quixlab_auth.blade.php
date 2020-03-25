@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>@yield('title')</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('quixlab/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('assets/icon.png') }}">
     <!-- Custom Stylesheet -->
     <link href="{{ URL::asset('quixlab/css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
@@ -31,10 +31,10 @@
         <div class="nav-header">
             <div class="brand-logo">
                 <a href="{{ url('/home') }}">
-                    <b class="logo-abbr"><img src="{{ URL::asset('quixlab/images/logo.png') }}" alt=""> </b>
-                    <span class="logo-compact"><img src="{{ URL::asset('quixlab/images/logo-compact.png') }}" alt=""></span>
+                    <b class="logo-abbr"><img src="{{ URL::asset('assets/logomin.png') }}" alt=""> </b>
+                    <span class="logo-compact"><img src="{{ URL::asset('assets/logomin.png') }}" alt=""></span>
                     <span class="brand-title">
-                        <img src="{{ URL::asset('quixlab/images/logo-text.png') }}" alt="">
+                        <img src="{{ URL::asset('assets/logo.png') }}" style="width: 130px; height: 30px" alt="">
                     </span>
                 </a>
             </div>
