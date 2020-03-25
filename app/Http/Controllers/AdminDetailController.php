@@ -265,6 +265,7 @@ class AdminDetailController extends Controller
 
     public function getVideoById(Video $video)
     {
+        $video->path = 'https://www.youtube.com/watch?v='.substr($video->path, 30);
         return response()->json([
             'error' => false,
             'video' => $video,
@@ -277,7 +278,7 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'nama' => ['required'],
-                'path' => [($request->filled('path') ? 'url' : '')],
+                'path' => ['url'],
                 'deskripsi' => ['required'],
             ]
         );
@@ -290,11 +291,9 @@ class AdminDetailController extends Controller
         }
 
         $video->nama = $request->nama;
-        if($request->filled('path')){
-            parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
-            $youtube_id = $youtube_ids['v'];
-            $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
-        }
+        parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
+        $youtube_id = $youtube_ids['v'];
+        $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 

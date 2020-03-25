@@ -395,7 +395,7 @@ function fill_edit_video(id) {
         },
         success: function (data) {
             $("#form_edit_video input[name=nama]").val(data.video.nama);
-            // $("#form_edit_video input[name=path]").val(data.video.path),
+            $("#form_edit_video input[name=path]").val(data.video.path),
             $("#form_edit_video .deskripsi").val(data.video.deskripsi);
             $('#edit_video .submit').off('click');
             $("#edit_video .submit").click(function () {
