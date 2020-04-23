@@ -113,6 +113,7 @@
             </div>
         </div>
 
+        @isset($presensi)
         <div class="card">
             <div class="social-graph-wrapper widget-linkedin">
                 <span class="s-icon text-white">Upload Tugas</span>
@@ -150,6 +151,7 @@
                 </div>
             </div>
         </div>
+        @endisset
 
     </div>
 
