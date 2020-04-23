@@ -11,8 +11,21 @@
 
     <div class="container-fluid" style="margin-top:30px;">
 
+        @if ($errors->any())
+        @component('component/alert')
+        @slot('alert_type', 'warning')
+        @slot('alert_message')
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        @endslot
+        @endcomponent
+        @endif
+
         @if (session('status'))
-        <div class="alert alert-danger alert-dismissible fade show">
+        <div class="alert alert-warning alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
             </button> {{ session('status') }}
         </div>
@@ -99,6 +112,45 @@
                 </div>
             </div>
         </div>
+
+        <div class="card">
+            <div class="social-graph-wrapper widget-linkedin">
+                <span class="s-icon text-white">Upload Tugas</span>
+            </div>
+            <div class="row">
+                <div class="col-6 border-right">
+                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                        <a href="{{ url('storage/'. $presensi->tugas) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                        @if ($presensi->tugas)
+                        <i class="fa fa-check-circle fa-4x text-success"></i>
+                        @else
+                        <i class="fa fa-times-circle fa-4x text-danger"></i>
+                        @endif
+                    </div>
+                </div>
+                <hr>
+                <div class="col-12 border-top">
+                    <div class="m-auto text-center text-gray">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <h4 class="mt-1">Change / Upload File</h4>
+                                <form class="form-control" action="{{ url('/pertemuan/tugas/'.$presensi->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="tugas">
+                                    <br>
+                                    <button type="submit" class="btn btn-info btn-sm float-right mt-4">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>

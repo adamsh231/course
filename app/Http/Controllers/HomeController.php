@@ -14,6 +14,7 @@ use App\Presensi;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -99,16 +100,23 @@ class HomeController extends Controller
     public function pertemuan(Pertemuan $id_pertemuan)
     {
         $pertemuan = $this->getAllPertemuan();
+        $presensi = Presensi::where(
+            [
+                ['id_siswa', Auth::user()->id],
+                ['id_pertemuan', $id_pertemuan->id]
+            ]
+            )->first();
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan->id)->first();
-        // dd($kuis);
+        // dd($presensi);
         return view(
             '/pertemuan',
             [
                 'pertemuan' => $pertemuan,
                 'id_pertemuan' => $id_pertemuan,
                 'detail' => $detail,
-                'kuis' => $kuis
+                'kuis' => $kuis,
+                'presensi' => $presensi,
             ]
         );
     }
@@ -184,5 +192,19 @@ class HomeController extends Controller
     {
         $detail = Detail::with(['deskripsi'])->where('id_pertemuan', $key)->get();
         return $detail;
+    }
+
+    public function addTugas(Request $request, Presensi $presensi){
+        $messages = [
+            'required' => ':attribute tidak boleh kosong.',
+        ];
+        $request->validate(['tugas' => ['required', 'mimes:doc,docx,pdf']], $messages);
+        $file = $request->file('tugas');
+        $file_name = time() . $presensi->id_siswa . $presensi->id . "." . strtolower($file->getClientOriginalExtension());
+        $file->storeAs('file/siswa/tugas/', $file_name, 'public');
+        Storage::disk('public')->delete($presensi->tugas);
+        $presensi->tugas = 'file/siswa/tugas/' . $file_name;
+        $presensi->save();
+        return back()->with('status', 'Upload Tugas Berhasil!');
     }
 }

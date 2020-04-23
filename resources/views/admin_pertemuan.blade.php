@@ -42,6 +42,7 @@
                                         <tr class="text-center">
                                             <th style="width: 10%" scope="col">No</th>
                                             <th style="width: 40%" scope="col">Nama</th>
+                                            <th scope="col">Tugas</th>
                                             <th scope="col">Kehadiran</th>
                                         </tr>
                                     </thead>
@@ -50,6 +51,17 @@
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $pr->siswa->name }}</td>
+                                            <td class="text-center">
+                                                @if ($pr->tugas)
+                                                <button onclick="window.open('{{ url('storage/'. $pr->tugas) }}');" type="button" class="btn mb-1 btn-rounded btn-success btn-sm">
+                                                    <i class="fa fa-check fa-2x text-white" aria-hidden="true"></i>
+                                                </button>
+                                                @else
+                                                <button type="button" class="btn mb-1 btn-rounded btn-danger btn-sm">
+                                                    <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+                                                </button>
+                                                @endif
+                                            </td>
                                             <td id="td_hadir{{ $pr->id }}" class="text-center">
                                                 @if ($pr->kehadiran == "Hadir")
                                                 <button id="btn_hadir{{ $pr->id }}" onclick="hadir({{ $pr->id }}, 1)" type="button" class="btn mb-1 btn-rounded btn-success btn-sm">

@@ -35,6 +35,7 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/kuis/{id_pertemuan}', 'HomeController@kuis');
     Route::post('/nilai/{kuis}', 'HomeController@nilai');
     Route::get('/logout', 'AuthController@logout');
+    Route::post('/pertemuan/tugas/{presensi}', 'HomeController@addTugas');
     Route::group(['middleware' => ['isAdmin']], function () {
         Route::get('/admin', 'AdminController@administrator');
         Route::post('/admin/siswa', 'AdminDataController@addSiswa');

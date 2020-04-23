@@ -56,9 +56,9 @@
                             <div class="col-6">
                                 <div class="pt-3 pb-3 pl-0 pr-0 text-center">
                                     @if ($id_pertemuan->materi)
-                                    <i class="fa fa-check-circle fa-4x  text-success"></i>
+                                    <i class="fa fa-check-circle fa-4x text-success"></i>
                                     @else
-                                    <i class="fa fa-times-circle fa-4x  text-danger"></i>
+                                    <i class="fa fa-times-circle fa-4x text-danger"></i>
                                     @endif
                                 </div>
                             </div>

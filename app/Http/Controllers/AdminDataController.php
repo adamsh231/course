@@ -101,6 +101,10 @@ class AdminDataController extends Controller
 
     public function deleteSiswa(Siswa $siswa)
     {
+        $presensi = Presensi::where('id_siswa', $siswa->id)->get();
+        foreach ($presensi as $p) {
+            Storage::disk('public')->delete($p->tugas);
+        }
         $siswa->delete();
 
         return response()->json([
@@ -194,6 +198,11 @@ class AdminDataController extends Controller
         Storage::disk('public')->delete($pertemuan->diskusi);
         Storage::disk('public')->delete($pertemuan->materi);
         Storage::disk('public')->delete($pertemuan->tugas);
+
+        $presensi = Presensi::where('id_pertemuan', $pertemuan->id)->get();
+        foreach ($presensi as $p) {
+            Storage::disk('public')->delete($p->tugas);
+        }
 
         $kuis = Kuis::where('id_pertemuan', $pertemuan->id)->first();
         if ($kuis) {
