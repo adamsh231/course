@@ -23,7 +23,7 @@
 
                 <div class="row">
 
-                    <div class="col-lg-8 col-sm-6">
+                    <div class="col-lg-12 col-sm-6">
                         <div class="card" id="profile">
                             <div class="custom-tab-1 m-4">
                                 <ul class="nav nav-tabs mb-3">
@@ -139,7 +139,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-sm-6">
+                    {{-- <div class="col-lg-4 col-sm-6">
                         <div class="card" id="nilai">
                             <div class="card-body mt-0">
                                 <div class="mb-3">
@@ -163,7 +163,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+
                 </div>
 
 

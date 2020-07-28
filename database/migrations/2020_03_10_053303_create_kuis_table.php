@@ -18,7 +18,7 @@ class CreateKuisTable extends Migration
             $table->unsignedBigInteger('id_pertemuan')->unique();
             $table->string('nama');
             $table->string('jawaban')->nullable(); // File
-            $table->integer('waktu');
+            // $table->integer('waktu');
             $table->boolean('aktif')->default(0);
             $table->timestamps();
         });

@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $pertemuan = $this->getAllPertemuan();
         $siswa = Siswa::find(Auth::user()->id);
-        $nilai = Nilai::with(['kuis'])->where('id_siswa', $siswa->id)->get();
+        // $nilai = Nilai::with(['kuis'])->where('id_siswa', $siswa->id)->get();
         $presensi = Presensi::with(['pertemuan'])->where('id_siswa', $siswa->id)->get();
         return view(
             'profile',
@@ -36,7 +36,7 @@ class HomeController extends Controller
                 'pertemuan' => $pertemuan,
                 'siswa' => $siswa,
                 'presensi' => $presensi,
-                'nilai' => $nilai
+                // 'nilai' => $nilai
             ]
         );
     }
@@ -48,7 +48,8 @@ class HomeController extends Controller
             [
                 ['team', Auth::user()->team],
                 ['status', 0]
-            ])->get();
+            ]
+        )->get();
         return view(
             'kelompok',
             [
@@ -105,10 +106,17 @@ class HomeController extends Controller
                 ['id_siswa', Auth::user()->id],
                 ['id_pertemuan', $id_pertemuan->id]
             ]
-            )->first();
+        )->first();
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan->id)->first();
-        // dd($presensi);
+        $nilai = null;
+        if($kuis){
+            $nilai = Nilai::where([
+                ['id_siswa', Auth::user()->id],
+                ['id_kuis', $kuis->id]
+            ])->first();
+        }
+        // dd($nilai);
         return view(
             '/pertemuan',
             [
@@ -117,6 +125,7 @@ class HomeController extends Controller
                 'detail' => $detail,
                 'kuis' => $kuis,
                 'presensi' => $presensi,
+                'nilai' => $nilai,
             ]
         );
     }
@@ -125,29 +134,14 @@ class HomeController extends Controller
     {
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan)->first();
 
-        if(!$kuis){
+        if (!$kuis) {
             return redirect('/home');
         }
 
-        $exist = Nilai::where([
-            ['id_siswa', '=', Auth::user()->id],
-            ['id_kuis', '=', $kuis->id]
-        ])->count();
-
         if ($kuis) {
             if ($kuis->aktif) {
-                if ($exist == 0) {
-                    $soal = Soal::where('id_kuis', $kuis->id)->inRandomOrder()->get();
-                    $nilai = new Nilai;
-                    $nilai->id_siswa = Auth::user()->id;
-                    $nilai->id_kuis = $kuis->id;
-                    $nilai->nilai = 0;
-                    $nilai->save();
-                    return view('kuis', ['soal' => $soal, 'kuis' => $kuis]);
-                } else {
-                    return redirect('/pertemuan/' . $id_pertemuan)
-                        ->with('status', 'Anda dianggap telah melakukan test, Hubungi Guru jika ingin mengulang test!');
-                }
+                $soal = Soal::where('id_kuis', $kuis->id)->get();
+                return view('kuis', ['soal' => $soal, 'kuis' => $kuis, 'id_pertemuan' => $id_pertemuan]);
             } else {
                 return redirect('/pertemuan/' . $id_pertemuan)->with('status', 'Kuis Tidak Aktif!');
             }
@@ -165,10 +159,6 @@ class HomeController extends Controller
                 $nilai++;
             }
         }
-        $exist = Nilai::where([
-            ['id_siswa', '=', Auth::user()->id],
-            ['id_kuis', '=', $kuis->id]
-        ])->count();
         $nilai =  (int) ($nilai / count($soal) * 100);
         $nilai_table = Nilai::where([
             ['id_siswa', '=', Auth::user()->id],
@@ -194,7 +184,8 @@ class HomeController extends Controller
         return $detail;
     }
 
-    public function addTugas(Request $request, Presensi $presensi){
+    public function addTugas(Request $request, Presensi $presensi)
+    {
         $messages = [
             'required' => ':attribute tidak boleh kosong.',
         ];
@@ -206,5 +197,35 @@ class HomeController extends Controller
         $presensi->tugas = 'file/siswa/tugas/' . $file_name;
         $presensi->save();
         return back()->with('status', 'Upload Tugas Berhasil!');
+    }
+
+    public function addKuis(Request $request, $id_kuis)
+    {
+        $messages = [
+            'required' => ':attribute tidak boleh kosong.',
+        ];
+        $request->validate(['kuis' => ['required', 'mimes:doc,docx,pdf']], $messages);
+
+        $nilai = Nilai::where([
+            ['id_siswa', Auth::user()->id],
+            ['id_kuis', $id_kuis]
+        ])->first();
+
+        $file = $request->file('kuis');
+        $file_name = time() . Auth::user()->id . $id_kuis . "." . strtolower($file->getClientOriginalExtension());
+        $file->storeAs('file/siswa/kuis/', $file_name, 'public');
+
+        if($nilai){
+            Storage::disk('public')->delete($nilai->file);
+
+        }else{
+            $nilai = new Nilai;
+        }
+
+        $nilai->id_kuis = $id_kuis;
+        $nilai->id_siswa = Auth::user()->id;
+        $nilai->file = 'file/siswa/kuis/' . $file_name;
+        $nilai->save();
+        return back()->with('status', 'Upload Kuis Berhasil!');
     }
 }

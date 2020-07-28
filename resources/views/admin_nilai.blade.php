@@ -1,5 +1,5 @@
 @extends('layout/quixlab_auth', ['pertemuan' => $pertemuan])
-@section('title', 'Admin Daftar Nilai')
+@section('title', 'Admin File Kuis Siswa')
 
 @section('add_style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,7 +17,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-2 ml-4">
                         <select onChange="window.location.href=this.value" class="form-control">
-                            <option value="{{ url('/admin/nilai/') }}" {{ ($current == 0 ? 'selected' : '') }}>Semua Nilai</option>
+                            <option value="{{ url('/admin/nilai/') }}" {{ ($current == 0 ? 'selected' : '') }}>Semua File</option>
                             @foreach ($kuis as $k)
                             <option value="{{ url('/admin/nilai/'.$k->id) }}" {{ ($current == $k->id ? 'selected' : '') }}>{{ $k->nama }}</option>
                             @endforeach
@@ -32,8 +32,7 @@
                                 <th scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Kuis</th>
-                                <th scope="col">Nilai</th>
-                                <th scope="col">Action</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,18 +41,10 @@
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $n->siswa->name }}</td>
                                 <td class="text-center">{{ $n->kuis->nama }}</td>
-                                <td class="text-center">{{ $n->nilai }}</td>
                                 <td class="text-center">
-                                    <span>
-                                        <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
-                                            <a onclick="fill_edit_nilai({{ $n->id }}, '{{ $n->siswa->name }}', '{{ $n->kuis->nama }}', {{ $n->nilai }})" href="#" data-target="#edit_nilai" data-toggle="modal">
-                                                <i class="fa fa-pencil color-muted m-r-5"></i>
-                                            </a>
-                                        </span>
-                                        <a onclick="confirm_delete_nilai({{ $n->id }}, '{{ $n->siswa->name }}', '{{ $n->kuis->nama }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
-                                            <i class="fa fa-trash-o color-danger"></i>
-                                        </a>
-                                    </span>
+                                    {{-- <div class="pt-3 pb-3 pl-0 pr-0 text-center"> --}}
+                                        <a href="{{ url('storage/'. $n->file) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
+                                    {{-- </div> --}}
                                 </td>
                             </tr>
                             @endforeach

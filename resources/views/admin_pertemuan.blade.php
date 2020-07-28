@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="card-body text-center">
                                         <h5 class="card-title">{{ strtoupper($kuis->nama) }}</h5>
-                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                        {{-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> --}}
                                         <a href="{{ url('admin/pertemuan/'.$id_pertemuan->id.'/file') }}" type="button" class="btn mb-4 btn-info">
                                             Manage Gambar dan Kunci Jawaban
                                         </a>
@@ -232,7 +232,7 @@
                                             </button>
                                         </div>
                                         @endif
-                                        <div class="card-footer text-muted">Waktu Pengerjaan {{ $kuis->waktu }} Menit</div>
+                                        {{-- <div class="card-footer text-muted">Waktu Pengerjaan {{ $kuis->waktu }} Menit</div> --}}
                                     </div>
                                     <div>
                                         <button data-target="#add_soal" data-toggle="modal" type="button" class="btn mb-1 btn-outline-success float-right">
@@ -244,11 +244,11 @@
                                             <tr class="text-center">
                                                 <th scope="col">No</th>
                                                 <th scope="col">Pertanyaan</th>
-                                                <th scope="col">A</th>
+                                                {{-- <th scope="col">A</th>
                                                 <th scope="col">B</th>
                                                 <th scope="col">C</th>
                                                 <th scope="col">D</th>
-                                                <th scope="col">Jawaban</th>
+                                                <th scope="col">Jawaban</th> --}}
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -257,11 +257,11 @@
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-justify">{!! $ks->pertanyaan !!}</td>
-                                                <td>{{ $ks->A }}</td>
+                                                {{-- <td>{{ $ks->A }}</td>
                                                 <td>{{ $ks->B }}</td>
                                                 <td>{{ $ks->C }}</td>
                                                 <td>{{ $ks->D }}</td>
-                                                <td class="text-center">{{ $ks->jawaban }}</td>
+                                                <td class="text-center">{{ $ks->jawaban }}</td> --}}
                                                 <td class="text-center">
                                                     <span>
                                                         <a onclick="fill_edit_soal({{ $ks->id }})" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
@@ -566,12 +566,12 @@
                     </div>
                 </div>
 
-                <div class="form-group row is-invalid">
+                {{-- <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
                     <div class="col-lg-6">
                         <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -603,12 +603,12 @@
                     </div>
                 </div>
 
-                <div class="form-group row is-invalid">
+                {{-- <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
                     <div class="col-lg-6">
                         <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -640,7 +640,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row is-invalid">
+                {{-- <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">A</label>
                     <div class="col-lg-6">
                         <input type="text" class="form-control" name="A" placeholder="Pilihan A">
@@ -678,7 +678,7 @@
                             <option value="D">D</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>
@@ -710,7 +710,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row is-invalid">
+                {{-- <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">A</label>
                     <div class="col-lg-6">
                         <input type="text" class="form-control" name="A" placeholder="Pilihan A">
@@ -748,7 +748,7 @@
                             <option value="D">D</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
         </div>

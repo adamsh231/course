@@ -505,7 +505,7 @@ function add_kuis(id_pertemuan){
         data: {
             id_pertemuan: id_pertemuan,
             nama: $("#form_add_kuis input[name=nama]").val(),
-            waktu: $.trim($("#form_add_kuis input[name=waktu]").val()),
+            // waktu: $.trim($("#form_add_kuis input[name=waktu]").val()),
         },
         dataType: 'json',
         success: function (data) {
@@ -533,7 +533,7 @@ function add_kuis(id_pertemuan){
 function fill_edit_kuis(id, nama, waktu) {
     $("#edit_kuis_error_bag").hide();
     $("#form_edit_kuis input[name=nama]").val(nama);
-    $("#form_edit_kuis input[name=waktu]").val(waktu);
+    // $("#form_edit_kuis input[name=waktu]").val(waktu);
     $('#edit_kuis').modal('show');
     $('#edit_kuis .submit').off('click');
     $("#edit_kuis .submit").click(function () {
@@ -552,7 +552,7 @@ function edit_kuis(id){
         url: '/admin/pertemuan/kuis/' + id ,
         data: {
             nama: $("#form_edit_kuis input[name=nama]").val(),
-            waktu: $("#form_edit_kuis input[name=waktu]").val(),
+            // waktu: $("#form_edit_kuis input[name=waktu]").val(),
         },
         dataType: 'json',
         success: function (data) {
@@ -636,11 +636,11 @@ function add_soal(id_kuis){
         data: {
             id_kuis: id_kuis,
             pertanyaan: $.trim($("#form_add_soal .pertanyaan").val()),
-            A: $("#form_add_soal input[name=A]").val(),
-            B: $("#form_add_soal input[name=B]").val(),
-            C: $("#form_add_soal input[name=C]").val(),
-            D: $("#form_add_soal input[name=D]").val(),
-            jawaban: $("#form_add_soal .select").val(),
+            // A: $("#form_add_soal input[name=A]").val(),
+            // B: $("#form_add_soal input[name=B]").val(),
+            // C: $("#form_add_soal input[name=C]").val(),
+            // D: $("#form_add_soal input[name=D]").val(),
+            // jawaban: $("#form_add_soal .select").val(),
         },
         dataType: 'json',
         success: function (data) {
@@ -652,11 +652,11 @@ function add_soal(id_kuis){
                 timer: 700
             });
             $("#form_add_soal .pertanyaan").val('');
-            $("#form_add_soal input[name=A]").val('');
-            $("#form_add_soal input[name=B]").val('');
-            $("#form_add_soal input[name=C]").val('');
-            $("#form_add_soal input[name=D]").val('');
-            $("#form_add_soal .select").val('A');
+            // $("#form_add_soal input[name=A]").val('');
+            // $("#form_add_soal input[name=B]").val('');
+            // $("#form_add_soal input[name=C]").val('');
+            // $("#form_add_soal input[name=D]").val('');
+            // $("#form_add_soal .select").val('A');
             $('#table_soal').html(data.append);
         },
         error: function (data) {
@@ -678,19 +678,19 @@ function fill_edit_soal(id){
         beforeSend: function () {
             $("#edit_soal_error_bag").hide();
             $("#form_edit_soal .pertanyaan").val('');
-            $("#form_edit_soal input[name=A]").val('');
-            $("#form_edit_soal input[name=B]").val('');
-            $("#form_edit_soal input[name=C]").val('');
-            $("#form_edit_soal input[name=D]").val('');
-            $("#form_edit_soal select").val('A');
+            // $("#form_edit_soal input[name=A]").val('');
+            // $("#form_edit_soal input[name=B]").val('');
+            // $("#form_edit_soal input[name=C]").val('');
+            // $("#form_edit_soal input[name=D]").val('');
+            // $("#form_edit_soal select").val('A');
         },
         success: function (data) {
             $("#form_edit_soal .pertanyaan").val(data.soal.pertanyaan);
-            $("#form_edit_soal input[name=A]").val(data.soal.A);
-            $("#form_edit_soal input[name=B]").val(data.soal.B);
-            $("#form_edit_soal input[name=C]").val(data.soal.C);
-            $("#form_edit_soal input[name=D]").val(data.soal.D);
-            $("#form_edit_soal select").val(data.soal.jawaban);
+            // $("#form_edit_soal input[name=A]").val(data.soal.A);
+            // $("#form_edit_soal input[name=B]").val(data.soal.B);
+            // $("#form_edit_soal input[name=C]").val(data.soal.C);
+            // $("#form_edit_soal input[name=D]").val(data.soal.D);
+            // $("#form_edit_soal select").val(data.soal.jawaban);
             $('#edit_soal .submit').off('click');
             $("#edit_soal .submit").click(function () {
                 edit_soal(id);
@@ -715,11 +715,11 @@ function edit_soal(id){
         data: {
             id: id,
             pertanyaan: $.trim($("#form_edit_soal .pertanyaan").val()),
-            A: $("#form_edit_soal input[name=A]").val(),
-            B: $("#form_edit_soal input[name=B]").val(),
-            C: $("#form_edit_soal input[name=C]").val(),
-            D: $("#form_edit_soal input[name=D]").val(),
-            jawaban: $("#form_edit_soal .select").val(),
+            // A: $("#form_edit_soal input[name=A]").val(),
+            // B: $("#form_edit_soal input[name=B]").val(),
+            // C: $("#form_edit_soal input[name=C]").val(),
+            // D: $("#form_edit_soal input[name=D]").val(),
+            // jawaban: $("#form_edit_soal .select").val(),
         },
         dataType: 'json',
         success: function (data) {
@@ -731,11 +731,11 @@ function edit_soal(id){
                 timer: 700,
             });
             $("#form_edit_soal .pertanyaan").val('');
-            $("#form_edit_soal input[name=A]").val('');
-            $("#form_edit_soal input[name=B]").val('');
-            $("#form_edit_soal input[name=C]").val('');
-            $("#form_edit_soal input[name=D]").val('');
-            $("#form_edit_soal .select").val('A');
+            // $("#form_edit_soal input[name=A]").val('');
+            // $("#form_edit_soal input[name=B]").val('');
+            // $("#form_edit_soal input[name=C]").val('');
+            // $("#form_edit_soal input[name=D]").val('');
+            // $("#form_edit_soal .select").val('A');
             $('#table_soal').html(data.append);
         },
         error: function (data) {

@@ -18,11 +18,11 @@ class CreateSoalTable extends Migration
             $table->unsignedBigInteger('id_kuis');
             $table->string('gambar')->nullable(); //pertanyaan lewat gambar
             $table->text('pertanyaan'); //pertanyaan lewat text
-            $table->string('A');
-            $table->string('B');
-            $table->string('C');
-            $table->string('D');
-            $table->enum('jawaban',['A','B','C','D']);
+            // $table->string('A');
+            // $table->string('B');
+            // $table->string('C');
+            // $table->string('D');
+            // $table->enum('jawaban',['A','B','C','D']);
             $table->timestamps();
         });
     }

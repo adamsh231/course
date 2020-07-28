@@ -59,32 +59,7 @@
                                                         @if ($s->gambar)
                                                         <img class="ml-3 mb-3" src="{{ url('storage/'.$s->gambar) }}" width="300px" height="300px;">
                                                         @endif
-                                                        <div class="form-group">
-                                                            <div class="form-control input-default mb-2">
-                                                                <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="A">
-                                                                    <p class="ml-4 d-inline">{{ $s->A }}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-control input-default mb-2">
-                                                                <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="B">
-                                                                    <p class="ml-4 d-inline">{{ $s->B }}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-control input-default mb-2">
-                                                                <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="C">
-                                                                    <p class="ml-4 d-inline">{{ $s->C }}</p>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-control input-default mb-2">
-                                                                <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="D">
-                                                                    <p class="ml-4 d-inline">{{ $s->D }}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,11 +76,10 @@
         </div>
     </div>
 
-    <button id="fab" type="button" class="btn btn-info btn-lg btn-rounded centered">
-        <p id="fab_time" class="d-inline">00:00</p>
-        <p id="fab_done" class="d-none">Selesai</p>
+    <button id="fab" type="button" onclick="location.href='{{ url('pertemuan/'.$id_pertemuan) }}'" class="btn btn-info btn-lg btn-rounded centered">
+        <p id="fab_done" class="d-inline">Upload Kuis</p>
         <span class="btn-icon-right ml-0">
-            <i id="fab_icon" class="fa fa-clock-o text-white"></i>
+            <i id="fab_icon" class="fa fa-paper-plane-o text-white"></i>
         </span>
     </button>
 
@@ -116,7 +90,7 @@
     <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             var fab = document.getElementById("fab");
             var fab_time = document.getElementById("fab_time");
@@ -206,7 +180,7 @@
             });
         });
 
-    </script>
+    </script> --}}
 
 </body>
 

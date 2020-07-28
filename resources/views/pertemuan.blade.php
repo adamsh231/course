@@ -55,6 +55,7 @@
                         </a>
                         @endisset
                         <hr>
+
                         <div id="accordion-three" class="accordion">
                             <div class="card mb-3">
                                 <div class="card-header" style="background-color:#4298C3;">
@@ -113,7 +114,57 @@
             </div>
         </div>
 
+
+
         @isset($presensi)
+
+        @isset($kuis)
+        @php
+        if (!$nilai){
+        $file = "";
+        }else{
+        $file = $nilai->file;
+        }
+        @endphp
+        <div class="card">
+            <div class="social-graph-wrapper widget-linkedin">
+                <span class="s-icon text-white">Upload Kuis</span>
+            </div>
+            <div class="row">
+                <div class="col-6 border-right">
+                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                        <a href="{{ url('storage/'. $file) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="pt-3 pb-3 pl-0 pr-0 text-center">
+                        @if ($file != "")
+                        <i class="fa fa-check-circle fa-4x text-success"></i>
+                        @else
+                        <i class="fa fa-times-circle fa-4x text-danger"></i>
+                        @endif
+                    </div>
+                </div>
+                <hr>
+                <div class="col-12 border-top">
+                    <div class="m-auto text-center text-gray">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <h4 class="mt-1">Change / Upload File</h4>
+                                <form class="form-control" action="{{ url('/pertemuan/kuis/'.$kuis->id) }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="kuis">
+                                    <br>
+                                    <button type="submit" class="btn btn-info btn-sm float-right mt-4">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endisset
+
         <div class="card">
             <div class="social-graph-wrapper widget-linkedin">
                 <span class="s-icon text-white">Upload Tugas</span>

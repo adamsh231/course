@@ -33,7 +33,7 @@
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
                             <a href="{{ url('/admin/nilai') }}" class="btn mb-1 btn-primary mr-2 text-white float-right">
-                                Daftar Nilai Siswa
+                                File Kuis Siswa
                             </a>
                             <form class="form-inline" id="form_team" method="POST" action="{{ url('/admin/siswa/acak') }}">
                                 @csrf

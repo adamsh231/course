@@ -317,7 +317,7 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'nama' => ['required'],
-                'waktu' => ['required', 'numeric'],
+                // 'waktu' => ['required', 'numeric'],
             ]
         );
 
@@ -331,7 +331,7 @@ class AdminDetailController extends Controller
         $kuis = new Kuis;
         $kuis->id_pertemuan = $request->id_pertemuan;
         $kuis->nama = $request->nama;
-        $kuis->waktu = $request->waktu;
+        // $kuis->waktu = $request->waktu;
         $kuis->save();
 
         return response()->json([
@@ -345,7 +345,7 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'nama' => ['required'],
-                'waktu' => ['required', 'numeric'],
+                // 'waktu' => ['required', 'numeric'],
             ]
         );
 
@@ -357,7 +357,7 @@ class AdminDetailController extends Controller
         }
 
         $kuis->nama = $request->nama;
-        $kuis->waktu = $request->waktu;
+        // $kuis->waktu = $request->waktu;
         $kuis->save();
 
         return response()->json([
@@ -384,11 +384,11 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'pertanyaan' => ['required'],
-                'A' => ['required'],
-                'B' => ['required'],
-                'C' => ['required'],
-                'D' => ['required'],
-                'jawaban' => ['required'],
+                // 'A' => ['required'],
+                // 'B' => ['required'],
+                // 'C' => ['required'],
+                // 'D' => ['required'],
+                // 'jawaban' => ['required'],
             ]
         );
 
@@ -402,11 +402,11 @@ class AdminDetailController extends Controller
         $soal = new Soal;
         $soal->id_kuis = $request->id_kuis;
         $soal->pertanyaan = $request->pertanyaan;
-        $soal->A = $request->A;
-        $soal->B = $request->B;
-        $soal->C = $request->C;
-        $soal->D = $request->D;
-        $soal->jawaban = $request->jawaban;
+        // $soal->A = $request->A;
+        // $soal->B = $request->B;
+        // $soal->C = $request->C;
+        // $soal->D = $request->D;
+        // $soal->jawaban = $request->jawaban;
         $soal->save();
 
         $all_soal = Soal::where('id_kuis', $request->id_kuis)->get();
@@ -420,18 +420,6 @@ class AdminDetailController extends Controller
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
-                <td class='text-center'>
-                    <span>
-                        <a onclick='maintenance()' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Open File'>
-                            <i class='fa fa-eye color-danger'></i>
-                        </a>
-                    </span>
-                </td>
-                <td>$s->A</td>
-                <td>$s->B</td>
-                <td>$s->C</td>
-                <td>$s->D </td>
-                <td class='text-center'>$s->jawaban</td>
                 <td class='text-center'>
                     <span>
                         <a onclick='fill_edit_soal($s->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
@@ -465,11 +453,11 @@ class AdminDetailController extends Controller
             $request->all(),
             [
                 'pertanyaan' => ['required'],
-                'A' => ['required'],
-                'B' => ['required'],
-                'C' => ['required'],
-                'D' => ['required'],
-                'jawaban' => ['required'],
+                // 'A' => ['required'],
+                // 'B' => ['required'],
+                // 'C' => ['required'],
+                // 'D' => ['required'],
+                // 'jawaban' => ['required'],
             ]
         );
 
@@ -481,11 +469,11 @@ class AdminDetailController extends Controller
         }
 
         $soal->pertanyaan = $request->pertanyaan;
-        $soal->A = $request->A;
-        $soal->B = $request->B;
-        $soal->C = $request->C;
-        $soal->D = $request->D;
-        $soal->jawaban = $request->jawaban;
+        // $soal->A = $request->A;
+        // $soal->B = $request->B;
+        // $soal->C = $request->C;
+        // $soal->D = $request->D;
+        // $soal->jawaban = $request->jawaban;
         $soal->save();
 
         $all_soal = Soal::where('id_kuis', $soal->id_kuis)->get();
@@ -499,18 +487,6 @@ class AdminDetailController extends Controller
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
-                <td class='text-center'>
-                    <span>
-                        <a onclick='maintenance()' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Open File'>
-                            <i class='fa fa-eye color-danger'></i>
-                        </a>
-                    </span>
-                </td>
-                <td>$s->A</td>
-                <td>$s->B</td>
-                <td>$s->C</td>
-                <td>$s->D </td>
-                <td class='text-center'>$s->jawaban</td>
                 <td class='text-center'>
                     <span>
                         <a onclick='fill_edit_soal($s->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
@@ -547,18 +523,6 @@ class AdminDetailController extends Controller
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
-                <td class='text-center'>
-                    <span>
-                        <a onclick='maintenance()' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Open File'>
-                            <i class='fa fa-eye color-danger'></i>
-                        </a>
-                    </span>
-                </td>
-                <td>$s->A</td>
-                <td>$s->B</td>
-                <td>$s->C</td>
-                <td>$s->D </td>
-                <td class='text-center'>$s->jawaban</td>
                 <td class='text-center'>
                     <span>
                         <a onclick='fill_edit_soal($s->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>

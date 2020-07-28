@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
                 'id' => $i,
                 'id_pertemuan' => $id_pertemuan_random[($i-1)],
                 'nama' => 'kuis' . $i,
-                'waktu' => $faker->numberBetween(20, 60),
+                // 'waktu' => $faker->numberBetween(20, 60),
                 'aktif' => $faker->numberBetween(0, 1),
                 // 'jawaban' => '/jawaban/' . 'kuis' . $i . '.pdf',
             ]);
@@ -116,11 +116,11 @@ class DatabaseSeeder extends Seeder
                     'id_kuis' => $i,
                     // 'gambar' => '/kuis/' . $i . '/soal/' . $j . '.jpg',
                     'pertanyaan' => $faker->sentence($nbWords = $faker->numberBetween(10, 20), $variableNbWords = true) . '?',
-                    'A' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
-                    'B' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
-                    'C' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
-                    'D' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
-                    'jawaban' => $jawaban[array_rand($jawaban, 1)],
+                    // 'A' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
+                    // 'B' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
+                    // 'C' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
+                    // 'D' => $faker->sentence($nbWords = $faker->numberBetween(1, 3), $variableNbWords = true),
+                    // 'jawaban' => $jawaban[array_rand($jawaban, 1)],
                 ]);
                 $id_soal++;
             }
