@@ -33,6 +33,7 @@
                                 <th scope="col">Nama</th>
                                 <th scope="col">Kuis</th>
                                 <th scope="col"></th>
+                                <th scope="col">Nilai</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,8 +44,16 @@
                                 <td class="text-center">{{ $n->kuis->nama }}</td>
                                 <td class="text-center">
                                     {{-- <div class="pt-3 pb-3 pl-0 pr-0 text-center"> --}}
-                                        <a href="{{ url('storage/'. $n->file) }}" target="_blank" class="btn btn-info mt-2 ml-2">Lihat File</a>
+                                    <a href="{{ url('storage/'. $n->file) }}" target="_blank" class="btn btn-sm text-white btn-info mt-2 ml-2">Lihat File</a>
                                     {{-- </div> --}}
+                                </td>
+                                <td class="text-center">
+                                    {{ $n->nilai }}
+                                    <span data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                        <a onclick="fill_edit_nilai({{ $n->id }}, '{{ $n->siswa->name }}', '{{ $n->kuis->nama }}', {{ $n->nilai }})" href="#" data-target="#edit_nilai" data-toggle="modal">
+                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                        </a>
+                                    </span>
                                 </td>
                             </tr>
                             @endforeach
@@ -74,13 +83,6 @@
                 <label class="col-lg-4 col-form-label">Nama Siswa</label>
                 <div class="col-lg-6">
                     <input type="text" class="form-control" name="nama" readonly>
-                </div>
-            </div>
-
-            <div class="form-group row is-invalid">
-                <label class="col-lg-4 col-form-label">Nama Kuis</label>
-                <div class="col-lg-6">
-                    <input type="text" class="form-control" name="kuis" readonly>
                 </div>
             </div>
 

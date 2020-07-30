@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $pertemuan = $this->getAllPertemuan();
         $siswa = Siswa::find(Auth::user()->id);
-        // $nilai = Nilai::with(['kuis'])->where('id_siswa', $siswa->id)->get();
+        $nilai = Nilai::with(['kuis'])->where('id_siswa', $siswa->id)->get();
         $presensi = Presensi::with(['pertemuan'])->where('id_siswa', $siswa->id)->get();
         return view(
             'profile',
@@ -36,7 +36,7 @@ class HomeController extends Controller
                 'pertemuan' => $pertemuan,
                 'siswa' => $siswa,
                 'presensi' => $presensi,
-                // 'nilai' => $nilai
+                'nilai' => $nilai
             ]
         );
     }

@@ -8,7 +8,6 @@ $(document).ready(function () {
 function fill_edit_nilai(id, nama, kuis, nilai) {
     $("#edit_nilai_error_bag").hide();
     $("#form_edit_nilai input[name=nama]").val(nama);
-    $("#form_edit_nilai input[name=kuis]").val(kuis);
     $("#form_edit_nilai input[name=nilai]").val(nilai);
     $('#edit_nilai .submit').off('click');
     $("#edit_nilai .submit").click(function () {

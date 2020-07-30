@@ -17,7 +17,7 @@ class CreateNilaiTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_siswa');
             $table->unsignedBigInteger('id_kuis');
-            // $table->integer('nilai');
+            $table->integer('nilai')->default(0);
             $table->string('file')->nullable();
             $table->timestamps();
         });
