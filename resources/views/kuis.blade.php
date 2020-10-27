@@ -115,6 +115,7 @@
     <script src="{{ URL::asset('quixlab/js/gleek.js') }}"></script>
     <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 
     <script>
         $(document).ready(function() {
