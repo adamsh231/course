@@ -640,6 +640,7 @@ function add_soal(id_kuis){
             B: $("#form_add_soal input[name=B]").val(),
             C: $("#form_add_soal input[name=C]").val(),
             D: $("#form_add_soal input[name=D]").val(),
+            E: $("#form_add_soal input[name=E]").val(),
             jawaban: $("#form_add_soal .select").val(),
         },
         dataType: 'json',
@@ -656,6 +657,7 @@ function add_soal(id_kuis){
             $("#form_add_soal input[name=B]").val('');
             $("#form_add_soal input[name=C]").val('');
             $("#form_add_soal input[name=D]").val('');
+            $("#form_add_soal input[name=E]").val('');
             $("#form_add_soal .select").val('A');
             $('#table_soal').html(data.append);
         },
@@ -682,6 +684,7 @@ function fill_edit_soal(id){
             $("#form_edit_soal input[name=B]").val('');
             $("#form_edit_soal input[name=C]").val('');
             $("#form_edit_soal input[name=D]").val('');
+            $("#form_edit_soal input[name=E]").val('');
             $("#form_edit_soal select").val('A');
         },
         success: function (data) {
@@ -690,6 +693,7 @@ function fill_edit_soal(id){
             $("#form_edit_soal input[name=B]").val(data.soal.B);
             $("#form_edit_soal input[name=C]").val(data.soal.C);
             $("#form_edit_soal input[name=D]").val(data.soal.D);
+            $("#form_edit_soal input[name=E]").val(data.soal.E);
             $("#form_edit_soal select").val(data.soal.jawaban);
             $('#edit_soal .submit').off('click');
             $("#edit_soal .submit").click(function () {
@@ -719,6 +723,7 @@ function edit_soal(id){
             B: $("#form_edit_soal input[name=B]").val(),
             C: $("#form_edit_soal input[name=C]").val(),
             D: $("#form_edit_soal input[name=D]").val(),
+            E: $("#form_edit_soal input[name=E]").val(),
             jawaban: $("#form_edit_soal .select").val(),
         },
         dataType: 'json',
@@ -735,6 +740,7 @@ function edit_soal(id){
             $("#form_edit_soal input[name=B]").val('');
             $("#form_edit_soal input[name=C]").val('');
             $("#form_edit_soal input[name=D]").val('');
+            $("#form_edit_soal input[name=E]").val('');
             $("#form_edit_soal .select").val('A');
             $('#table_soal').html(data.append);
         },

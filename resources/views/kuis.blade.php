@@ -84,6 +84,12 @@
                                                                     <p class="ml-4 d-inline">{{ $s->D }}</p>
                                                                 </div>
                                                             </div>
+                                                            <div class="form-control input-default mb-2">
+                                                                <div class="radio my-1">
+                                                                    <input type="radio" name="answer{{ $s->id }}" value="E">
+                                                                    <p class="ml-4 d-inline">{{ $s->E }}</p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -248,6 +248,7 @@
                                                 <th scope="col">B</th>
                                                 <th scope="col">C</th>
                                                 <th scope="col">D</th>
+                                                <th scope="col">E</th>
                                                 <th scope="col">Jawaban</th>
                                                 <th scope="col">Action</th>
                                             </tr>
@@ -261,6 +262,7 @@
                                                 <td>{{ $ks->B }}</td>
                                                 <td>{{ $ks->C }}</td>
                                                 <td>{{ $ks->D }}</td>
+                                                <td>{{ $ks->E }}</td>
                                                 <td class="text-center">{{ $ks->jawaban }}</td>
                                                 <td class="text-center">
                                                     <span>
@@ -667,6 +669,12 @@
                         <input type="text" class="form-control" name="D" placeholder="Pilihan D">
                     </div>
                 </div>
+                <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">E</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="E" placeholder="Pilihan E">
+                    </div>
+                </div>
 
                 <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Jawaban</label>
@@ -676,6 +684,7 @@
                             <option value="B">B</option>
                             <option value="C">C</option>
                             <option value="D">D</option>
+                            <option value="E">E</option>
                         </select>
                     </div>
                 </div>
@@ -739,6 +748,13 @@
                 </div>
 
                 <div class="form-group row is-invalid">
+                    <label class="col-lg-4 col-form-label">E</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="E" placeholder="Pilihan E">
+                    </div>
+                </div>
+
+                <div class="form-group row is-invalid">
                     <label class="col-lg-4 col-form-label">Jawaban</label>
                     <div class="col-lg-6">
                         <select class="form-control select">
@@ -746,6 +762,7 @@
                             <option value="B">B</option>
                             <option value="C">C</option>
                             <option value="D">D</option>
+                            <option value="E">E</option>
                         </select>
                     </div>
                 </div>

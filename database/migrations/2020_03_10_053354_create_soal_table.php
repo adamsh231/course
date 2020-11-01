@@ -22,7 +22,8 @@ class CreateSoalTable extends Migration
             $table->string('B');
             $table->string('C');
             $table->string('D');
-            $table->enum('jawaban',['A','B','C','D']);
+            $table->string('E');
+            $table->enum('jawaban',['A','B','C','D','E']);
             $table->timestamps();
         });
     }

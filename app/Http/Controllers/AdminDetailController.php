@@ -388,6 +388,7 @@ class AdminDetailController extends Controller
                 'B' => ['required'],
                 'C' => ['required'],
                 'D' => ['required'],
+                'E' => ['required'],
                 'jawaban' => ['required'],
             ]
         );
@@ -406,6 +407,7 @@ class AdminDetailController extends Controller
         $soal->B = $request->B;
         $soal->C = $request->C;
         $soal->D = $request->D;
+        $soal->E = $request->E;
         $soal->jawaban = $request->jawaban;
         $soal->save();
 
@@ -420,17 +422,11 @@ class AdminDetailController extends Controller
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
-                <td class='text-center'>
-                    <span>
-                        <a onclick='maintenance()' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Open File'>
-                            <i class='fa fa-eye color-danger'></i>
-                        </a>
-                    </span>
-                </td>
                 <td>$s->A</td>
                 <td>$s->B</td>
                 <td>$s->C</td>
                 <td>$s->D </td>
+                <td>$s->E </td>
                 <td class='text-center'>$s->jawaban</td>
                 <td class='text-center'>
                     <span>
@@ -469,6 +465,7 @@ class AdminDetailController extends Controller
                 'B' => ['required'],
                 'C' => ['required'],
                 'D' => ['required'],
+                'E' => ['required'],
                 'jawaban' => ['required'],
             ]
         );
@@ -485,6 +482,7 @@ class AdminDetailController extends Controller
         $soal->B = $request->B;
         $soal->C = $request->C;
         $soal->D = $request->D;
+        $soal->E = $request->E;
         $soal->jawaban = $request->jawaban;
         $soal->save();
 
@@ -499,17 +497,11 @@ class AdminDetailController extends Controller
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
-                <td class='text-center'>
-                    <span>
-                        <a onclick='maintenance()' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Open File'>
-                            <i class='fa fa-eye color-danger'></i>
-                        </a>
-                    </span>
-                </td>
                 <td>$s->A</td>
                 <td>$s->B</td>
                 <td>$s->C</td>
                 <td>$s->D </td>
+                <td>$s->E </td>
                 <td class='text-center'>$s->jawaban</td>
                 <td class='text-center'>
                     <span>
@@ -547,17 +539,11 @@ class AdminDetailController extends Controller
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
-                <td class='text-center'>
-                    <span>
-                        <a onclick='maintenance()' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Open File'>
-                            <i class='fa fa-eye color-danger'></i>
-                        </a>
-                    </span>
-                </td>
                 <td>$s->A</td>
                 <td>$s->B</td>
                 <td>$s->C</td>
                 <td>$s->D </td>
+                <td>$s->E </td>
                 <td class='text-center'>$s->jawaban</td>
                 <td class='text-center'>
                     <span>
