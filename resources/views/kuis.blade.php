@@ -24,6 +24,12 @@
             transform: translate(-50%, -50%);
         }
     </style>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } });
+</script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+
 </head>
 
 <body>
@@ -121,7 +127,6 @@
     <script src="{{ URL::asset('quixlab/js/gleek.js') }}"></script>
     <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 
     <script>
         $(document).ready(function() {

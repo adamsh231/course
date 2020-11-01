@@ -4,6 +4,11 @@
 @section('add_style')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ URL::asset('quixlab/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 @endsection
 
 @section('content')
@@ -304,476 +309,476 @@
 
 {{-- Modal Add Detail --}}
 @component('component/modal')
-    @slot('modal_id', 'add_detail')
-    @slot('modal_title', 'Add Detail Pertemuan')
-    @slot('modal_body')
-    <form id="form_add_detail">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="add_detail_error_bag">
-                <ul class="mb-0" id="add_detail_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Kegiatan</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="kegiatan" placeholder="Nama Kegiatan...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Mulai</label>
-                    <div class="col-lg-6">
-                        <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam..." >
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Selesai</label>
-                    <div class="col-lg-6">
-                        <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'add_detail')
+@slot('modal_title', 'Add Detail Pertemuan')
+@slot('modal_body')
+<form id="form_add_detail">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add_detail_error_bag">
+            <ul class="mb-0" id="add_detail_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_detail()" class="btn btn-primary">Add</button>
-    @endslot
+        <div class="form-validation">
+
+            <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Kegiatan</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="kegiatan" placeholder="Nama Kegiatan...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Mulai</label>
+                <div class="col-lg-6">
+                    <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Selesai</label>
+                <div class="col-lg-6">
+                    <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_detail()" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Detail --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_detail')
-    @slot('modal_title', 'Edit Detail Pertemuan')
-    @slot('modal_body')
-    <form id="form_edit_detail">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="edit_detail_error_bag">
-                <ul class="mb-0" id="edit_detail_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Kegiatan</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="kegiatan" placeholder="Nama Kegiatan...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Mulai</label>
-                    <div class="col-lg-6">
-                        <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Selesai</label>
-                    <div class="col-lg-6">
-                        <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'edit_detail')
+@slot('modal_title', 'Edit Detail Pertemuan')
+@slot('modal_body')
+<form id="form_edit_detail">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="edit_detail_error_bag">
+            <ul class="mb-0" id="edit_detail_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+        <div class="form-validation">
+
+            <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Kegiatan</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="kegiatan" placeholder="Nama Kegiatan...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Mulai</label>
+                <div class="col-lg-6">
+                    <input type="time" class="form-control" name="mulai" placeholder="Mulai Jam...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Selesai</label>
+                <div class="col-lg-6">
+                    <input type="time" class="form-control" name="selesai" placeholder="Selesai Jam...">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 {{-- Modal Add Kegiatan --}}
 @component('component/modal')
-    @slot('modal_id', 'add_kegiatan')
-    @slot('modal_title', 'Add Detail Kegiatan')
-    @slot('modal_body')
-    <form id="form_add_kegiatan">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="add_kegiatan_error_bag">
-                <ul class="mb-0" id="add_kegiatan_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <input type="hidden" name="id_detail" value="">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px teks" rows="6"></textarea>
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'add_kegiatan')
+@slot('modal_title', 'Add Detail Kegiatan')
+@slot('modal_body')
+<form id="form_add_kegiatan">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add_kegiatan_error_bag">
+            <ul class="mb-0" id="add_kegiatan_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_kegiatan()" class="btn btn-primary">Add</button>
-    @endslot
+        <div class="form-validation">
+
+            <input type="hidden" name="id_detail" value="">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px teks" rows="6"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_kegiatan()" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Kegiatan --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_kegiatan')
-    @slot('modal_title', 'Edit Detail Kegiatan')
-    @slot('modal_body')
-    <form id="form_edit_kegiatan">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="edit_kegiatan_error_bag">
-                <ul class="mb-0" id="edit_kegiatan_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px teks" rows="6"></textarea>
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'edit_kegiatan')
+@slot('modal_title', 'Edit Detail Kegiatan')
+@slot('modal_body')
+<form id="form_edit_kegiatan">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="edit_kegiatan_error_bag">
+            <ul class="mb-0" id="edit_kegiatan_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+        <div class="form-validation">
+
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Deskripsi Kegiatan</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px teks" rows="6"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 {{-- Modal Add Video --}}
 @component('component/modal')
-    @slot('modal_id', 'add_video')
-    @slot('modal_title', 'Add Video')
-    @slot('modal_body')
-    <form id="form_add_video">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="add_video_error_bag">
-                <ul class="mb-0" id="add_video_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Video</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Link</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="path" placeholder="Link URL Video">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Deskripsi</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'add_video')
+@slot('modal_title', 'Add Video')
+@slot('modal_body')
+<form id="form_add_video">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add_video_error_bag">
+            <ul class="mb-0" id="add_video_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_video()" class="btn btn-primary">Add</button>
-    @endslot
+        <div class="form-validation">
+
+            <input type="hidden" name="id_pertemuan" value="{{ $id_pertemuan->id }}">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Video</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Link</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="path" placeholder="Link URL Video">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Deskripsi</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_video()" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Video --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_video')
-    @slot('modal_title', 'Edit Video')
-    @slot('modal_body')
-    <form id="form_edit_video">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="edit_video_error_bag">
-                <ul class="mb-0" id="edit_video_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Video</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Link</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="path" placeholder="Link url....">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Deskripsi</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'edit_video')
+@slot('modal_title', 'Edit Video')
+@slot('modal_body')
+<form id="form_edit_video">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="edit_video_error_bag">
+            <ul class="mb-0" id="edit_video_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Video</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Deskripsi...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Link</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="path" placeholder="Link url....">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Deskripsi</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px deskripsi" rows="3"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 {{-- Modal Add Kuis --}}
 @component('component/modal')
-    @slot('modal_id', 'add_kuis')
-    @slot('modal_title', 'Add Kuis')
-    @slot('modal_body')
-    <form id="form_add_kuis">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="add_kuis_error_bag">
-                <ul class="mb-0" id="add_kuis_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Kuis</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nama" placeholder="Nama Kuis...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
-                    <div class="col-lg-6">
-                        <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'add_kuis')
+@slot('modal_title', 'Add Kuis')
+@slot('modal_body')
+<form id="form_add_kuis">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add_kuis_error_bag">
+            <ul class="mb-0" id="add_kuis_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_kuis({{ $id_pertemuan->id }})" class="btn btn-primary">Add</button>
-    @endslot
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Kuis</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Kuis...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
+                <div class="col-lg-6">
+                    <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_kuis({{ $id_pertemuan->id }})" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Kuis --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_kuis')
-    @slot('modal_title', 'Edit Kuis')
-    @slot('modal_body')
-    <form id="form_edit_kuis">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="edit_kuis_error_bag">
-                <ul class="mb-0" id="edit_kuis_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Nama Kuis</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="nama" placeholder="Nama Kuis...">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
-                    <div class="col-lg-6">
-                        <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'edit_kuis')
+@slot('modal_title', 'Edit Kuis')
+@slot('modal_body')
+<form id="form_edit_kuis">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="edit_kuis_error_bag">
+            <ul class="mb-0" id="edit_kuis_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Nama Kuis</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="nama" placeholder="Nama Kuis...">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Waktu Pengerjaan</label>
+                <div class="col-lg-6">
+                    <input type="number" class="form-control" name="waktu" placeholder="Waktu dalam menit...">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 {{-- Modal Add Soal --}}
 @component('component/modal')
-    @slot('modal_id', 'add_soal')
-    @slot('modal_title', 'Add Soal')
-    @slot('modal_body')
-    <form id="form_add_soal">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="add_soal_error_bag">
-                <ul class="mb-0" id="add_soal_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Pertanyaan</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">A</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="A" placeholder="Pilihan A">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">B</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="B" placeholder="Pilihan B">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">C</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="C" placeholder="Pilihan C">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">D</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="D" placeholder="Pilihan D">
-                    </div>
-                </div>
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">E</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="E" placeholder="Pilihan E">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Jawaban</label>
-                    <div class="col-lg-6">
-                        <select class="form-control select">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'add_soal')
+@slot('modal_title', 'Add Soal')
+@slot('modal_body')
+<form id="form_add_soal">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add_soal_error_bag">
+            <ul class="mb-0" id="add_soal_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button onclick="add_soal({{ $kuis->id ?? '' }})" class="btn btn-primary">Add</button>
-    @endslot
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Pertanyaan</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">A</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="A" placeholder="Pilihan A">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">B</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="B" placeholder="Pilihan B">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">C</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="C" placeholder="Pilihan C">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">D</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="D" placeholder="Pilihan D">
+                </div>
+            </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">E</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="E" placeholder="Pilihan E">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Jawaban</label>
+                <div class="col-lg-6">
+                    <select class="form-control select">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_soal({{ $kuis->id ?? '' }})" class="btn btn-primary">Add</button>
+@endslot
 @endcomponent
 
 {{-- Modal Edit Soal --}}
 @component('component/modal')
-    @slot('modal_id', 'edit_soal')
-    @slot('modal_title', 'Edit Soal')
-    @slot('modal_body')
-    <form id="form_edit_soal">
-        @csrf
-        <div class="card-body">
-            <div class="alert alert-danger" id="edit_soal_error_bag">
-                <ul class="mb-0" id="edit_soal_error">
-                </ul>
-            </div>
-            <div class="form-validation">
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Pertanyaan</label>
-                    <div class="col-lg-6">
-                        <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">A</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="A" placeholder="Pilihan A">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">B</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="B" placeholder="Pilihan B">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">C</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="C" placeholder="Pilihan C">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">D</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="D" placeholder="Pilihan D">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">E</label>
-                    <div class="col-lg-6">
-                        <input type="text" class="form-control" name="E" placeholder="Pilihan E">
-                    </div>
-                </div>
-
-                <div class="form-group row is-invalid">
-                    <label class="col-lg-4 col-form-label">Jawaban</label>
-                    <div class="col-lg-6">
-                        <select class="form-control select">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
+@slot('modal_id', 'edit_soal')
+@slot('modal_title', 'Edit Soal')
+@slot('modal_body')
+<form id="form_edit_soal">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="edit_soal_error_bag">
+            <ul class="mb-0" id="edit_soal_error">
+            </ul>
         </div>
-    </form>
-    @endslot
-    @slot('modal_footer')
-    <button class="btn btn-primary submit">Update</button>
-    @endslot
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Pertanyaan</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">A</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="A" placeholder="Pilihan A">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">B</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="B" placeholder="Pilihan B">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">C</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="C" placeholder="Pilihan C">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">D</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="D" placeholder="Pilihan D">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">E</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="E" placeholder="Pilihan E">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Jawaban</label>
+                <div class="col-lg-6">
+                    <select class="form-control select">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button class="btn btn-primary submit">Update</button>
+@endslot
 @endcomponent
 
 @endsection
@@ -784,5 +789,4 @@
 <script src="{{ URL::asset('quixlab/plugins/tables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ URL::asset('quixlab/plugins/tables/js/datatable/dataTables.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('js/admin_pertemuan.js') }}"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 @endsection
