@@ -68,32 +68,32 @@
                                                         <div class="form-group">
                                                             <div class="form-control input-default mb-2">
                                                                 <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="A">
-                                                                    <p class="ml-4 d-inline">{{ $s->A }}</p>
+                                                                    <input id="soalA{{ $s->id }}" type="radio" name="answer{{ $s->id }}" value="A">
+                                                                    <label class="ml-4 d-inline" for="soalA{{ $s->id }}">{{ $s->A }}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-control input-default mb-2">
                                                                 <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="B">
-                                                                    <p class="ml-4 d-inline">{{ $s->B }}</p>
+                                                                    <input id="soalB{{ $s->id }}" type="radio" name="answer{{ $s->id }}" value="B">
+                                                                    <label class="ml-4 d-inline" for="soalB{{ $s->id }}">{{ $s->B }}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-control input-default mb-2">
                                                                 <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="C">
-                                                                    <p class="ml-4 d-inline">{{ $s->C }}</p>
+                                                                    <input id="soalC{{ $s->id }}" type="radio" name="answer{{ $s->id }}" value="C">
+                                                                    <label class="ml-4 d-inline" for="soalC{{ $s->id }}">{{ $s->C }}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-control input-default mb-2">
                                                                 <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="D">
-                                                                    <p class="ml-4 d-inline">{{ $s->D }}</p>
+                                                                    <input id="soalD{{ $s->id }}" type="radio" name="answer{{ $s->id }}" value="D">
+                                                                    <label class="ml-4 d-inline" for="soalD{{ $s->id }}">{{ $s->D }}</label>
                                                                 </div>
                                                             </div>
                                                             <div class="form-control input-default mb-2">
                                                                 <div class="radio my-1">
-                                                                    <input type="radio" name="answer{{ $s->id }}" value="E">
-                                                                    <p class="ml-4 d-inline">{{ $s->E }}</p>
+                                                                    <input id="soalE{{ $s->id }}" type="radio" name="answer{{ $s->id }}" value="E">
+                                                                    <label class="ml-4 d-inline" for="soalE{{ $s->id }}">{{ $s->E }}</label>
                                                                 </div>
                                                             </div>
                                                         </div>
