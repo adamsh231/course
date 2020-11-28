@@ -673,56 +673,6 @@ function add_soal(id_kuis){
     });
 }
 
-function add_latihan(id_pertemuan){
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $.ajax({
-        type: 'POST',
-        url: '/admin/pertemuan/latihan',
-        data: {
-            id_pertemuan: id_pertemuan,
-            pertanyaan: $.trim($("#form_add_latihan .pertanyaan").val()),
-            A: $("#form_add_latihan input[name=A]").val(),
-            B: $("#form_add_latihan input[name=B]").val(),
-            C: $("#form_add_latihan input[name=C]").val(),
-            D: $("#form_add_latihan input[name=D]").val(),
-            E: $("#form_add_latihan input[name=E]").val(),
-            jawaban: $("#form_add_latihan .select").val(),
-            jawaban_lengkap: $("#form_add_latihan .jawaban_lengkap").val(),
-        },
-        dataType: 'json',
-        success: function (data) {
-            $("#add_latihan .close").click();
-            Swal.fire({
-                title: 'Berhasil ditambahkan!',
-                type: 'success',
-                showConfirmButton: false,
-                timer: 700
-            });
-            $("#form_add_latihan .pertanyaan").val('');
-            $("#form_add_latihan input[name=A]").val('');
-            $("#form_add_latihan input[name=B]").val('');
-            $("#form_add_latihan input[name=C]").val('');
-            $("#form_add_latihan input[name=D]").val('');
-            $("#form_add_latihan input[name=E]").val('');
-            $("#form_add_latihan .select").val('A');
-            $("#form_add_latihan .jawaban_lengkap").val('')
-            $('#table_latihan').html(data.append);
-        },
-        error: function (data) {
-            var errors = $.parseJSON(data.responseText);
-            $('#add_latihan_error').html('Error!');
-            $.each(errors.messages, function (key, value) {
-                $('#add_latihan_error').append('<li>' + value + '</li>');
-            });
-            $("#add_latihan_error_bag").show();
-        }
-    });
-}
-
 function fill_edit_soal(id){
     $('#edit_soal').modal('show');
     $.ajax({
@@ -804,6 +754,144 @@ function edit_soal(id){
             $("#edit_soal_error_bag").show();
         }
     });
+}
+
+function add_latihan(id_pertemuan){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/pertemuan/latihan',
+        data: {
+            id_pertemuan: id_pertemuan,
+            pertanyaan: $.trim($("#form_add_latihan .pertanyaan").val()),
+            A: $("#form_add_latihan input[name=A]").val(),
+            B: $("#form_add_latihan input[name=B]").val(),
+            C: $("#form_add_latihan input[name=C]").val(),
+            D: $("#form_add_latihan input[name=D]").val(),
+            E: $("#form_add_latihan input[name=E]").val(),
+            jawaban: $("#form_add_latihan .select").val(),
+            jawaban_lengkap: $("#form_add_latihan .jawaban_lengkap").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#add_latihan .close").click();
+            Swal.fire({
+                title: 'Berhasil ditambahkan!',
+                type: 'success',
+                showConfirmButton: false,
+                timer: 700
+            });
+            $("#form_add_latihan .pertanyaan").val('');
+            $("#form_add_latihan input[name=A]").val('');
+            $("#form_add_latihan input[name=B]").val('');
+            $("#form_add_latihan input[name=C]").val('');
+            $("#form_add_latihan input[name=D]").val('');
+            $("#form_add_latihan input[name=E]").val('');
+            $("#form_add_latihan .select").val('A');
+            $("#form_add_latihan .jawaban_lengkap").val('')
+            $('#table_latihan').html(data.append);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#add_latihan_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#add_latihan_error').append('<li>' + value + '</li>');
+            });
+            $("#add_latihan_error_bag").show();
+        }
+    });
+}
+
+function fill_edit_latihan(id){
+    $('#edit_latihan').modal('show');
+    $.ajax({
+        type: 'GET',
+        url: '/admin/pertemuan/latihan/' + id,
+        beforeSend: function () {
+            $("#edit_latihan_error_bag").hide();
+            $("#form_edit_latihan .pertanyaan").val('');
+            $("#form_edit_latihan input[name=A]").val('');
+            $("#form_edit_latihan input[name=B]").val('');
+            $("#form_edit_latihan input[name=C]").val('');
+            $("#form_edit_latihan input[name=D]").val('');
+            $("#form_edit_latihan input[name=E]").val('');
+            $("#form_edit_latihan select").val('A');
+            $("#form_edit_latihan .jawaban_lengkap").val('');
+        },
+        success: function (data) {
+            $("#form_edit_latihan .pertanyaan").val(data.latihan.pertanyaan);
+            $("#form_edit_latihan input[name=A]").val(data.latihan.A);
+            $("#form_edit_latihan input[name=B]").val(data.latihan.B);
+            $("#form_edit_latihan input[name=C]").val(data.latihan.C);
+            $("#form_edit_latihan input[name=D]").val(data.latihan.D);
+            $("#form_edit_latihan input[name=E]").val(data.latihan.E);
+            $("#form_edit_latihan select").val(data.latihan.jawaban);
+            $("#form_edit_latihan .jawaban_lengkap").val(data.latihan.jawaban_lengkap);
+            $('#edit_latihan .submit').off('click');
+            $("#edit_latihan .submit").click(function () {
+                edit_latihan(id);
+            });
+        },
+        error: function (data) {
+            $('#edit_latihan_error').html('<li>Error loading data!</li>');
+            $("#edit_latihan_error_bag").show();
+        }
+    });
+}
+
+function edit_latihan(id){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'PUT',
+        url: '/admin/pertemuan/latihan/' + id ,
+        data: {
+            id: id,
+            pertanyaan: $.trim($("#form_edit_latihan .pertanyaan").val()),
+            A: $("#form_edit_latihan input[name=A]").val(),
+            B: $("#form_edit_latihan input[name=B]").val(),
+            C: $("#form_edit_latihan input[name=C]").val(),
+            D: $("#form_edit_latihan input[name=D]").val(),
+            E: $("#form_edit_latihan input[name=E]").val(),
+            jawaban: $("#form_edit_latihan .select").val(),
+            jawaban_lengkap: $("#form_edit_latihan .jawaban_lengkap").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#edit_latihan .close").click();
+            Swal.fire({
+                title: 'Update Berhasil!',
+                type: 'success',
+                showConfirmButton: false,
+                timer: 700,
+            });
+            $("#form_edit_latihan .pertanyaan").val('');
+            $("#form_edit_latihan input[name=A]").val('');
+            $("#form_edit_latihan input[name=B]").val('');
+            $("#form_edit_latihan input[name=C]").val('');
+            $("#form_edit_latihan input[name=D]").val('');
+            $("#form_edit_latihan input[name=E]").val('');
+            $("#form_edit_latihan .select").val('A');
+            $("#form_edit_latihan .jawaban_lengkap").val('');
+            $('#table_latihan').html(data.append);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#edit_latihan_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#edit_latihan_error').append('<li>' + value + '</li>');
+            });
+            $("#edit_latihan_error_bag").show();
+        }
+    });
+
 }
 
 function confirm_delete_soal(id, pertanyaan) {

@@ -66,6 +66,8 @@ Route::group(['middleware' => ['islogin']], function () {
         Route::delete('/admin/pertemuan/kuis/{kuis}', 'AdminDetailController@deleteKuis');
         Route::post('/admin/pertemuan/kuis/soal', 'AdminDetailController@addSoal');
         Route::post('/admin/pertemuan/latihan', 'AdminDetailController@addLatihan');
+        Route::get('/admin/pertemuan/latihan/{latihan}', 'AdminDetailController@getLatihanById');
+        Route::put('/admin/pertemuan/latihan/{latihan}', 'AdminDetailController@editLatihan');
         Route::get('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@getSoalById');
         Route::put('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@editSoal');
         Route::delete('/admin/pertemuan/kuis/soal/{soal}', 'AdminDetailController@deleteSoal');

@@ -249,13 +249,13 @@ class AdminDetailController extends Controller
             ], 422);
         }
 
-        parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
+        parse_str(parse_url($request->path, PHP_URL_QUERY), $youtube_ids);
         $youtube_id = $youtube_ids['v'];
 
         $video = new Video;
         $video->id_pertemuan = $request->id_pertemuan;
         $video->nama = $request->nama;
-        $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
+        $video->path = 'https://www.youtube.com/embed/' . $youtube_id;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 
@@ -266,7 +266,7 @@ class AdminDetailController extends Controller
 
     public function getVideoById(Video $video)
     {
-        $video->path = 'https://www.youtube.com/watch?v='.substr($video->path, 30);
+        $video->path = 'https://www.youtube.com/watch?v=' . substr($video->path, 30);
         return response()->json([
             'error' => false,
             'video' => $video,
@@ -292,9 +292,9 @@ class AdminDetailController extends Controller
         }
 
         $video->nama = $request->nama;
-        parse_str( parse_url( $request->path, PHP_URL_QUERY ), $youtube_ids );
+        parse_str(parse_url($request->path, PHP_URL_QUERY), $youtube_ids);
         $youtube_id = $youtube_ids['v'];
-        $video->path = 'https://www.youtube.com/embed/'.$youtube_id;
+        $video->path = 'https://www.youtube.com/embed/' . $youtube_id;
         $video->deskripsi = $request->deskripsi;
         $video->save();
 
@@ -368,9 +368,9 @@ class AdminDetailController extends Controller
 
     public function deleteKuis(Kuis $kuis)
     {
-        $soal = Soal::where('id_kuis',$kuis->id)->get();
+        $soal = Soal::where('id_kuis', $kuis->id)->get();
         Storage::disk('public')->delete($kuis->jawaban);
-        foreach($soal as $s){
+        foreach ($soal as $s) {
             Storage::disk('public')->delete($s->gambar);
         }
         $kuis->delete();
@@ -416,10 +416,10 @@ class AdminDetailController extends Controller
         $append = "";
 
         $index = 0;
-        foreach($all_soal as $s){
+        foreach ($all_soal as $s) {
             $index++;
             $append .=
-            "
+                "
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
@@ -449,7 +449,8 @@ class AdminDetailController extends Controller
         ], 200);
     }
 
-    public function addLatihan(Request $request){
+    public function addLatihan(Request $request)
+    {
         $validator = Validator::make(
             $request->all(),
             [
@@ -487,10 +488,10 @@ class AdminDetailController extends Controller
         $append = "";
 
         $index = 0;
-        foreach($latihan as $l){
+        foreach ($latihan as $l) {
             $index++;
             $append .=
-            "
+                "
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$l->pertanyaan</td>
@@ -501,7 +502,11 @@ class AdminDetailController extends Controller
                 <td>$l->E </td>
                 <td class='text-center'>$l->jawaban</td>
                 <td class='text-center'>
-
+                    <span>
+                        <a onclick='fill_edit_latihan($l->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
+                            <i class='fa fa-pencil color-muted m-r-5'></i>
+                        </a>
+                    </span>
                 </td>
             </tr>
             ";
@@ -521,7 +526,16 @@ class AdminDetailController extends Controller
         ], 200);
     }
 
-    public function editSoal(Request $request, Soal $soal){
+    public function getLatihanById(Latihan $latihan)
+    {
+        return response()->json([
+            'error' => false,
+            'latihan' => $latihan,
+        ], 200);
+    }
+
+    public function editSoal(Request $request, Soal $soal)
+    {
         $validator = Validator::make(
             $request->all(),
             [
@@ -555,10 +569,10 @@ class AdminDetailController extends Controller
         $append = "";
 
         $index = 0;
-        foreach($all_soal as $s){
+        foreach ($all_soal as $s) {
             $index++;
             $append .=
-            "
+                "
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
@@ -575,6 +589,73 @@ class AdminDetailController extends Controller
                         </a>
                         <a onclick='confirm_delete_soal($s->id, \"$s->pertanyaan\")' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete Data'>
                             <i class='fa fa-trash-o color-danger'></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            ";
+        }
+
+        return response()->json([
+            'error' => false,
+            'append' => $append,
+        ], 200);
+    }
+
+    public function editLatihan(Request $request, Latihan $latihan)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'pertanyaan' => ['required'],
+                'A' => ['required'],
+                'B' => ['required'],
+                'C' => ['required'],
+                'D' => ['required'],
+                'E' => ['required'],
+                'jawaban' => ['required'],
+                'jawaban_lengkap' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $latihan->pertanyaan = $request->pertanyaan;
+        $latihan->A = $request->A;
+        $latihan->B = $request->B;
+        $latihan->C = $request->C;
+        $latihan->D = $request->D;
+        $latihan->E = $request->E;
+        $latihan->jawaban = $request->jawaban;
+        $latihan->jawaban_lengkap = $request->jawaban_lengkap;
+        $latihan->save();
+
+        $latihan_all = Latihan::where('id_pertemuan', $latihan->id_pertemuan)->get();
+        $append = "";
+
+        $index = 0;
+        foreach ($latihan_all as $s) {
+            $index++;
+            $append .=
+                "
+            <tr>
+                <td class='text-center'>$index</td>
+                <td class='text-justify'>$s->pertanyaan</td>
+                <td>$s->A</td>
+                <td>$s->B</td>
+                <td>$s->C</td>
+                <td>$s->D </td>
+                <td>$s->E </td>
+                <td class='text-center'>$s->jawaban</td>
+                <td class='text-center'>
+                    <span>
+                        <a onclick='fill_edit_latihan($s->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
+                            <i class='fa fa-pencil color-muted m-r-5'></i>
                         </a>
                     </span>
                 </td>
@@ -597,10 +678,10 @@ class AdminDetailController extends Controller
         $append = "";
 
         $index = 0;
-        foreach($all_soal as $s){
+        foreach ($all_soal as $s) {
             $index++;
             $append .=
-            "
+                "
             <tr>
                 <td class='text-center'>$index</td>
                 <td class='text-justify'>$s->pertanyaan</td>
@@ -630,7 +711,8 @@ class AdminDetailController extends Controller
         ], 200);
     }
 
-    public function aktivasiSoal(Request $request, Kuis $kuis){
+    public function aktivasiSoal(Request $request, Kuis $kuis)
+    {
         $replace = "";
 
         if ($request->aktif) {
@@ -641,7 +723,7 @@ class AdminDetailController extends Controller
                     Aktifkan Kuis
                 </button>
                 ";
-        }else{
+        } else {
             $kuis->aktif = 1;
             $replace =
                 "
