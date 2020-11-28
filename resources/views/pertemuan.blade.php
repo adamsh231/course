@@ -149,7 +149,7 @@
         @isset($presensi)
         <div class="card">
             <div class="social-graph-wrapper widget-linkedin">
-                <span class="s-icon text-white">Upload Tugas</span>
+                <span class="s-icon text-white">Upload Diskusi atau Tugas</span>
             </div>
             <div class="row">
                 <div class="col-6 border-right">
