@@ -99,14 +99,15 @@
 
                                                             <div class="d-none" id="jawaban{{ $loop->iteration }}">
                                                                 <hr>
-                                                                <div class="btn btn-info d-block" onclick="showJawabanSoal({{ $loop->iteration }})">Lihat Jawaban</div>
+                                                                <div class="btn btn-info d-block" onclick="showJawabanSoal({{ $loop->iteration }})">Lihat Pembahasan</div>
                                                                 <div class="d-none" id="jawabanSoal{{ $loop->iteration }}">
                                                                     <hr>
                                                                     <div class="card">
 
                                                                         <div class="card-title text-center text-dark mt-4">
-                                                                            <b>Jawaban</b>
+                                                                            <b>P E M B A H A S A N</b>
                                                                         </div>
+                                                                        <hr>
                                                                         <div class="card-body">
                                                                             {{ $l->jawaban_lengkap }}
                                                                         </div>
