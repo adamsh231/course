@@ -506,6 +506,9 @@ class AdminDetailController extends Controller
                         <a onclick='fill_edit_latihan($l->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
                             <i class='fa fa-pencil color-muted m-r-5'></i>
                         </a>
+                        <a onclick='confirm_delete_latihan($s->id, \"$s->pertanyaan\")' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete Data'>
+                            <i class='fa fa-trash-o color-danger'></i>
+                        </a>
                     </span>
                 </td>
             </tr>
@@ -657,6 +660,9 @@ class AdminDetailController extends Controller
                         <a onclick='fill_edit_latihan($s->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
                             <i class='fa fa-pencil color-muted m-r-5'></i>
                         </a>
+                        <a onclick='confirm_delete_latihan($s->id, \"$s->pertanyaan\")' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete Data'>
+                            <i class='fa fa-trash-o color-danger'></i>
+                        </a>
                     </span>
                 </td>
             </tr>
@@ -697,6 +703,48 @@ class AdminDetailController extends Controller
                             <i class='fa fa-pencil color-muted m-r-5'></i>
                         </a>
                         <a onclick='confirm_delete_soal($s->id, \"$s->pertanyaan\")' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete Data'>
+                            <i class='fa fa-trash-o color-danger'></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+            ";
+        }
+
+        return response()->json([
+            'error' => false,
+            'append' => $append,
+        ], 200);
+    }
+
+    public function deleteLatihan(Latihan $latihan)
+    {
+        $id_pertemuan = $latihan->id_pertemuan;
+        $latihan->delete();
+
+        $latihan = Latihan::where('id_pertemuan', $id_pertemuan)->get();
+        $append = "";
+
+        $index = 0;
+        foreach ($latihan as $s) {
+            $index++;
+            $append .=
+                "
+            <tr>
+                <td class='text-center'>$index</td>
+                <td class='text-justify'>$s->pertanyaan</td>
+                <td>$s->A</td>
+                <td>$s->B</td>
+                <td>$s->C</td>
+                <td>$s->D </td>
+                <td>$s->E </td>
+                <td class='text-center'>$s->jawaban</td>
+                <td class='text-center'>
+                    <span>
+                        <a onclick='fill_edit_latihan($s->id)' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Edit Data'>
+                            <i class='fa fa-pencil color-muted m-r-5'></i>
+                        </a>
+                        <a onclick='confirm_delete_latihan($s->id, \"$s->pertanyaan\")' href='#' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete Data'>
                             <i class='fa fa-trash-o color-danger'></i>
                         </a>
                     </span>

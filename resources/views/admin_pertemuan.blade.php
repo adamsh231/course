@@ -241,9 +241,9 @@
                                                         <a onclick="fill_edit_latihan({{ $ks->id }})" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
                                                             <i class="fa fa-pencil color-muted m-r-5"></i>
                                                         </a>
-                                                        {{-- <a onclick="confirm_delete_soal({{ $ks->id }}, '{{ $ks->pertanyaan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                        <a onclick="confirm_delete_latihan({{ $ks->id }}, '{{ $ks->pertanyaan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
                                                             <i class="fa fa-trash-o color-danger"></i>
-                                                        </a> --}}
+                                                        </a>
                                                     </span>
                                                 </td>
                                             </tr>

@@ -756,6 +756,53 @@ function edit_soal(id){
     });
 }
 
+function confirm_delete_soal(id, pertanyaan) {
+    Swal.fire({
+        title: 'Apa anda yakin?',
+        text: "Menghapus "+pertanyaan+" !",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            delete_soal(id);
+        }
+    });
+}
+
+function delete_soal(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin/pertemuan/kuis/soal/' + id,
+        dataType: 'json',
+        success: function (data) {
+            Swal.fire({
+                title: 'Terhapus!',
+                type: 'success',
+                showConfirmButton: false,
+                timer: 700
+            });
+            $('#table_soal').html(data.append);
+        },
+        error: function (data) {
+            console.log(data.responseText);
+            Swal.fire({
+                title: 'Delete Gagal !',
+                type: 'error',
+                showConfirmButton: false,
+                timer: 700
+            });
+        }
+    });
+}
+
 function add_latihan(id_pertemuan){
     $.ajaxSetup({
         headers: {
@@ -894,7 +941,7 @@ function edit_latihan(id){
 
 }
 
-function confirm_delete_soal(id, pertanyaan) {
+function confirm_delete_latihan(id, pertanyaan) {
     Swal.fire({
         title: 'Apa anda yakin?',
         text: "Menghapus "+pertanyaan+" !",
@@ -905,12 +952,12 @@ function confirm_delete_soal(id, pertanyaan) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-            delete_soal(id);
+            delete_latihan(id);
         }
     });
 }
 
-function delete_soal(id) {
+function delete_latihan(id) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -918,7 +965,7 @@ function delete_soal(id) {
     });
     $.ajax({
         type: 'DELETE',
-        url: '/admin/pertemuan/kuis/soal/' + id,
+        url: '/admin/pertemuan/latihan/' + id,
         dataType: 'json',
         success: function (data) {
             Swal.fire({
@@ -927,7 +974,7 @@ function delete_soal(id) {
                 showConfirmButton: false,
                 timer: 700
             });
-            $('#table_soal').html(data.append);
+            $('#table_latihan').html(data.append);
         },
         error: function (data) {
             console.log(data.responseText);
