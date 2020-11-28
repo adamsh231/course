@@ -49,7 +49,7 @@
                                     </span>
                                 </button>
                             </div>
-                            <div class="col-lg-3 offset-lg-2">
+                            <div class="col offset-lg-2">
                                 <a href="#" onclick="OpenAndRefresh('{{ url('/latihan/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-success text-white">
                                     Latihan Soal
                                     <span class="btn-icon-right">
@@ -57,6 +57,8 @@
                                     </span>
                                 </a>
                             </div>
+
+                            @isset($kuis)
                             <div class="col-lg-4">
                                 @if ($exist)
                                 <a href="#" class="btn float-right mb-1 btn-secondary text-white disabled">
@@ -66,16 +68,15 @@
                                     </span>
                                 </a>
                                 @else
-                                @isset($kuis)
                                 <a href="#" onclick="OpenAndRefresh('{{ url('/kuis/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-warning text-white @if(!$kuis->aktif) disabled @endif">
                                     {{ ucwords($kuis->nama) }}
                                     <span class="btn-icon-right">
                                         <i class="fa fa-pencil-square-o text-white"></i>
                                     </span>
                                 </a>
-                                @endisset
                                 @endif
                             </div>
+                            @endisset
 
                         </div>
 
