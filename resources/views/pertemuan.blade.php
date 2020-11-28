@@ -40,7 +40,7 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="row justify-content-end">
+                        <div class="row justify-content-start">
                             <div class="col-lg-3 bre">
                                 <button onclick="window.location.href='{{ url('/pertemuan/'.$id_pertemuan->id.'/materi/') }}'" type="button" class="btn mb-1 btn-info">
                                     Materi
@@ -49,23 +49,32 @@
                                     </span>
                                 </button>
                             </div>
-                            <div class="col-lg-2 offset-lg-5">
-                                <a href="{{ url('/latihan/'.$id_pertemuan->id) }}" target="_blank" class="btn float-right mb-1 btn-success text-white">
+                            <div class="col-lg-3 offset-lg-2">
+                                <a href="#" onclick="OpenAndRefresh('{{ url('/latihan/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-success text-white">
                                     Latihan Soal
                                     <span class="btn-icon-right">
                                         <i class="fa fa-pencil-square-o text-white"></i>
                                     </span>
                                 </a>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-4">
+                                @if ($exist)
+                                <a href="#" class="btn float-right mb-1 btn-secondary text-white disabled">
+                                    Anda telah mengikuti kuis
+                                    <span class="btn-icon-right">
+                                        <i class="fa fa-check text-white"></i>
+                                    </span>
+                                </a>
+                                @else
                                 @isset($kuis)
-                                <a href="{{ url('/kuis/'.$id_pertemuan->id) }}" onclick="javascript:window.open('','_self').close();" target="_blank" class="btn float-right mb-1 btn-warning text-white @if(!$kuis->aktif) disabled @endif">
+                                <a href="#" onclick="OpenAndRefresh('{{ url('/kuis/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-warning text-white @if(!$kuis->aktif) disabled @endif">
                                     {{ ucwords($kuis->nama) }}
                                     <span class="btn-icon-right">
                                         <i class="fa fa-pencil-square-o text-white"></i>
                                     </span>
                                 </a>
                                 @endisset
+                                @endif
                             </div>
 
                         </div>
@@ -182,5 +191,10 @@
         $(this).next().slideToggle();
         $(this).next().next().next().slideToggle();
     })
+
+    function OpenAndRefresh(url){
+        window.open(url);
+        location.reload();
+    }
 </script>
 @endsection

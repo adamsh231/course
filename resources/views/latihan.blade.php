@@ -41,3 +41,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    window.onbeforeunload = function() {
+        return "Refresh browser akan dianggap telah latihan";
+    };
+</script>

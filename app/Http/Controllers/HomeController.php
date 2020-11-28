@@ -108,6 +108,10 @@ class HomeController extends Controller
             )->first();
         $detail = $this->getDetailByPertemuan($id_pertemuan->id);
         $kuis = Kuis::where('id_pertemuan', $id_pertemuan->id)->first();
+        $exist = Nilai::where([
+            ['id_siswa', '=', Auth::user()->id],
+            ['id_kuis', '=', $kuis->id]
+        ])->count();
         // dd($presensi);
         return view(
             '/pertemuan',
@@ -117,6 +121,7 @@ class HomeController extends Controller
                 'detail' => $detail,
                 'kuis' => $kuis,
                 'presensi' => $presensi,
+                'exist' => $exist,
             ]
         );
     }

@@ -129,6 +129,11 @@
     <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
 
+    <script type="text/javascript">
+        window.onbeforeunload = function() {
+            return "Refresh browser akan dianggap telah latihan";
+        };
+    </script>
     <script>
         $(document).ready(function() {
             var fab = document.getElementById("fab");
