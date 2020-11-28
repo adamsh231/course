@@ -23,6 +23,9 @@ class CreateForeign extends Migration
         Schema::table('soal', function (Blueprint $table) {
             $table->foreign('id_kuis')->references('id')->on('kuis')->onDelete('cascade');
         });
+        Schema::table('latihan', function (Blueprint $table) {
+            $table->foreign('id_pertemuan')->references('id')->on('pertemuan')->onDelete('cascade');
+        });
         Schema::table('detail', function (Blueprint $table) {
             $table->foreign('id_pertemuan')->references('id')->on('pertemuan')->onDelete('cascade');
         });
@@ -54,6 +57,9 @@ class CreateForeign extends Migration
         });
         Schema::table('soal', function (Blueprint $table) {
             $table->dropForeign(['id_kuis']);
+        });
+        Schema::table('soal', function (Blueprint $table) {
+            $table->dropForeign(['id_pertemuan']);
         });
         Schema::table('detail', function (Blueprint $table) {
             $table->dropForeign(['id_pertemuan']);
