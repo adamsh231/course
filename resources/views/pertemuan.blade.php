@@ -50,7 +50,7 @@
                                 </button>
                             </div>
                             <div class="col offset-lg-2">
-                                <a href="#" onclick="OpenAndRefresh('{{ url('/latihan/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-success text-white">
+                                <a href="#" onclick="OpenAndRefresh('{{ url('/latihan/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-dark">
                                     Latihan Soal
                                     <span class="btn-icon-right">
                                         <i class="fa fa-pencil-square-o text-white"></i>
@@ -61,17 +61,21 @@
                             @isset($kuis)
                             <div class="col-lg-4">
                                 @if ($exist)
-                                <a href="#" class="btn float-right mb-1 btn-secondary text-white disabled">
-                                    Anda telah mengikuti kuis
+                                <a href="#" class="btn float-right mb-1 btn-success text-white disabled">
+                                    Kuis telah diikuti
                                     <span class="btn-icon-right">
                                         <i class="fa fa-check text-white"></i>
                                     </span>
                                 </a>
                                 @else
-                                <a href="#" onclick="OpenAndRefresh('{{ url('/kuis/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-warning text-white @if(!$kuis->aktif) disabled @endif">
+                                <a href="#" onclick="OpenAndRefresh('{{ url('/kuis/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 text-white @if($kuis->aktif) btn-warning @else btn-danger disabled @endif">
+                                    @if ($kuis->aktif)
                                     {{ ucwords($kuis->nama) }}
+                                    @else
+                                    Kuis tidak aktif
+                                    @endif
                                     <span class="btn-icon-right">
-                                        <i class="fa fa-pencil-square-o text-white"></i>
+                                        <i class="fa @if($kuis->aktif) fa-pencil-square-o @else fa-times @endif text-white"></i>
                                     </span>
                                 </a>
                                 @endif
