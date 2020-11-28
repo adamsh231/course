@@ -49,6 +49,8 @@
                                     </span>
                                 </button>
                             </div>
+
+                            @if(count($latihan))
                             <div class="col offset-lg-2">
                                 <a href="#" onclick="OpenAndRefresh('{{ url('/latihan/'.$id_pertemuan->id) }}')" class="btn float-right mb-1 btn-dark">
                                     Latihan Soal
@@ -57,9 +59,10 @@
                                     </span>
                                 </a>
                             </div>
+                            @endif
 
                             @isset($kuis)
-                            <div class="col-lg-4">
+                            <div class="@if(count($latihan)) col-lg-4 @else col @endif">
                                 @if ($exist)
                                 <a href="#" class="btn float-right mb-1 btn-success text-white disabled">
                                     Kuis telah diikuti

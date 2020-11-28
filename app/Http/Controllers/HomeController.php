@@ -101,6 +101,7 @@ class HomeController extends Controller
     public function pertemuan(Pertemuan $id_pertemuan)
     {
         $pertemuan = $this->getAllPertemuan();
+        $latihan = Latihan::where('id_pertemuan', $id_pertemuan->id)->get();
         $presensi = Presensi::where(
             [
                 ['id_siswa', Auth::user()->id],
@@ -128,6 +129,7 @@ class HomeController extends Controller
                 'kuis' => $kuis,
                 'presensi' => $presensi,
                 'exist' => $exist,
+                'latihan' => $latihan,
             ]
         );
     }
@@ -170,7 +172,12 @@ class HomeController extends Controller
     public function latihan($id_pertemuan){
         $latihan = Latihan::where('id_pertemuan', $id_pertemuan)->get();
 
-        return view('latihan', ['latihan' => $latihan]);
+        if(count($latihan)){
+            return view('latihan', ['latihan' => $latihan]);
+        }else{
+            return redirect()->back();
+        }
+
     }
 
     public function nilai(Request $request, Kuis $kuis)
