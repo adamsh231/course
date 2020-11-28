@@ -35,6 +35,9 @@
                             <a class="nav-link" data-toggle="tab" href="#video">Video</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#latihan">Latihan Soal</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#kuis">Kuis</a>
                         </li>
                     </ul>
@@ -198,6 +201,59 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="latihan" role="tabpanel">
+                            <div class="table-responsive check-kuis">
+                                <div class="card">
+                                    <div>
+                                        <button data-target="#add_latihan" data-toggle="modal" type="button" class="btn mb-1 btn-outline-success float-right">
+                                            <i class="fa fa-plus" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <table class="table table-bordered table-striped verticle-middle table-md">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <th scope="col">No</th>
+                                                <th scope="col">Pertanyaan</th>
+                                                <th scope="col">A</th>
+                                                <th scope="col">B</th>
+                                                <th scope="col">C</th>
+                                                <th scope="col">D</th>
+                                                <th scope="col">E</th>
+                                                <th scope="col">Jawaban</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="table_latihan">
+                                            @foreach ($latihan as $ks)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-justify">{!! $ks->pertanyaan !!}</td>
+                                                <td>{{ $ks->A }}</td>
+                                                <td>{{ $ks->B }}</td>
+                                                <td>{{ $ks->C }}</td>
+                                                <td>{{ $ks->D }}</td>
+                                                <td>{{ $ks->E }}</td>
+                                                <td class="text-center">{{ $ks->jawaban }}</td>
+                                                <td class="text-center">
+                                                    <span>
+                                                        {{-- <a onclick="fill_edit_soal({{ $ks->id }})" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit Data">
+                                                            <i class="fa fa-pencil color-muted m-r-5"></i>
+                                                        </a>
+                                                        <a onclick="confirm_delete_soal({{ $ks->id }}, '{{ $ks->pertanyaan }}')" href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Data">
+                                                            <i class="fa fa-trash-o color-danger"></i>
+                                                        </a> --}}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
                         </div>
 
                         <div class="tab-pane fade" id="kuis" role="tabpanel">
@@ -778,6 +834,90 @@
 @endslot
 @slot('modal_footer')
 <button class="btn btn-primary submit">Update</button>
+@endslot
+@endcomponent
+
+{{-- Modal Add Latihan Soal--}}
+@component('component/modal')
+@slot('modal_id', 'add_latihan')
+@slot('modal_title', 'Add Latihan Soal')
+@slot('modal_body')
+<form id="form_add_latihan">
+    @csrf
+    <div class="card-body">
+        <div class="alert alert-danger" id="add_latihan_error_bag">
+            <ul class="mb-0" id="add_latihan_error">
+            </ul>
+        </div>
+        <div class="form-validation">
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Pertanyaan</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px pertanyaan" rows="4"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">A</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="A" placeholder="Pilihan A">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">B</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="B" placeholder="Pilihan B">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">C</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="C" placeholder="Pilihan C">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">D</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="D" placeholder="Pilihan D">
+                </div>
+            </div>
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">E</label>
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" name="E" placeholder="Pilihan E">
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Jawaban</label>
+                <div class="col-lg-6">
+                    <select class="form-control select">
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row is-invalid">
+                <label class="col-lg-4 col-form-label">Kunci Jawaban</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control h-150px jawaban_lengkap" rows="4"></textarea>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@endslot
+@slot('modal_footer')
+<button onclick="add_latihan({{ $id_pertemuan->id ?? '' }})" class="btn btn-primary">Add</button>
 @endslot
 @endcomponent
 

@@ -11,6 +11,7 @@ use App\Kuis;
 use App\Soal;
 use App\Nilai;
 use App\Presensi;
+use App\Latihan;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,6 +30,7 @@ class AdminController extends Controller
         $kuis = $this->getKuisByPertemuan($id_pertemuan->id);
         $video = $this->getVideoByPertemuan($id_pertemuan->id);
         $presensi = $this->getPresensiByPertemuan($id_pertemuan->id);
+        $latihan = Latihan::where('id_pertemuan', $id_pertemuan->id)->get();
         $pertemuan = $this->getAllPertemuan();
         return view(
             'admin_pertemuan',
@@ -38,7 +40,8 @@ class AdminController extends Controller
                 'video' => $video,
                 'presensi' => $presensi,
                 'pertemuan' => $pertemuan,
-                'id_pertemuan' => $id_pertemuan
+                'id_pertemuan' => $id_pertemuan,
+                'latihan' => $latihan,
             ]
         );
     }

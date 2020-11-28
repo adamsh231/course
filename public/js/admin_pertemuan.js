@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('#add_video_error_bag').hide();
     $('#add_kuis_error_bag').hide();
     $('#add_soal_error_bag').hide();
+    $('#add_latihan_error_bag').hide();
     $('#table_presensi').DataTable({
         pageLength: 5,
         lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'All']]
@@ -668,6 +669,56 @@ function add_soal(id_kuis){
                 $('#add_soal_error').append('<li>' + value + '</li>');
             });
             $("#add_soal_error_bag").show();
+        }
+    });
+}
+
+function add_latihan(id_pertemuan){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/admin/pertemuan/latihan',
+        data: {
+            id_pertemuan: id_pertemuan,
+            pertanyaan: $.trim($("#form_add_latihan .pertanyaan").val()),
+            A: $("#form_add_latihan input[name=A]").val(),
+            B: $("#form_add_latihan input[name=B]").val(),
+            C: $("#form_add_latihan input[name=C]").val(),
+            D: $("#form_add_latihan input[name=D]").val(),
+            E: $("#form_add_latihan input[name=E]").val(),
+            jawaban: $("#form_add_latihan .select").val(),
+            jawaban_lengkap: $("#form_add_latihan .jawaban_lengkap").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            $("#add_latihan .close").click();
+            Swal.fire({
+                title: 'Berhasil ditambahkan!',
+                type: 'success',
+                showConfirmButton: false,
+                timer: 700
+            });
+            $("#form_add_latihan .pertanyaan").val('');
+            $("#form_add_latihan input[name=A]").val('');
+            $("#form_add_latihan input[name=B]").val('');
+            $("#form_add_latihan input[name=C]").val('');
+            $("#form_add_latihan input[name=D]").val('');
+            $("#form_add_latihan input[name=E]").val('');
+            $("#form_add_latihan .select").val('A');
+            $("#form_add_latihan .jawaban_lengkap").val('')
+            $('#table_latihan').html(data.append);
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            $('#add_latihan_error').html('Error!');
+            $.each(errors.messages, function (key, value) {
+                $('#add_latihan_error').append('<li>' + value + '</li>');
+            });
+            $("#add_latihan_error_bag").show();
         }
     });
 }

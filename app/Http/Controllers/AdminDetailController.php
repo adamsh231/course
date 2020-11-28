@@ -9,6 +9,7 @@ use App\Deskripsi;
 use App\Video;
 use App\Kuis;
 use App\Soal;
+use App\Latihan;
 use Illuminate\Support\Facades\Storage;
 
 class AdminDetailController extends Controller
@@ -437,6 +438,70 @@ class AdminDetailController extends Controller
                             <i class='fa fa-trash-o color-danger'></i>
                         </a>
                     </span>
+                </td>
+            </tr>
+            ";
+        }
+
+        return response()->json([
+            'error' => false,
+            'append' => $append,
+        ], 200);
+    }
+
+    public function addLatihan(Request $request){
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'pertanyaan' => ['required'],
+                'A' => ['required'],
+                'B' => ['required'],
+                'C' => ['required'],
+                'D' => ['required'],
+                'E' => ['required'],
+                'jawaban' => ['required'],
+                'jawaban_lengkap' => ['required'],
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error'    => true,
+                'messages' => $validator->errors(),
+            ], 422);
+        }
+
+        $latihan = new Latihan;
+        $latihan->id_pertemuan = $request->id_pertemuan;
+        $latihan->pertanyaan = $request->pertanyaan;
+        $latihan->A = $request->A;
+        $latihan->B = $request->B;
+        $latihan->C = $request->C;
+        $latihan->D = $request->D;
+        $latihan->E = $request->E;
+        $latihan->jawaban = $request->jawaban;
+        $latihan->jawaban_lengkap = $request->jawaban_lengkap;
+        $latihan->save();
+
+        $latihan = Latihan::where('id_pertemuan', $request->id_pertemuan)->get();
+        $append = "";
+
+        $index = 0;
+        foreach($latihan as $l){
+            $index++;
+            $append .=
+            "
+            <tr>
+                <td class='text-center'>$index</td>
+                <td class='text-justify'>$l->pertanyaan</td>
+                <td>$l->A</td>
+                <td>$l->B</td>
+                <td>$l->C</td>
+                <td>$l->D </td>
+                <td>$l->E </td>
+                <td class='text-center'>$l->jawaban</td>
+                <td class='text-center'>
+
                 </td>
             </tr>
             ";
