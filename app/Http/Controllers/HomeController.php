@@ -156,6 +156,10 @@ class HomeController extends Controller
         }
     }
 
+    public function latihan($id_pertemuan){
+        return view('latihan');
+    }
+
     public function nilai(Request $request, Kuis $kuis)
     {
         $soal = Soal::where('id_kuis', $kuis->id)->get();

@@ -33,6 +33,7 @@ Route::group(['middleware' => ['islogin']], function () {
     Route::get('/pertemuan/{id_pertemuan}', 'HomeController@pertemuan');
     Route::get('/pertemuan/{id_pertemuan}/materi', 'HomeController@materi');
     Route::get('/kuis/{id_pertemuan}', 'HomeController@kuis');
+    Route::get('/latihan/{id_pertemuan}', 'HomeController@latihan');
     Route::post('/nilai/{kuis}', 'HomeController@nilai');
     Route::get('/logout', 'AuthController@logout');
     Route::post('/pertemuan/tugas/{presensi}', 'HomeController@addTugas');

@@ -40,20 +40,36 @@
                     </div>
                     <div class="card-body">
 
-                        <button onclick="window.location.href='{{ url('/pertemuan/'.$id_pertemuan->id.'/materi/') }}'" type="button" class="btn mb-1 btn-info">
-                            Materi
-                            <span class="btn-icon-right">
-                                <i class="fa fa-book text-white"></i>
-                            </span>
-                        </button>
-                        @isset($kuis)
-                        <a href="{{ url('/kuis/'.$id_pertemuan->id) }}" onclick="javascript:window.open('','_self').close();" target="_blank" class="btn mb-1 btn-warning float-right text-white @if(!$kuis->aktif) disabled @endif">
-                            {{ ucwords($kuis->nama) }}
-                            <span class="btn-icon-right">
-                                <i class="fa fa-pencil-square-o text-white"></i>
-                            </span>
-                        </a>
-                        @endisset
+                        <div class="row justify-content-end">
+                            <div class="col-lg-3 bre">
+                                <button onclick="window.location.href='{{ url('/pertemuan/'.$id_pertemuan->id.'/materi/') }}'" type="button" class="btn mb-1 btn-info">
+                                    Materi
+                                    <span class="btn-icon-right">
+                                        <i class="fa fa-book text-white"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="col-lg-2 offset-lg-5">
+                                <a href="{{ url('/latihan/'.$id_pertemuan->id) }}" target="_blank" class="btn float-right mb-1 btn-success text-white">
+                                    Latihan Soal
+                                    <span class="btn-icon-right">
+                                        <i class="fa fa-pencil-square-o text-white"></i>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col-lg-2">
+                                @isset($kuis)
+                                <a href="{{ url('/kuis/'.$id_pertemuan->id) }}" onclick="javascript:window.open('','_self').close();" target="_blank" class="btn float-right mb-1 btn-warning text-white @if(!$kuis->aktif) disabled @endif">
+                                    {{ ucwords($kuis->nama) }}
+                                    <span class="btn-icon-right">
+                                        <i class="fa fa-pencil-square-o text-white"></i>
+                                    </span>
+                                </a>
+                                @endisset
+                            </div>
+
+                        </div>
+
                         <hr>
                         <div id="accordion-three" class="accordion">
                             <div class="card mb-3">
