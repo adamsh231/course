@@ -44,7 +44,7 @@
     <div id="main-wrapper">
 
         <div class="container" style="margin-top: 20px">
-            <form id="form_kuis" action="" method="POST">
+            <form id="form_latihan" action="" method="POST">
 
                 @foreach($latihan as $l)
                 <div id="kotak{{ $loop->iteration }}">
@@ -67,49 +67,51 @@
                                                             <div class="form-group">
                                                                 <div class="form-control input-default mb-2">
                                                                     <div class="radio my-1">
-                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalA{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="A">
-                                                                        <label class="ml-4 d-inline" for="soalA{{ $l->id }}">{{ $l->A }}</label>
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalA{{ $l->id }}" type="radio" name="answer{{ $loop->iteration }}" value="A">
+                                                                        <label class="ml-4 d-inline" for="soalA{{ $l->id }}">{!! $l->A !!}</label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-control input-default mb-2">
                                                                     <div class="radio my-1">
-                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalB{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="B">
-                                                                        <label class="ml-4 d-inline" for="soalB{{ $l->id }}">{{ $l->B }}</label>
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalB{{ $l->id }}" type="radio" name="answer{{ $loop->iteration }}" value="B">
+                                                                        <label class="ml-4 d-inline" for="soalB{{ $l->id }}">{!! $l->B !!}</label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-control input-default mb-2">
                                                                     <div class="radio my-1">
-                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalC{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="C">
-                                                                        <label class="ml-4 d-inline" for="soalC{{ $l->id }}">{{ $l->C }}</label>
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalC{{ $l->id }}" type="radio" name="answer{{ $loop->iteration }}" value="C">
+                                                                        <label class="ml-4 d-inline" for="soalC{{ $l->id }}">{!! $l->C !!}</label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-control input-default mb-2">
                                                                     <div class="radio my-1">
-                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalD{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="D">
-                                                                        <label class="ml-4 d-inline" for="soalD{{ $l->id }}">{{ $l->D }}</label>
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalD{{ $l->id }}" type="radio" name="answer{{ $loop->iteration }}" value="D">
+                                                                        <label class="ml-4 d-inline" for="soalD{{ $l->id }}">{!! $l->D !!}</label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-control input-default mb-2">
                                                                     <div class="radio my-1">
-                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalE{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="E">
-                                                                        <label class="ml-4 d-inline" for="soalE{{ $l->id }}">{{ $l->E }}</label>
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalE{{ $l->id }}" type="radio" name="answer{{ $loop->iteration }}" value="E">
+                                                                        <label class="ml-4 d-inline" for="soalE{{ $l->id }}">{!! $l->E !!}</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                             <div class="d-none" id="jawaban{{ $loop->iteration }}">
                                                                 <hr>
-                                                                <div class="btn btn-info d-block" onclick="showJawabanSoal({{ $loop->iteration }})">Lihat Pembahasan</div>
+                                                                <div class="btn btn-info d-block" onclick="showJawabanSoal({{ $loop->iteration }}, '{{ $l->jawaban }}')">Jawaban dan Pembahasan</div>
                                                                 <div class="d-none" id="jawabanSoal{{ $loop->iteration }}">
                                                                     <hr>
                                                                     <div class="card">
 
-                                                                        <div class="card-title text-center text-dark mt-4">
-                                                                            <b>P E M B A H A S A N</b>
+                                                                        <div id="result" class="container">
+                                                                            <div class="card-title text-center text-white mt-2">
+                                                                                <b id="result_title"></b>
+                                                                            </div>
                                                                         </div>
                                                                         <hr>
                                                                         <div class="card-body">
-                                                                            {{ $l->jawaban_lengkap }}
+                                                                            {!! $l->jawaban_lengkap !!}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -170,10 +172,19 @@
 
         function showJawaban(id){
             $('#jawaban'+id).removeClass('d-none');
+            $('#jawabanSoal'+id).addClass('d-none');
         }
 
-        function showJawabanSoal(id){
+        function showJawabanSoal(id, kunci){
             $('#jawabanSoal'+id).removeClass('d-none');
+            jawaban = $("#form_latihan input[name=answer"+ id +"]:checked").val();
+            if(kunci == jawaban){
+                $('#result').removeClass('bg-danger').addClass('bg-success');
+                $('#result_title').html('B E N A R');
+            }else{
+                $('#result').removeClass('bg-success').addClass('bg-danger');
+                $('#result_title').html('S A L A H');
+            }
         }
     </script>
 
