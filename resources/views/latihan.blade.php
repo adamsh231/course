@@ -104,9 +104,9 @@
                                                                     <hr>
                                                                     <div class="card">
 
-                                                                        <div id="result" class="container">
+                                                                        <div id="result{{ $loop->iteration }}" class="container">
                                                                             <div class="card-title text-center text-white mt-2">
-                                                                                <b id="result_title"></b>
+                                                                                <b id="result_title{{ $loop->iteration }}"></b>
                                                                             </div>
                                                                         </div>
                                                                         <hr>
@@ -179,11 +179,11 @@
             $('#jawabanSoal'+id).removeClass('d-none');
             jawaban = $("#form_latihan input[name=answer"+ id +"]:checked").val();
             if(kunci == jawaban){
-                $('#result').removeClass('bg-danger').addClass('bg-success');
-                $('#result_title').html('B E N A R');
+                $('#result'+id).removeClass('bg-danger').addClass('bg-success');
+                $('#result_title'+id).html('B E N A R');
             }else{
-                $('#result').removeClass('bg-success').addClass('bg-danger');
-                $('#result_title').html('S A L A H');
+                $('#result'+id).removeClass('bg-success').addClass('bg-danger');
+                $('#result_title'+id).html('S A L A H');
             }
         }
     </script>
