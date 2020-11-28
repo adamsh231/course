@@ -10,6 +10,7 @@ use App\Nilai;
 use App\Siswa;
 use App\Kuis;
 use App\Video;
+use App\Latihan;
 use App\Presensi;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -162,7 +163,9 @@ class HomeController extends Controller
     }
 
     public function latihan($id_pertemuan){
-        return view('latihan');
+        $latihan = Latihan::where('id_pertemuan', $id_pertemuan)->get();
+
+        return view('latihan', ['latihan' => $latihan]);
     }
 
     public function nilai(Request $request, Kuis $kuis)

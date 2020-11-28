@@ -1,49 +1,181 @@
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-<link rel="stylesheet" href="{{ asset('css/latihan.css') }}">
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Latihan Soal</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::asset('assets/icon.png') }}">
+    <!-- Custom Stylesheet -->
+    <link href="{{ URL::asset('quixlab/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('quixlab/css/style_pertemuan.css') }}" rel="stylesheet">
 
-<div class="container mt-5">
-    <div class="d-flex justify-content-center row">
-        <div class="col-md-10 col-lg-10">
-            <div class="border">
-                <div class="question bg-white p-3 border-bottom">
-                    <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                        <h4>MCQ Quiz</h4><span>(5 of 20)</span>
-                    </div>
-                </div>
-                <div class="question bg-white p-3 border-bottom">
-                    <div class="d-flex flex-row align-items-center question-title">
-                        <h3 class="text-danger">Q.</h3>
-                        <h5 class="mt-1 ml-2">Which of the following country has largest population?</h5>
-                    </div>
-                    <div class="ans ml-2">
-                        <label class="radio"> <input type="radio" name="brazil" value="brazil"> <span>Brazil</span>
-                        </label>
-                    </div>
-                    <div class="ans ml-2">
-                        <label class="radio"> <input type="radio" name="Germany" value="Germany"> <span>Germany</span>
-                        </label>
-                    </div>
-                    <div class="ans ml-2">
-                        <label class="radio"> <input type="radio" name="Indonesia" value="Indonesia"> <span>Indonesia</span>
-                        </label>
-                    </div>
-                    <div class="ans ml-2">
-                        <label class="radio"> <input type="radio" name="Russia" value="Russia"> <span>Russia</span>
-                        </label>
-                    </div>
-                </div>
-                <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white"><button class="btn btn-primary d-flex align-items-center btn-danger" type="button"><i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous</button><button class="btn btn-primary border-success align-items-center btn-success" type="button">Next<i class="fa fa-angle-right ml-2"></i></button></div>
-            </div>
+    <link href="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('quixlab/plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } });
+    </script>
+
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <style>
+        .centered {
+            position: fixed;
+            bottom: 2%;
+            left: 50%;
+            /* bring your own prefixes */
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body onload="hideKotak(1, {{ count($latihan) }})">
+
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    window.onbeforeunload = function() {
-        return "Refresh browser akan dianggap telah latihan";
-    };
-</script>
+    <div id="main-wrapper">
+
+        <div class="container" style="margin-top: 20px">
+            <form id="form_kuis" action="" method="POST">
+
+                @foreach($latihan as $l)
+                <div id="kotak{{ $loop->iteration }}">
+                    <center>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div style="width:1000px;">
+                                        <!-- row -->
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h3 class="card-title"><b>Soal {{ $loop->iteration }} dari {{ count($latihan) }} </b></h3>
+                                                            <p> {!! $l->pertanyaan !!} </p>
+                                                            @if ($l->gambar)
+                                                            <img class="ml-3 mb-3" src="{{ url('storage/'.$l->gambar) }}" width="300px" height="300px;">
+                                                            @endif
+                                                            <div class="form-group">
+                                                                <div class="form-control input-default mb-2">
+                                                                    <div class="radio my-1">
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalA{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="A">
+                                                                        <label class="ml-4 d-inline" for="soalA{{ $l->id }}">{{ $l->A }}</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-control input-default mb-2">
+                                                                    <div class="radio my-1">
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalB{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="B">
+                                                                        <label class="ml-4 d-inline" for="soalB{{ $l->id }}">{{ $l->B }}</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-control input-default mb-2">
+                                                                    <div class="radio my-1">
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalC{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="C">
+                                                                        <label class="ml-4 d-inline" for="soalC{{ $l->id }}">{{ $l->C }}</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-control input-default mb-2">
+                                                                    <div class="radio my-1">
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalD{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="D">
+                                                                        <label class="ml-4 d-inline" for="soalD{{ $l->id }}">{{ $l->D }}</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-control input-default mb-2">
+                                                                    <div class="radio my-1">
+                                                                        <input onchange="showJawaban({{ $loop->iteration }})" id="soalE{{ $l->id }}" type="radio" name="answer{{ $l->id }}" value="E">
+                                                                        <label class="ml-4 d-inline" for="soalE{{ $l->id }}">{{ $l->E }}</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="d-none" id="jawaban{{ $loop->iteration }}">
+                                                                <hr>
+                                                                <div class="btn btn-info d-block" onclick="showJawabanSoal({{ $loop->iteration }})">Lihat Jawaban</div>
+                                                                <div class="d-none" id="jawabanSoal{{ $loop->iteration }}">
+                                                                    <hr>
+                                                                    <div class="card">
+
+                                                                        <div class="card-title text-center text-dark mt-4">
+                                                                            <b>Jawaban</b>
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            {{ $l->jawaban_lengkap }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <hr>
+
+                                                            <div class="row justify-content-around">
+                                                                <div class="col-lg-6">
+                                                                    <div class="btn btn-primary @if($loop->iteration - 1 == 0) d-none @endif" onclick="hideKotak({{ $loop->iteration - 1 }}, {{ count($latihan) }})">Previous</div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="btn btn-primary @if($loop->iteration + 1 > count($latihan)) d-none @endif float-right" onclick="hideKotak({{ $loop->iteration + 1 }}, {{ count($latihan) }})">Next</div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
+                @endforeach
+
+            </form>
+        </div>
+    </div>
+
+    <button id="fab" type="button" onclick="window.location.href = '{{ url('/pertemuan/'.$latihan[0]->id_pertemuan) }}'" class="btn btn-info btn-lg btn-rounded centered">
+        <p id="fab_done" class="d-inline">Kembali ke pertemuan</p>
+        <span class="btn-icon-right ml-0">
+            <i id="fab_icon" class="fa fa-arrow-left text-white"></i>
+        </span>
+    </button>
+
+    <script src="{{ URL::asset('quixlab/plugins/common/common.min.js') }}"></script>
+    <script src="{{ URL::asset('quixlab/js/custom.min.js') }}"></script>
+    <script src="{{ URL::asset('quixlab/js/settings.js') }}"></script>
+    <script src="{{ URL::asset('quixlab/js/gleek.js') }}"></script>
+    <script src="{{ URL::asset('quixlab/plugins/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('quixlab/plugins/toastr/js/toastr.min.js') }}"></script>
+
+    <script>
+        function hideKotak(id, count){
+            for (let index = 1; index <= count; index++) {
+                if(index != id){
+                    $('#kotak'+index).hide();
+                }else{
+                    $('#kotak'+index).show();
+                }
+            }
+        }
+
+        function showJawaban(id){
+            $('#jawaban'+id).removeClass('d-none');
+        }
+
+        function showJawabanSoal(id){
+            $('#jawabanSoal'+id).removeClass('d-none');
+        }
+    </script>
+
+</body>
+
+</html>
