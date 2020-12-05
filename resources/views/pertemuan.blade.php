@@ -4,6 +4,11 @@
 @section('add_style')
 <link href="{{ URL::asset('quixlab/css/style_pertemuan.css') }}" rel="stylesheet">
 <link href="{{ URL::asset('css/getar.css') }}" rel="stylesheet">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({ extensions: ["tex2jax.js"], jax: ["input/TeX", "output/HTML-CSS"], tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ], displayMath: [ ['$$','$$'], ["\\[","\\]"] ], processEscapes: true }, "HTML-CSS": { availableFonts: ["TeX"] } });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
 @endsection
 
 @section('content')
@@ -100,9 +105,9 @@
                                 <div id="collapseOne4" class="collapse show">
                                     <div class="card-body">
                                         <b> Kompetensi Dasar: </b>
-                                        <p>{{ $id_pertemuan->kompetensi}}</p>
+                                        <p>{!! $id_pertemuan->kompetensi !!}</p>
                                         <b> Tujuan: </b>
-                                        <p>{{ $id_pertemuan->tujuan }}</p>
+                                        <p>{!! $id_pertemuan->tujuan !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +135,7 @@
                                                     @foreach ($d->deskripsi as $ddes)
                                                     <p>
                                                         <i class="ti-angle-right"></i>
-                                                        {{ $ddes->teks }}
+                                                        {!! $ddes->teks !!}
                                                     </p>
                                                     @endforeach
                                                 </div>
