@@ -71,7 +71,7 @@ class AdminController extends Controller
             $pertemuan->save();
             $messages = "Upload Materi Sukses!";
         } else if ($request->has('diskusi')) {
-            $request->validate(['diskusi' => ['mimes:html']]);
+            $request->validate(['diskusi' => ['mimes:html,pdf']]);
             $file = $request->file('diskusi');
             $file_name = time() . $pertemuan->id . "." . $file->getClientOriginalExtension();
             $file->storeAs('file/diskusi/', $file_name, 'public');
